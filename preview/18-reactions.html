@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/18-reactions.html</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 180px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+
+  /* ── Reações Fadas — canônico ── */
+  .reactions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .reaction {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.2s ease;
+  }
+  .reaction:hover {
+    border-color: var(--gold);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(72, 50, 30, 0.08);
+  }
+  .reaction:hover .emoji { transform: scale(1.15); }
+  .reaction .emoji { transition: transform 0.2s ease; }
+
+  /* Cada reação acende na sua cor de personalidade no hover */
+  .reaction.amei:hover     .reaction-label,
+  .reaction.amei:hover     .reaction-count { color: var(--red); }
+  .reaction.grata:hover    .reaction-label,
+  .reaction.grata:hover    .reaction-count { color: var(--gold-deep); }
+  .reaction.iluminou:hover .reaction-label,
+  .reaction.iluminou:hover .reaction-count { color: var(--gold-deep); }
+  .reaction.ressoou:hover  .reaction-label,
+  .reaction.ressoou:hover  .reaction-count { color: var(--green-deep); }
+  .reaction:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(72, 50, 30, 0.10);
+  }
+  .reaction.is-active {
+    background: linear-gradient(135deg, var(--red-light) 0%, var(--surface) 100%);
+    border-color: var(--red);
+  }
+  .reaction.is-active .reaction-label { color: var(--red); }
+  .reaction .emoji { font-size: 16px; line-height: 1; }
+  .reaction-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-2);
+  }
+  .reaction-count {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-1);
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">18</span><span class="title">Reações Fadas · fim do artigo</span></div>
+  <div class="reactions">
+    <button class="reaction amei is-active">
+      <span class="emoji">❤️</span>
+      <span class="reaction-label">Amei</span>
+      <span class="reaction-count">142</span>
+    </button>
+    <button class="reaction grata">
+      <span class="emoji">🙏</span>
+      <span class="reaction-label">Grata</span>
+      <span class="reaction-count">89</span>
+    </button>
+    <button class="reaction iluminou">
+      <span class="emoji">💡</span>
+      <span class="reaction-label">Iluminou</span>
+      <span class="reaction-count">56</span>
+    </button>
+    <button class="reaction ressoou">
+      <span class="emoji">✨</span>
+      <span class="reaction-label">Ressoou</span>
+      <span class="reaction-count">71</span>
+    </button>
+  </div>
+  <div class="meta" style="margin-top:14px;font-family:var(--font-editorial);font-style:italic;color:var(--text-3);font-size:12px">
+    Hover: borda dourada + lift + emoji acende, e label muda pra cor de personalidade da reação. Ativo (Amei): gradient rosé-claro + borda vermelha. Uma reação por usuário.
+  </div>
+</div>
+</body>
+</html>

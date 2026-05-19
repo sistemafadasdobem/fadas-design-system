@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Fadas do Bem — Pacotes (Desktop Carrossel)</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
+<style>
+  :root {
+    --red: #e52444;
+    --red-dark: #b81c38;
+    --red-deep: #990e22;
+    --green: #87c100;
+    --green2: #6a9900;
+    --gold: #e3cc7e;
+    --gold-deep: #c8a840;
+    --bg: #fdf5ee;
+    --card: #ffffff;
+    --border: #ede0d4;
+    --border-light: #f5ebe0;
+    --black: #1a1410;
+    --muted: #9a8c7e;
+    --muted-light: #c0a898;
+    --grad-hero: linear-gradient(155deg, #e52444 0%, #c01c36 58%, #990e22 100%);
+    --green2: #6a9900;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f7ecdb;
+    font-family: 'Lato', sans-serif;
+    color: var(--black);
+    min-height: 100vh;
+  }
+
+  .section {
+    padding: 72px 24px 96px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .overline {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+  .section-title em { font-style: italic; color: var(--gold-deep); }
+  .section-subtitle {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* CARROSSEL SHOWCASE */
+  .carousel-stage {
+    position: relative;
+    height: 560px;
+    margin-top: 32px;
+    perspective: 1400px;
+  }
+
+  .card-slot {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    width: 300px;
+    margin-left: -150px;
+    transition: transform 0.6s cubic-bezier(0.2, 0.85, 0.2, 1),
+                opacity 0.55s ease,
+                filter 0.55s ease;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(0) scale(0.65);
+    z-index: 1;
+    filter: blur(2px);
+  }
+
+  .card-slot.is-active {
+    opacity: 1;
+    transform: translateX(0) scale(1.06);
+    z-index: 10;
+    pointer-events: auto;
+    filter: blur(0);
+  }
+
+  .card-slot.is-prev {
+    opacity: 0.55;
+    transform: translateX(-280px) scale(0.86);
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: blur(0.5px);
+  }
+  .card-slot.is-next {
+    opacity: 0.55;
+    transform: translateX(280px) scale(0.86);
+    z-index: 5;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: blur(0.5px);
+  }
+  .card-slot.is-prev:hover,
+  .card-slot.is-next:hover {
+    opacity: 0.85;
+  }
+
+  .card-slot.is-far-prev {
+    opacity: 0.18;
+    transform: translateX(-480px) scale(0.7);
+    z-index: 2;
+    filter: blur(2px);
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .card-slot.is-far-next {
+    opacity: 0.18;
+    transform: translateX(480px) scale(0.7);
+    z-index: 2;
+    filter: blur(2px);
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 22px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(154, 140, 126, 0.08);
+    min-height: 460px;
+    transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-color 0.32s ease,
+                box-shadow 0.32s ease;
+  }
+
+  /* faixa verde que desliza no topo ao hover (só card ativo) */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--green);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 2;
+  }
+  .card-slot.is-active .card:not(.featured):hover::before { transform: scaleX(1); }
+
+  .card-slot.is-active .card:not(.featured) {
+    box-shadow: 0 24px 60px rgba(135, 193, 0, 0.16),
+                0 8px 20px rgba(154, 140, 126, 0.1);
+    border-color: var(--green);
+  }
+
+  /* hover — só aplica no card central */
+  .card-slot.is-active .card:not(.featured):hover {
+    transform: translateY(-8px);
+    border-color: var(--green);
+    box-shadow: 0 20px 48px rgba(135, 193, 0, 0.2),
+                0 6px 14px rgba(154, 140, 126, 0.1);
+  }
+
+  .card.featured {
+    background: var(--grad-hero);
+    border-color: var(--red-deep);
+    color: var(--card);
+    box-shadow: 0 16px 40px rgba(229, 36, 68, 0.28),
+                0 4px 12px rgba(229, 36, 68, 0.18);
+  }
+  .card-slot.is-active .card.featured {
+    box-shadow: 0 32px 70px rgba(229, 36, 68, 0.42),
+                0 10px 24px rgba(229, 36, 68, 0.28);
+  }
+  .card-slot.is-active .card.featured:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 36px 80px rgba(229, 36, 68, 0.48),
+                0 12px 28px rgba(229, 36, 68, 0.32);
+  }
+  .card.featured::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle at top right, rgba(227, 204, 126, 0.45) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .badge-destaque {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #5a3e00;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 18px;
+    border-radius: 100px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(200, 168, 64, 0.4);
+    z-index: 12;
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    flex-shrink: 0;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(229, 36, 68, 0.08),
+        rgba(229, 36, 68, 0.08) 4px,
+        var(--bg) 4px,
+        var(--bg) 8px
+      );
+    border: 1.5px dashed rgba(229, 36, 68, 0.35);
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .card-icon i { font-size: 26px; color: var(--red); position: relative; z-index: 1; }
+  .card-icon img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 14px;
+    display: none;
+    z-index: 2;
+  }
+  .card-icon img[src]:not([src=""]) { display: block; }
+  .card-icon img[src]:not([src=""]) ~ i { display: none; }
+  .card-icon:has(img[src]:not([src=""])) { background: var(--bg); border: none; }
+
+  .card.featured .card-icon {
+    background:
+      repeating-linear-gradient(
+        45deg,
+        rgba(255,255,255,0.1),
+        rgba(255,255,255,0.1) 4px,
+        rgba(255,255,255,0.05) 4px,
+        rgba(255,255,255,0.05) 8px
+      );
+    border-color: rgba(255,255,255,0.4);
+  }
+  .card.featured .card-icon i { color: rgba(255,255,255,0.9); }
+  .card.featured .card-icon:has(img[src]:not([src=""])) {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .card:hover .card-icon { transform: scale(1.12) rotate(-4deg); }
+  .card.featured:hover .card-icon { transform: scale(1.12) rotate(4deg); }
+
+  .card-duration {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .card.featured .card-duration { color: rgba(255,255,255,0.7); }
+
+  .card-modality {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 8px 0 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--red-dark);
+  }
+  .card-modality .mod-item { display: inline-flex; align-items: center; gap: 5px; }
+  .card-modality svg { width: 14px; height: 14px; stroke: var(--red-dark); }
+  .card-modality .mod-sep { color: var(--muted-light); font-weight: 400; font-size: 11px; }
+  .card.featured .card-modality,
+  .card.featured .card-modality svg {
+    color: rgba(255,255,255,0.95);
+    stroke: rgba(255,255,255,0.95);
+  }
+  .card.featured .card-modality .mod-sep { color: rgba(255,255,255,0.55); }
+
+  .price-block { position: relative; z-index: 1; margin-bottom: 6px; }
+  .price-currency { font-size: 16px; font-weight: 300; vertical-align: super; color: var(--muted); }
+  .price-value {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 56px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    transition: color 0.32s ease;
+  }
+  .card:not(.featured):hover .price-value { color: var(--green2); }
+  .price-cents {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 600;
+    vertical-align: super;
+    color: var(--black);
+    transition: color 0.32s ease;
+  }
+  .card:not(.featured):hover .price-cents { color: var(--green2); }
+  .card.featured .price-value,
+  .card.featured .price-cents,
+  .card.featured .price-currency { color: var(--card); }
+
+  .price-per-min {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .card.featured .price-per-min { color: rgba(255,255,255,0.7); }
+
+  .card-divider {
+    height: 1px;
+    background: rgba(0,0,0,0.06);
+    margin: 18px 0;
+  }
+  .card.featured .card-divider { background: rgba(255,255,255,0.2); }
+
+  .card-copy {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+    flex: 1;
+    margin-bottom: 20px;
+  }
+  .card.featured .card-copy { color: rgba(255,255,255,0.88); }
+
+  .sessao-unica {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted-light);
+    margin-bottom: 16px;
+  }
+  .sessao-unica svg { width: 12px; height: 12px; opacity: 0.7; }
+  .card.featured .sessao-unica { color: rgba(255,255,255,0.55); }
+
+  .card-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: background 0.32s ease, color 0.32s ease, border-color 0.32s ease;
+    position: relative;
+    z-index: 1;
+  }
+  .card-cta .arrow {
+    display: inline-block;
+    transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+    font-weight: 400;
+  }
+  .card:hover .card-cta .arrow { transform: translateX(4px); }
+  .card-cta:active { transform: scale(0.97); }
+
+  .card:not(.featured) .card-cta {
+    background: var(--border-light);
+    color: var(--black);
+    border: 1.5px solid var(--border);
+  }
+  .card-slot.is-active .card:not(.featured) .card-cta {
+    background: var(--green);
+    color: var(--card);
+    border-color: var(--green);
+  }
+  .card-slot.is-active .card:not(.featured):hover .card-cta {
+    background: var(--red);
+    color: var(--card);
+    border-color: var(--red);
+  }
+  .card.featured .card-cta {
+    background: var(--card);
+    color: var(--red);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  }
+  .card.featured:hover .card-cta {
+    background: var(--gold);
+    color: #5a3e00;
+  }
+
+  /* BOLINHAS */
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .carousel-dots button {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.35s cubic-bezier(0.2,0.8,0.2,1);
+  }
+  .carousel-dots button:hover { background: var(--muted-light); }
+  .carousel-dots button.active {
+    background: var(--red);
+    width: 36px;
+    border-radius: 6px;
+  }
+
+  /* OPÇÕES EXTRAS */
+  .more-options {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .more-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 22px 26px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+    color: var(--black);
+    cursor: pointer;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+  }
+  .more-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--green);
+    box-shadow: 0 12px 28px rgba(135, 193, 0, 0.14);
+  }
+  .more-icon {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .more-icon svg { width: 24px; height: 24px; }
+  .more-card:hover .more-icon {
+    background: var(--green);
+    color: var(--card);
+  }
+  .more-content { flex: 1; min-width: 0; }
+  .more-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .more-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .more-arrow {
+    flex-shrink: 0;
+    font-size: 22px;
+    color: var(--muted-light);
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+  .more-card:hover .more-arrow {
+    transform: translateX(6px);
+    color: var(--green);
+  }
+</style>
+</head>
+<body>
+
+<div class="section">
+
+  <div class="section-header">
+    <span class="overline">Pacotes de consulta</span>
+    <h2 class="section-title">Escolha o tempo ideal para obter<br>as respostas que <em>você precisa!</em></h2>
+    <p class="section-subtitle">Cada pacote é para consulta única, por voz ou texto.</p>
+  </div>
+
+  <div class="carousel-stage" id="stage">
+
+    <div class="card-slot" data-i="0">
+      <div class="card">
+        <div class="card-icon"><i class="ph ph-hourglass-medium"></i><img src="" alt="Ícone 20min" data-asset="20min"></div>
+        <div class="card-duration">20 minutos</div>
+        <div class="card-modality"><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>voz</span><span class="mod-sep">ou</span><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>texto</span></div>
+        <div class="price-block">
+          <span class="price-currency">R$</span><span class="price-value">79</span><span class="price-cents">,90</span>
+        </div>
+        <div class="price-per-min">R$ 3,99 / minuto</div>
+        <div class="card-divider"></div>
+        <p class="card-copy">Ideal para abrir o jogo e perguntas pontuais.</p>
+        <div class="sessao-unica">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Uso numa única consulta
+        </div>
+        <button class="card-cta">Quero esse <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <div class="card-slot is-active" data-i="1">
+      <div class="badge-destaque">✦ o mais escolhido</div>
+      <div class="card featured">
+        <div class="card-icon"><i class="ph ph-sparkle"></i><img src="" alt="Ícone 30min" data-asset="30min"></div>
+        <div class="card-duration">30 minutos</div>
+        <div class="card-modality"><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>voz</span><span class="mod-sep">ou</span><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>texto</span></div>
+        <div class="price-block">
+          <span class="price-currency">R$</span><span class="price-value">110</span><span class="price-cents">,90</span>
+        </div>
+        <div class="price-per-min">R$ 3,69 / minuto</div>
+        <div class="card-divider"></div>
+        <p class="card-copy">Abordagem mais detalhada das suas questões.</p>
+        <div class="sessao-unica">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Uso numa única consulta
+        </div>
+        <button class="card-cta">Quero esse <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <div class="card-slot" data-i="2">
+      <div class="card">
+        <div class="card-icon"><i class="ph ph-moon-stars"></i><img src="" alt="Ícone 40min" data-asset="40min"></div>
+        <div class="card-duration">40 minutos</div>
+        <div class="card-modality"><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>voz</span><span class="mod-sep">ou</span><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>texto</span></div>
+        <div class="price-block">
+          <span class="price-currency">R$</span><span class="price-value">139</span><span class="price-cents">,90</span>
+        </div>
+        <div class="price-per-min">R$ 3,49 / minuto</div>
+        <div class="card-divider"></div>
+        <p class="card-copy">Para você explorar vários assuntos.</p>
+        <div class="sessao-unica">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Uso numa única consulta
+        </div>
+        <button class="card-cta">Quero esse <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+    <div class="card-slot" data-i="3">
+      <div class="card">
+        <div class="card-icon"><i class="ph ph-crown"></i><img src="" alt="Ícone 60min" data-asset="60min"></div>
+        <div class="card-duration">60 minutos</div>
+        <div class="card-modality"><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>voz</span><span class="mod-sep">ou</span><span class="mod-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>texto</span></div>
+        <div class="price-block">
+          <span class="price-currency">R$</span><span class="price-value">199</span><span class="price-cents">,90</span>
+        </div>
+        <div class="price-per-min">R$ 3,33 / minuto</div>
+        <div class="card-divider"></div>
+        <p class="card-copy">Consulta completa, vários temas com profundidade.</p>
+        <div class="sessao-unica">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Uso numa única consulta
+        </div>
+        <button class="card-cta">Quero esse <span class="arrow">→</span></button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="carousel-dots" id="dots">
+    <button data-i="0" aria-label="Pacote 20 minutos"></button>
+    <button data-i="1" class="active" aria-label="Pacote 30 minutos"></button>
+    <button data-i="2" aria-label="Pacote 40 minutos"></button>
+    <button data-i="3" aria-label="Pacote 60 minutos"></button>
+  </div>
+
+  <div class="more-options">
+    <a class="more-card">
+      <div class="more-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="m22 8-6 4 6 4V8z"/></svg>
+      </div>
+      <div class="more-content">
+        <div class="more-title">Pacotes por vídeo</div>
+        <div class="more-desc">A partir de R$ 159,90 — veja a taróloga ao vivo</div>
+      </div>
+      <span class="more-arrow">→</span>
+    </a>
+
+    <a class="more-card">
+      <div class="more-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </div>
+      <div class="more-content">
+        <div class="more-title">Ver todos os pacotes</div>
+        <div class="more-desc">Todas as opções: voz, texto, vídeo e 1ª consulta</div>
+      </div>
+      <span class="more-arrow">→</span>
+    </a>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  const stage = document.getElementById('stage');
+  const slots = stage.querySelectorAll('.card-slot');
+  const dots = document.querySelectorAll('#dots button');
+  let active = 1;
+
+  function render(){
+    slots.forEach((slot, i) => {
+      slot.classList.remove('is-active', 'is-prev', 'is-next', 'is-far-prev', 'is-far-next');
+      const rel = i - active;
+      if (rel === 0) slot.classList.add('is-active');
+      else if (rel === -1) slot.classList.add('is-prev');
+      else if (rel === 1) slot.classList.add('is-next');
+      else if (rel === -2) slot.classList.add('is-far-prev');
+      else if (rel === 2) slot.classList.add('is-far-next');
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === active));
+  }
+
+  function goTo(i){
+    active = Math.max(0, Math.min(slots.length - 1, i));
+    render();
+  }
+
+  dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.i, 10))));
+
+  slots.forEach((slot, i) => {
+    slot.addEventListener('click', (e) => {
+      if (e.target.closest('.card-cta')) return;
+      if (!slot.classList.contains('is-active')) {
+        goTo(i);
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') goTo(active - 1);
+    if (e.key === 'ArrowRight') goTo(active + 1);
+  });
+
+  render();
+})();
+</script>
+
+</body>
+</html>

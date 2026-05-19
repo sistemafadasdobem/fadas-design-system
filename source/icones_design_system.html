@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>DS Fadas — Ícones e Brand Logos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:ital,wght@0,400;0,600;1,400&family=Lato:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+  :root {
+    --green-deep: #4a6b1e;
+    --red: #e52444;
+    --gold: #d4a857;
+    --gold-deep: #b8902a;
+    --bg: #fdf5ee;
+    --surface: #ffffff;
+    --border: #e8dccb;
+    --text-1: #1f1a12;
+    --text-2: #4a3f2e;
+    --text-3: #6b5d48;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); font-family: 'Lato', sans-serif; padding: 40px 24px; color: var(--text-1); }
+  .container { max-width: 820px; margin: 0 auto; }
+
+  /* HEADER */
+  .doc-header { text-align: center; padding-bottom: 36px; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .doc-pill {
+    display: inline-block; padding: 6px 16px;
+    background: linear-gradient(135deg, #ffe8d6, #c47860);
+    color: #fff; border-radius: 100px;
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em;
+    margin-bottom: 14px;
+  }
+  .doc-title { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--text-1); margin-bottom: 8px; }
+  .doc-sub { font-family: 'Lora', serif; font-style: italic; color: var(--text-3); font-size: 15px; }
+
+  /* SEÇÃO */
+  .section { margin-bottom: 52px; }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--gold-deep);
+    letter-spacing: 0.12em; margin-bottom: 6px;
+  }
+  h2 { font-family: 'Lora', serif; font-size: 22px; font-weight: 600; color: var(--text-1); margin-bottom: 6px; }
+  .section-desc { font-family: 'Lora', serif; font-style: italic; color: var(--text-3); font-size: 14px; margin-bottom: 24px; }
+
+  /* DECISÃO BOX */
+  .decision {
+    background: linear-gradient(135deg, #f7ede0, #f3e4c0);
+    border: 1px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px 22px;
+    margin-bottom: 20px;
+  }
+  .decision-row { display: flex; align-items: center; gap: 12px; padding: 6px 0; font-size: 14px; color: var(--text-1); }
+  .decision-row:not(:last-child) { border-bottom: 1px solid rgba(212,168,87,0.25); }
+  .decision-key { font-weight: 700; color: var(--gold-deep); min-width: 140px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .decision-val { color: var(--text-2); font-family: 'Lora', serif; }
+  .decision-val code { font-family: 'JetBrains Mono', monospace; background: rgba(255,255,255,0.6); padding: 1px 6px; border-radius: 4px; font-size: 12px; color: var(--green-deep); }
+
+  /* CARD */
+  .card { background: var(--surface); border-radius: 14px; padding: 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+  .card-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-3); margin-bottom: 16px; }
+
+  /* ÍCONES PHOSPHOR — showcase */
+  .icon-showcase { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .icon-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
+  .icon-item span { font-size: 11px; color: var(--text-3); font-family: 'Lora', serif; font-style: italic; transition: color 0.3s; }
+  .icon-item:hover span { color: var(--gold-deep); }
+  .rose-layer, .gold-layer { transition: opacity 0.35s ease; }
+  .gold-layer { opacity: 0; }
+  .icon-item:hover .rose-layer { opacity: 0; }
+  .icon-item:hover .gold-layer { opacity: 1; }
+
+  /* DRAWER — ícones Phosphor duotone reais via <i> tag */
+  .duo-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+  .duo-wrap .rose-layer,
+  .duo-wrap .gold-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .duo-wrap i { font-size: 28px; line-height: 1; display: block; }
+  .drawer-row { transition: background 0.25s; }
+  .drawer-row:hover { background: #fdf5ee; }
+  .drawer-row:hover .rose-layer { opacity: 0; }
+  .drawer-row:hover .gold-layer { opacity: 1; }
+
+  /* BRAND LOGOS — rollover cor da marca */
+  .brand-section { display: flex; flex-direction: column; gap: 10px; }
+  .brand-label-row { display: flex; gap: 10px; align-items: center; margin-bottom: 4px; }
+  .state-tag {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    padding: 3px 10px; border-radius: 100px;
+  }
+  .tag-normal { background: #e8f3c8; color: var(--green-deep); }
+  .tag-hover  { background: #f3e4c0; color: var(--gold-deep); }
+
+  .logos-grid { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+
+  .brand-item {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    cursor: pointer;
+  }
+  .brand-icon-wrap {
+    width: 52px; height: 52px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: transparent;
+    transition: background 0.25s ease, border-radius 0.25s ease;
+    border: 1.5px solid var(--border);
+  }
+  .brand-icon-wrap svg { transition: fill 0.25s ease; fill: var(--green-deep); }
+
+  /* hover — cada marca tem sua cor */
+  .brand-item.wa:hover  .brand-icon-wrap { background: #25D366; border-color: #25D366; border-radius: 16px; }
+  .brand-item.tg:hover  .brand-icon-wrap { background: #0088cc; border-color: #0088cc; border-radius: 16px; }
+  .brand-item.fb:hover  .brand-icon-wrap { background: #1877F2; border-color: #1877F2; border-radius: 16px; }
+  .brand-item.x:hover   .brand-icon-wrap { background: #000000; border-color: #000000; border-radius: 16px; }
+  .brand-item.pt:hover  .brand-icon-wrap { background: #E60023; border-color: #E60023; border-radius: 16px; }
+  .brand-item.em:hover  .brand-icon-wrap { background: #EA4335; border-color: #EA4335; border-radius: 16px; }
+  .brand-item.ig:hover  .brand-icon-wrap { background: linear-gradient(135deg, #FEDA75, #FA7E1E, #D62976, #962FBF, #4F5BD5); border-color: transparent; border-radius: 16px; }
+  .brand-item.tk:hover  .brand-icon-wrap { background: #000000; border-color: #000000; border-radius: 16px; }
+  .brand-item.yt:hover  .brand-icon-wrap { background: #FF0000; border-color: #FF0000; border-radius: 16px; }
+  .brand-item.mp:hover  .brand-icon-wrap { background: #00B1EA; border-color: #00B1EA; border-radius: 16px; }
+  .brand-item.px:hover  .brand-icon-wrap { background: #32BCAD; border-color: #32BCAD; border-radius: 16px; }
+
+  /* logo vira branco no hover */
+  .brand-item.wa:hover  .brand-icon-wrap svg,
+  .brand-item.tg:hover  .brand-icon-wrap svg,
+  .brand-item.fb:hover  .brand-icon-wrap svg,
+  .brand-item.x:hover   .brand-icon-wrap svg,
+  .brand-item.pt:hover  .brand-icon-wrap svg,
+  .brand-item.em:hover  .brand-icon-wrap svg,
+  .brand-item.ig:hover  .brand-icon-wrap svg,
+  .brand-item.tk:hover  .brand-icon-wrap svg,
+  .brand-item.yt:hover  .brand-icon-wrap svg,
+  .brand-item.mp:hover  .brand-icon-wrap svg,
+  .brand-item.px:hover  .brand-icon-wrap svg { fill: #ffffff; }
+
+  .brand-name { font-size: 10px; color: var(--text-3); font-family: 'Lora', serif; font-style: italic; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+  /* FONTE */
+  .source-ref {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-3);
+    margin-top: 14px;
+  }
+  .source-ref a { color: var(--green-deep); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="rose-g" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8d6"/>
+      <stop offset="30%" stop-color="#f0b89a"/>
+      <stop offset="60%" stop-color="#c47860"/>
+      <stop offset="85%" stop-color="#8c5240"/>
+      <stop offset="100%" stop-color="#5a3024"/>
+    </linearGradient>
+    <linearGradient id="rose-fill-g" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8d6" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#c47860" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="gold-g" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff5d4"/>
+      <stop offset="25%" stop-color="#f5d97c"/>
+      <stop offset="55%" stop-color="#d4a857"/>
+      <stop offset="80%" stop-color="#a87f30"/>
+      <stop offset="100%" stop-color="#6b4e18"/>
+    </linearGradient>
+    <linearGradient id="gold-fill-g" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff5d4" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#d4a857" stop-opacity="0.55"/>
+    </linearGradient>
+
+    <!-- Gradientes usados pelo script JS que pinta os SVGs do Phosphor (drawer) -->
+    <linearGradient id="g-rose-stroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#ffe8d6"/>
+      <stop offset="30%"  stop-color="#f0b89a"/>
+      <stop offset="60%"  stop-color="#c47860"/>
+      <stop offset="85%"  stop-color="#8c5240"/>
+      <stop offset="100%" stop-color="#5a3024"/>
+    </linearGradient>
+    <linearGradient id="g-rose-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#ffe8d6" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#c47860" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="g-gold-stroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#fff5d4"/>
+      <stop offset="25%"  stop-color="#f5d97c"/>
+      <stop offset="55%"  stop-color="#d4a857"/>
+      <stop offset="80%"  stop-color="#a87f30"/>
+      <stop offset="100%" stop-color="#6b4e18"/>
+    </linearGradient>
+    <linearGradient id="g-gold-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#fff5d4" stop-opacity="0.90"/>
+      <stop offset="100%" stop-color="#d4a857" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div class="container">
+
+  <div class="doc-header">
+    <div class="doc-pill">Design System Fadas · Seção Ícones</div>
+    <h1 class="doc-title">Ícones e Brand Logos</h1>
+    <p class="doc-sub">Decisões canônicas sobre coleções, estilos e comportamento de interação — Phosphor Duotone · Brand logos · CTAs de ação direta.</p>
+  </div>
+
+  <!-- SEÇÃO 1 — ÍCONES UI -->
+  <div class="section">
+    <div class="section-num">SEÇÃO 01</div>
+    <h2>Ícones de interface — Phosphor Duotone</h2>
+    <p class="section-desc">Todos os ícones funcionais da plataforma (menus, ações, navegação, botões) seguem este padrão.</p>
+
+    <div class="decision">
+      <div class="decision-row">
+        <span class="decision-key">Biblioteca</span>
+        <span class="decision-val"><strong>Phosphor Icons</strong> — phosphoricons.com · MIT · ativo desde 2020</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Peso padrão</span>
+        <span class="decision-val"><strong>Duotone</strong> — 2 camadas (fill + stroke), elegância mística</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Estado normal</span>
+        <span class="decision-val">
+          <strong>Rosé gold</strong> — gradiente vertical 5 stops:<br>
+          <span style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px">
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#ffe8d6;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#ffe8d6</code></span>
+            <span style="color:#c4b49a;font-size:11px">→</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#f0b89a;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#f0b89a</code></span>
+            <span style="color:#c4b49a;font-size:11px">→</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#c47860;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#c47860</code></span>
+            <span style="color:#c4b49a;font-size:11px">→</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#8c5240;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#8c5240</code></span>
+            <span style="color:#c4b49a;font-size:11px">→</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#5a3024;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#5a3024</code></span>
+          </span>
+        </span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Estado hover</span>
+        <span class="decision-val">
+          <strong>Ouro polido</strong> — gradiente vertical 4 stops · transição <code>opacity 0.35s ease</code> · sem sombra:<br>
+          <span style="display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:6px">
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#fff5d4;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#fff5d4</code></span>
+            <span style="color:#c4b49a;font-size:11px">→</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#f5d97c;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#f5d97c</code></span>
+            <span style="color:#c4b49a;font-size:11px">→</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#d4a857;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#d4a857</code></span>
+            <span style="color:#c4b49a;font-size:11px">→</span>
+            <span style="display:inline-flex;align-items:center;gap:4px"><span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#a87f30;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span><code>#a87f30</code></span>
+          </span>
+        </span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Tamanhos</span>
+        <span class="decision-val">16px inline · 20px menu/drawer · 24px topbar · 32px cards · 48px+ destaques</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Fallback</span>
+        <span class="decision-val">Lucide Icons (lucide.dev) se Phosphor não tiver o ícone necessário</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Passe o mouse — rosé gold ↔ ouro polido</div>
+      <div class="icon-showcase">
+
+        <div class="icon-item">
+          <svg width="52" height="52" viewBox="0 0 256 256">
+            <g class="rose-layer">
+              <path d="M220,140a96,96,0,1,1-104-104a8,8,0,0,1,7.8,11.7a64,64,0,0,0,84.5,84.5A8,8,0,0,1,220,140Z" fill="url(#rose-fill-g)"/>
+              <path d="M220,140a96,96,0,1,1-104-104a8,8,0,0,1,7.8,11.7a64,64,0,0,0,84.5,84.5A8,8,0,0,1,220,140Z" fill="none" stroke="url(#rose-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="gold-layer">
+              <path d="M220,140a96,96,0,1,1-104-104a8,8,0,0,1,7.8,11.7a64,64,0,0,0,84.5,84.5A8,8,0,0,1,220,140Z" fill="url(#gold-fill-g)"/>
+              <path d="M220,140a96,96,0,1,1-104-104a8,8,0,0,1,7.8,11.7a64,64,0,0,0,84.5,84.5A8,8,0,0,1,220,140Z" fill="none" stroke="url(#gold-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <span>moon · tiragens</span>
+        </div>
+
+        <div class="icon-item">
+          <svg width="52" height="52" viewBox="0 0 256 256">
+            <g class="rose-layer">
+              <path d="M128,30 C140,86 170,116 226,128 C170,140 140,170 128,226 C116,170 86,140 30,128 C86,116 116,86 128,30 Z" fill="url(#rose-fill-g)"/>
+              <path d="M128,30 C140,86 170,116 226,128 C170,140 140,170 128,226 C116,170 86,140 30,128 C86,116 116,86 128,30 Z" fill="none" stroke="url(#rose-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="gold-layer">
+              <path d="M128,30 C140,86 170,116 226,128 C170,140 140,170 128,226 C116,170 86,140 30,128 C86,116 116,86 128,30 Z" fill="url(#gold-fill-g)"/>
+              <path d="M128,30 C140,86 170,116 226,128 C170,140 140,170 128,226 C116,170 86,140 30,128 C86,116 116,86 128,30 Z" fill="none" stroke="url(#gold-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <span>sparkle · ofertas</span>
+        </div>
+
+        <div class="icon-item">
+          <svg width="52" height="52" viewBox="0 0 256 256">
+            <g class="rose-layer">
+              <rect x="40" y="76" width="120" height="160" rx="14" transform="rotate(-12 100 156)" fill="url(#rose-fill-g)"/>
+              <rect x="80" y="48" width="120" height="160" rx="14" fill="url(#rose-fill-g)"/>
+              <rect x="40" y="76" width="120" height="160" rx="14" transform="rotate(-12 100 156)" fill="none" stroke="url(#rose-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="80" y="48" width="120" height="160" rx="14" fill="none" stroke="url(#rose-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="gold-layer">
+              <rect x="40" y="76" width="120" height="160" rx="14" transform="rotate(-12 100 156)" fill="url(#gold-fill-g)"/>
+              <rect x="80" y="48" width="120" height="160" rx="14" fill="url(#gold-fill-g)"/>
+              <rect x="40" y="76" width="120" height="160" rx="14" transform="rotate(-12 100 156)" fill="none" stroke="url(#gold-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="80" y="48" width="120" height="160" rx="14" fill="none" stroke="url(#gold-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <span>cards · oráculos</span>
+        </div>
+
+        <div class="icon-item">
+          <svg width="52" height="52" viewBox="0 0 256 256">
+            <g class="rose-layer">
+              <path d="M32,56 C96,56,128,88,128,88 L128,232 C96,200,32,200,32,200 Z" fill="url(#rose-fill-g)"/>
+              <path d="M224,56 C160,56,128,88,128,88 L128,232 C160,200,224,200,224,200 Z" fill="url(#rose-fill-g)"/>
+              <path d="M128,88 C128,88,96,56,32,56 L32,200 C96,200,128,232,128,232" fill="none" stroke="url(#rose-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M128,88 C128,88,160,56,224,56 L224,200 C160,200,128,232,128,232" fill="none" stroke="url(#rose-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+            <g class="gold-layer">
+              <path d="M32,56 C96,56,128,88,128,88 L128,232 C96,200,32,200,32,200 Z" fill="url(#gold-fill-g)"/>
+              <path d="M224,56 C160,56,128,88,128,88 L128,232 C160,200,224,200,224,200 Z" fill="url(#gold-fill-g)"/>
+              <path d="M128,88 C128,88,96,56,32,56 L32,200 C96,200,128,232,128,232" fill="none" stroke="url(#gold-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M128,88 C128,88,160,56,224,56 L224,200 C160,200,128,232,128,232" fill="none" stroke="url(#gold-g)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </svg>
+          <span>book-open · blog</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- SEÇÃO 2 — BRAND LOGOS -->
+  <div class="section">
+    <div class="section-num">SEÇÃO 02</div>
+    <h2>Brand logos — redes sociais e pagamentos</h2>
+    <p class="section-desc">Logos de terceiros têm regra própria — diferente dos ícones Phosphor.</p>
+
+    <div class="decision">
+      <div class="decision-row">
+        <span class="decision-key">Fonte</span>
+        <span class="decision-val"><strong>Simple Icons</strong> — simpleicons.org · MIT · 3.000+ logos SVG</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Estado normal</span>
+        <span class="decision-val">
+          <span style="display:inline-flex;align-items:center;gap:6px">
+            <span style="display:inline-block;width:16px;height:16px;border-radius:4px;background:#4a6b1e;border:1px solid rgba(0,0,0,0.1);flex-shrink:0"></span>
+            <code>#4a6b1e</code> verde-deep
+          </span>
+          · sem background · borda sutil <code>1.5px solid #e8dccb</code>
+        </span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Estado hover</span>
+        <span class="decision-val">Logo vira <strong>branco</strong> · background assume <strong>cor oficial da marca</strong> · border-radius aumenta pra 16px · transição 0.25s</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Exceção</span>
+        <span class="decision-val">CTAs isolados (ex: "Falar no WhatsApp") usam <strong>cor original direto</strong> — sem monocromático</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Tamanho padrão</span>
+        <span class="decision-val">Container 52×52px · ícone 28px · border-radius 12px normal → 16px hover</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Passe o mouse — verde-deep → cor da marca</div>
+      <div class="logos-grid">
+
+        <div class="brand-item wa">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg></div>
+          <span class="brand-name">WhatsApp</span>
+        </div>
+
+        <div class="brand-item tg">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div>
+          <span class="brand-name">Telegram</span>
+        </div>
+
+        <div class="brand-item fb">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+          <span class="brand-name">Facebook</span>
+        </div>
+
+        <div class="brand-item x">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>
+          <span class="brand-name">X</span>
+        </div>
+
+        <div class="brand-item pt">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.748-1.378l-.747 2.853c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C24.002 5.367 18.635.001 12.017.001z"/></svg></div>
+          <span class="brand-name">Pinterest</span>
+        </div>
+
+        <div class="brand-item em">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></div>
+          <span class="brand-name">Email</span>
+        </div>
+
+        <div class="brand-item ig">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></div>
+          <span class="brand-name">Instagram</span>
+        </div>
+
+        <div class="brand-item tk">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></div>
+          <span class="brand-name">TikTok</span>
+        </div>
+
+        <div class="brand-item yt">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div>
+          <span class="brand-name">YouTube</span>
+        </div>
+
+        <div class="brand-item mp" style="opacity:0.45" title="Pendente — simpleicons.org/icons/mercadopago">
+          <div class="brand-icon-wrap" style="border-style:dashed; border-color:#00B1EA">
+            <svg width="28" height="28" viewBox="0 0 24 24"><text x="1" y="16" font-size="9" font-family="monospace" font-weight="700" fill="#00B1EA">MP↻</text></svg>
+          </div>
+          <span class="brand-name" style="color:#00B1EA">↻ MP</span>
+        </div>
+
+        <div class="brand-item px">
+          <div class="brand-icon-wrap"><svg width="28" height="28" viewBox="0 0 24 24"><path d="M5.283 18.36a3.505 3.505 0 0 0 2.493-1.032l3.6-3.6a.684.684 0 0 1 .946 0l3.613 3.613a3.504 3.504 0 0 0 2.493 1.032h.71l-4.56 4.56a3.647 3.647 0 0 1-5.156 0L4.85 18.36h.434zM18.428 5.627a3.505 3.505 0 0 0-2.493 1.032l-3.613 3.614a.67.67 0 0 1-.946 0l-3.6-3.6A3.505 3.505 0 0 0 5.283 5.64h-.434l4.573-4.572a3.646 3.646 0 0 1 5.156 0l4.559 4.559h-.71zM1.068 9.422 3.86 6.633h1.422a2.483 2.483 0 0 1 1.744.722l3.6 3.6a1.73 1.73 0 0 0 2.443 0l3.614-3.613a2.482 2.482 0 0 1 1.744-.723h1.681l2.808 2.808a3.646 3.646 0 0 1 0 5.156l-2.808 2.807h-1.68a2.483 2.483 0 0 1-1.745-.722l-3.614-3.613a1.77 1.77 0 0 0-2.443 0l-3.6 3.6a2.483 2.483 0 0 1-1.744.722H3.861l-2.793-2.794a3.646 3.646 0 0 1 0-5.156"/></svg></div>
+          <span class="brand-name">PIX</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="source-ref">
+      Plugin Figma → <strong>Phosphor Icons</strong> · buscar na Figma Community · Fallback → <strong>Lucide</strong> (também disponível como plugin)
+    </div>
+
+    <!-- MAPEAMENTO DOS 12 ITENS DO DRAWER -->
+    <h3 style="font-family:'Lora',serif;font-size:13px;font-weight:600;color:#b8902a;margin:28px 0 12px;text-transform:uppercase;letter-spacing:0.12em">Mapeamento do drawer — emoji → Phosphor</h3>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="background:#f7ede0">
+            <th style="padding:10px 16px;text-align:center;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#6b5d48;border-bottom:1px solid #e8dccb;width:64px">Ícone</th>
+            <th style="padding:10px 16px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#6b5d48;border-bottom:1px solid #e8dccb">Item</th>
+            <th style="padding:10px 16px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#6b5d48;border-bottom:1px solid #e8dccb">Nome Phosphor</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-sparkle"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-sparkle"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Consultas</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">sparkle</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-users"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-users"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Tarólogas</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">users</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-diamonds-four"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-diamonds-four"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Tiragens</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">diamonds-four</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-gift"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-gift"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Ofertas</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">gift</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-moon-stars"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-moon-stars"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Oráculos</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">moon-stars</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-currency-circle-dollar"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-currency-circle-dollar"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Preço</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">currency-circle-dollar</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-signpost"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-signpost"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Como se consultar?</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">signpost</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-question"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-question"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Perguntas frequentes</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">question</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-book-open"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-book-open"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Blog</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">book-open</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-seal-check"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-seal-check"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Sobre nós</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">seal-check</code></td>
+          </tr>
+
+          <tr class="drawer-row" style="border-bottom:1px solid #f5ead8">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-chat-circle-dots"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-chat-circle-dots"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Contato</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">chat-circle-dots</code></td>
+          </tr>
+
+          <tr class="drawer-row">
+            <td style="padding:10px 16px;text-align:center">
+              <div class="duo-wrap">
+                <span class="rose-layer"><i class="ph-duotone ph-handshake"></i></span>
+                <span class="gold-layer"><i class="ph-duotone ph-handshake"></i></span>
+              </div>
+            </td>
+            <td style="padding:10px 16px;font-family:'Lora',serif;font-weight:600;color:#1f1a12">Trabalhe conosco</td>
+            <td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;background:#f0e6d4;padding:2px 8px;border-radius:4px;font-size:12px;color:#4a6b1e">handshake</code></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- TAMANHOS -->
+    <h3 style="font-family:'Lora',serif;font-size:13px;font-weight:600;color:#b8902a;margin:28px 0 12px;text-transform:uppercase;letter-spacing:0.12em">Tamanhos por contexto</h3>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table style="width:100%;border-collapse:collapse;font-size:14px">
+        <thead>
+          <tr style="background:#f7ede0">
+            <th style="padding:10px 16px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#6b5d48;border-bottom:1px solid #e8dccb">Tamanho</th>
+            <th style="padding:10px 16px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#6b5d48;border-bottom:1px solid #e8dccb">Contexto</th>
+            <th style="padding:10px 16px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#6b5d48;border-bottom:1px solid #e8dccb">stroke-width</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f5ead8"><td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a6b1e">16px</code></td><td style="padding:10px 16px;color:#4a3f2e">Inline em texto · meta · breadcrumbs</td><td style="padding:10px 16px;color:#6b5d48">14</td></tr>
+          <tr style="border-bottom:1px solid #f5ead8"><td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a6b1e">20px</code></td><td style="padding:10px 16px;color:#4a3f2e">Drawer · menu lateral · listas</td><td style="padding:10px 16px;color:#6b5d48">14</td></tr>
+          <tr style="border-bottom:1px solid #f5ead8"><td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a6b1e">24px</code></td><td style="padding:10px 16px;color:#4a3f2e">Topbar · ações principais · navegação</td><td style="padding:10px 16px;color:#6b5d48">14</td></tr>
+          <tr style="border-bottom:1px solid #f5ead8"><td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a6b1e">32px</code></td><td style="padding:10px 16px;color:#4a3f2e">Cards · destaques · cabeçalhos de seção</td><td style="padding:10px 16px;color:#6b5d48">12</td></tr>
+          <tr><td style="padding:10px 16px"><code style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#4a6b1e">48px+</code></td><td style="padding:10px 16px;color:#4a3f2e">Hero · empty states · ilustrações</td><td style="padding:10px 16px;color:#6b5d48">10</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ANTIPADRÕES -->
+    <h3 style="font-family:'Lora',serif;font-size:13px;font-weight:600;color:#b8902a;margin:28px 0 12px;text-transform:uppercase;letter-spacing:0.12em">Não fazer</h3>
+    <div class="card">
+      <ul style="list-style:none">
+        <li style="padding:7px 0 7px 24px;position:relative;font-size:13px;color:#4a3f2e;border-bottom:1px solid #f5ead8"><span style="position:absolute;left:0;color:#e52444">✗</span> Misturar pesos — todos os ícones UI em <strong>Duotone</strong></li>
+        <li style="padding:7px 0 7px 24px;position:relative;font-size:13px;color:#4a3f2e;border-bottom:1px solid #f5ead8"><span style="position:absolute;left:0;color:#e52444">✗</span> Emojis em UI — renderizam diferente em cada plataforma</li>
+        <li style="padding:7px 0 7px 24px;position:relative;font-size:13px;color:#4a3f2e"><span style="position:absolute;left:0;color:#e52444">✗</span> Sombra/drop-shadow nos ícones Phosphor</li>
+      </ul>
+    </div>
+  </div>
+
+    <div class="source-ref" style="margin-top:14px">
+      Plugin Figma → <strong>Simple Icons</strong> · buscar na Figma Community · <a href="https://simpleicons.org" target="_blank">simpleicons.org</a>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section">
+    <div class="section-num">SEÇÃO 03</div>
+    <h2>Brand logos — CTAs de ação direta</h2>
+    <p class="section-desc">Quando o logo é a ação principal e isolada, usa-se a cor oficial da marca. Reconhecimento instantâneo vale mais que harmonia visual.</p>
+
+    <div class="decision">
+      <div class="decision-row">
+        <span class="decision-key">Regra</span>
+        <span class="decision-val"><strong>Isolado + ação principal</strong> → cor oficial da marca · fundo colorido · logo branco</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Exemplos</span>
+        <span class="decision-val">"Falar no WhatsApp" · "Pagar com PIX" · "Seguir no Instagram" · "Entrar com Google"</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Diferença</span>
+        <span class="decision-val">NÃO é o mesmo padrão da Seção 02 — aqui o logo TEM cor, não é monocromático</span>
+      </div>
+      <div class="decision-row">
+        <span class="decision-key">Hover</span>
+        <span class="decision-val">Leve escurecimento do fundo (filter: brightness 0.9) + translateY(-2px)</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">CTAs com cor oficial · passe o mouse</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+
+        <button onclick="" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 28px;border-radius:100px;background:#25D366;color:#fff;border:none;font-family:'Lato',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform 0.2s,filter 0.2s;width:100%" onmouseover="this.style.filter='brightness(0.9)';this.style.transform='translateY(-2px)'" onmouseout="this.style.filter='';this.style.transform=''">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/></svg>
+          Falar no WhatsApp
+        </button>
+
+        <button onclick="" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 28px;border-radius:100px;background:#32BCAD;color:#fff;border:none;font-family:'Lato',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform 0.2s,filter 0.2s;width:100%" onmouseover="this.style.filter='brightness(0.9)';this.style.transform='translateY(-2px)'" onmouseout="this.style.filter='';this.style.transform=''">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M5.283 18.36a3.505 3.505 0 0 0 2.493-1.032l3.6-3.6a.684.684 0 0 1 .946 0l3.613 3.613a3.504 3.504 0 0 0 2.493 1.032h.71l-4.56 4.56a3.647 3.647 0 0 1-5.156 0L4.85 18.36h.434zM18.428 5.627a3.505 3.505 0 0 0-2.493 1.032l-3.613 3.614a.67.67 0 0 1-.946 0l-3.6-3.6A3.505 3.505 0 0 0 5.283 5.64h-.434l4.573-4.572a3.646 3.646 0 0 1 5.156 0l4.559 4.559h-.71zM1.068 9.422 3.86 6.633h1.422a2.483 2.483 0 0 1 1.744.722l3.6 3.6a1.73 1.73 0 0 0 2.443 0l3.614-3.613a2.482 2.482 0 0 1 1.744-.723h1.681l2.808 2.808a3.646 3.646 0 0 1 0 5.156l-2.808 2.807h-1.68a2.483 2.483 0 0 1-1.745-.722l-3.614-3.613a1.77 1.77 0 0 0-2.443 0l-3.6 3.6a2.483 2.483 0 0 1-1.744.722H3.861l-2.793-2.794a3.646 3.646 0 0 1 0-5.156"/></svg>
+          Pagar com PIX
+        </button>
+
+        <button onclick="" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 28px;border-radius:100px;background:#00B1EA;color:#fff;border:none;font-family:'Lato',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform 0.2s,filter 0.2s;width:100%" onmouseover="this.style.filter='brightness(0.9)';this.style.transform='translateY(-2px)'" onmouseout="this.style.filter='';this.style.transform=''">
+          <!-- SVG Mercado Pago pendente — simpleicons.org › mercadopago -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><text x="0" y="17" font-size="11" font-family="monospace" font-weight="700">MP↻</text></svg>
+          Pagar com Mercado Pago
+        </button>
+
+        <button onclick="" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 28px;border-radius:100px;background:linear-gradient(135deg,#FEDA75,#FA7E1E,#D62976,#962FBF,#4F5BD5);color:#fff;border:none;font-family:'Lato',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform 0.2s,filter 0.2s;width:100%" onmouseover="this.style.filter='brightness(0.9)';this.style.transform='translateY(-2px)'" onmouseout="this.style.filter='';this.style.transform=''">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          Seguir no Instagram
+        </button>
+
+        <button onclick="" style="display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 28px;border-radius:100px;background:#fff;color:#3c4043;border:1px solid #dadce0;font-family:'Lato',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform 0.2s,filter 0.2s;width:100%" onmouseover="this.style.filter='brightness(0.97)';this.style.transform='translateY(-2px)'" onmouseout="this.style.filter='';this.style.transform=''">
+          <svg width="22" height="22" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Entrar com Google
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────
+   Aplica gradientes nas duas camadas dos ícones Phosphor
+   (drawer): rose-layer → rose gold · gold-layer → ouro polido
+───────────────────────────────────────────────────────── */
+function applyGradientToLayer(svg, strokeId, fillId) {
+  if (!svg) return;
+  const els = svg.querySelectorAll('path, rect, circle, polygon, polyline, ellipse, line');
+  els.forEach(el => {
+    const opacityAttr = el.getAttribute('opacity');
+    const opacity     = opacityAttr !== null ? parseFloat(opacityAttr) : 1;
+    const fillAttr    = el.getAttribute('fill');
+    const strokeAttr  = el.getAttribute('stroke');
+
+    if (opacity < 1) {
+      el.setAttribute('fill', 'url(#' + fillId + ')');
+      el.setAttribute('opacity', '1');
+    } else if (fillAttr === 'none' || strokeAttr) {
+      el.setAttribute('stroke', 'url(#' + strokeId + ')');
+      if (!fillAttr || fillAttr === 'none') {
+        el.setAttribute('fill', 'none');
+      }
+    } else if (fillAttr && fillAttr !== 'none') {
+      el.setAttribute('fill', 'url(#' + fillId + ')');
+    } else {
+      el.setAttribute('fill', 'url(#' + fillId + ')');
+    }
+  });
+}
+
+function applyAllGradients() {
+  document.querySelectorAll('.duo-wrap .rose-layer svg').forEach(svg => {
+    applyGradientToLayer(svg, 'g-rose-stroke', 'g-rose-fill');
+  });
+  document.querySelectorAll('.duo-wrap .gold-layer svg').forEach(svg => {
+    applyGradientToLayer(svg, 'g-gold-stroke', 'g-gold-fill');
+  });
+}
+
+/* Phosphor renderiza assincronamente — dois passes garantem cobertura */
+setTimeout(applyAllGradients, 400);
+setTimeout(applyAllGradients, 900);
+</script>
+
+</body>
+</html>

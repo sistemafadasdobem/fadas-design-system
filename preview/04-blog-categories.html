@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/04-blog-categories.html</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 280px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+
+  /* ── Pílula canônica de categoria ────────────────────── */
+  .pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 14px; border-radius: 100px;
+    font-family: var(--font-body); font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    cursor: pointer; user-select: none;
+    border: 1px solid transparent;
+    transition: background var(--transition), color var(--transition),
+                border-color var(--transition), transform .15s ease,
+                box-shadow var(--transition);
+  }
+  .pill .star { font-size: 9px; transition: color var(--transition); }
+
+  .pill.amor    { background: var(--cat-amor-bg);    color: var(--cat-amor-fg); }
+  .pill.orac    { background: var(--cat-orac-bg);    color: var(--cat-orac-fg); }
+  .pill.astro   { background: var(--cat-astro-bg);   color: var(--cat-astro-fg); }
+  .pill.auto    { background: var(--cat-auto-bg);    color: var(--cat-auto-fg); }
+  .pill.tarot   { background: var(--cat-tarot-bg);   color: var(--cat-tarot-fg); }
+  .pill.runas   { background: var(--cat-runas-bg);   color: var(--cat-runas-fg); }
+  .pill.cigano  { background: var(--cat-cigano-bg);  color: var(--cat-cigano-fg); }
+  .pill.magia   { background: var(--cat-magia-bg);   color: var(--cat-magia-fg); }
+  .pill.rituais { background: var(--cat-rituais-bg); color: var(--cat-rituais-fg); }
+  .pill.medit   { background: var(--cat-medit-bg);   color: var(--cat-medit-fg); }
+  .pill.horos   { background: var(--cat-horos-bg);   color: var(--cat-horos-fg); }
+
+  /* Hover: bg vira fg color, texto fica branco, ✦ acende em dourado */
+  .pill:hover {
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(72,50,30,0.10);
+  }
+  .pill:hover .star { color: var(--gold); }
+  .pill.amor:hover    { background: var(--cat-amor-fg);    border-color: var(--cat-amor-fg); }
+  .pill.orac:hover    { background: var(--cat-orac-fg);    border-color: var(--cat-orac-fg); }
+  .pill.astro:hover   { background: var(--cat-astro-fg);   border-color: var(--cat-astro-fg); }
+  .pill.auto:hover    { background: var(--cat-auto-fg);    border-color: var(--cat-auto-fg); }
+  .pill.tarot:hover   { background: var(--cat-tarot-fg);   border-color: var(--cat-tarot-fg); }
+  .pill.runas:hover   { background: var(--cat-runas-fg);   border-color: var(--cat-runas-fg); }
+  .pill.cigano:hover  { background: var(--cat-cigano-fg);  border-color: var(--cat-cigano-fg); }
+  .pill.magia:hover   { background: var(--cat-magia-fg);   border-color: var(--cat-magia-fg); }
+  .pill.rituais:hover { background: var(--cat-rituais-fg); border-color: var(--cat-rituais-fg); }
+  .pill.medit:hover   { background: var(--cat-medit-fg);   border-color: var(--cat-medit-fg); }
+  .pill.horos:hover   { background: var(--cat-horos-fg);   border-color: var(--cat-horos-fg); }
+
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">04</span><span class="title">Categorias do blog · 11 pílulas ✦ <span style="font-family:var(--font-editorial);font-style:italic;font-weight:400;font-size:12px;color:var(--text-3);margin-left:4px">— passe o mouse</span></span></div>
+  <div class="row">
+    <span class="pill amor"><span class="star">✦</span>Amor</span>
+    <span class="pill orac"><span class="star">✦</span>Oráculos</span>
+    <span class="pill astro"><span class="star">✦</span>Astrologia</span>
+    <span class="pill horos"><span class="star">✦</span>Horóscopo</span>
+    <span class="pill tarot"><span class="star">✦</span>Tarot</span>
+    <span class="pill runas"><span class="star">✦</span>Runas</span>
+    <span class="pill cigano"><span class="star">✦</span>Baralho Cigano</span>
+    <span class="pill auto"><span class="star">✦</span>Autoconhecimento</span>
+    <span class="pill magia"><span class="star">✦</span>Magia</span>
+    <span class="pill rituais"><span class="star">✦</span>Rituais</span>
+    <span class="pill medit"><span class="star">✦</span>Meditação</span>
+  </div>
+  <div class="meta" style="margin-top:16px;font-family:var(--font-editorial);font-style:italic;color:var(--text-3);font-size:12px">
+    11 categorias, cada uma com par bg/fg em zona cromática própria. Hover inverte: bg vira fg, texto fica branco, ✦ acende em dourado, lift de 1px.
+  </div>
+</div></body></html>

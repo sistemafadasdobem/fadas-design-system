@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fadas do Bem — Blog UI Kit</title>
+
+<link rel="stylesheet" href="../../colors_and_type.css">
+
+<!-- React + Babel -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+
+  /* Layout: 2-col article on desktop */
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 56px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  @media (max-width: 960px) {
+    .article-grid { grid-template-columns: 1fr; gap: 36px; padding: 0 24px; }
+    .article-grid .sidebar-col { order: 2; }
+  }
+
+  /* Article body — overrides text-body inside .article */
+  .article p {
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--text-body);
+    margin: 0 0 20px;
+  }
+  .article h2 {
+    font-family: var(--font-editorial);
+    font-size: clamp(20px, 2.4vw, 24px);
+    font-weight: 600;
+    color: var(--text-1);
+    margin: 48px 0 14px;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+  }
+  .article h3 {
+    font-family: var(--font-editorial);
+    font-size: clamp(17px, 2vw, 20px);
+    font-weight: 600;
+    color: var(--text-1);
+    margin: 32px 0 10px;
+    line-height: 1.3;
+  }
+  .article a:not(.pill):not(.btn):not(.tag) {
+    color: var(--green-deep);
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .article a:not(.pill):not(.btn):not(.tag):hover {
+    color: var(--red);
+    border-bottom-color: var(--gold);
+  }
+  .article blockquote {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--text-body);
+    line-height: 1.6;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--gold);
+    margin: 24px 0;
+  }
+  .article ul {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 24px;
+  }
+  .article ul li {
+    position: relative;
+    padding: 6px 0 6px 28px;
+    color: var(--text-body);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .article ul li::before {
+    content: '✦';
+    position: absolute;
+    left: 0; top: 6px;
+    color: var(--gold-deep);
+    font-size: 12px;
+  }
+
+  /* Hover effects mirrored from DS */
+  .drawer-row:hover { background: var(--bg-alt); }
+  .drawer-row:hover .rose-layer { opacity: 0; }
+  .drawer-row:hover .gold-layer { opacity: 1; }
+
+  /* Solid-tone icons (drawer v1 spec): single color, rosé-gold normal → ouro polido on parent hover. */
+  .fadas-icon-solid { color: #c47860; transition: color 0.25s ease; }
+  .drawer-item:hover .fadas-icon-solid,
+  a:hover > .fadas-icon-solid,
+  button:hover > .fadas-icon-solid { color: #c8a840; }
+
+  /* Phosphor duotone — colorize the two stacked icon layers via gradient fills on the SVG defs. The SVGs use [stroke="currentColor"] on strokes and [opacity="0.2"] on the fill layer; we paint both with rosé-gold by default and crossfade to ouro-polido on parent hover. */
+  .fadas-icon svg.rose [stroke="currentColor"] { stroke: url(#fadas-rose-stroke); }
+  .fadas-icon svg.rose [opacity="0.2"]         { fill:  url(#fadas-rose-fill);   opacity: 1; }
+  .fadas-icon svg.gold [stroke="currentColor"] { stroke: url(#fadas-gold-stroke); }
+  .fadas-icon svg.gold [opacity="0.2"]         { fill:  url(#fadas-gold-fill);   opacity: 1; }
+  /* Hover crossfade — triggered by the parent interactive element */
+  a:hover  .fadas-icon svg.rose,
+  button:hover .fadas-icon svg.rose { opacity: 0; }
+  a:hover  .fadas-icon svg.gold,
+  button:hover .fadas-icon svg.gold { opacity: 1; }
+
+  /* Action bar share buttons — brand hover colors */
+  .brand-item img { transition: filter 0.2s ease; }
+  .brand-item.whatsapp:hover { background: #25D366 !important; border-color: #25D366 !important; }
+  .brand-item.telegram:hover { background: #0088cc !important; border-color: #0088cc !important; }
+  .brand-item.facebook:hover { background: #1877F2 !important; border-color: #1877F2 !important; }
+  .brand-item.x:hover        { background: #000000 !important; border-color: #000000 !important; }
+  .brand-item.pinterest:hover{ background: #E60023 !important; border-color: #E60023 !important; }
+  .brand-item.email:hover    { background: #EA4335 !important; border-color: #EA4335 !important; }
+  .brand-item:hover img { filter: brightness(0) invert(1); }
+
+  /* Footer social hover */
+  .fb-whatsapp:hover  { background: rgba(37,211,102,0.2) !important; border-color: #25D366 !important; }
+  .fb-instagram:hover { background: rgba(225,48,108,0.2) !important; border-color: #E1306C !important; }
+  .fb-youtube:hover   { background: rgba(255,0,0,0.2) !important; border-color: #FF0000 !important; }
+  .fb-tiktok:hover    { background: rgba(0,0,0,0.4) !important; border-color: rgba(255,255,255,0.4) !important; }
+  .fb-pinterest:hover { background: rgba(230,0,35,0.2) !important; border-color: #E60023 !important; }
+
+  /* Related card hover */
+  .related-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold) !important;
+  }
+
+  /* Sticky pulse keyframes */
+  @keyframes fadas-pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(135, 193, 0, 0.2); }
+    50%      { box-shadow: 0 0 0 6px rgba(135, 193, 0, 0.08); }
+  }
+
+  /* Hide scrollbar on body for cleaner shots */
+  body { background: var(--bg); }
+</style>
+</head>
+<body data-screen-label="01 Blog post — desktop">
+
+<!-- Fadas gradient defs — referenced by every <FadasIcon> -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="fadas-rose-stroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#ffe8d6"/>
+      <stop offset="30%"  stop-color="#f0b89a"/>
+      <stop offset="60%"  stop-color="#c47860"/>
+      <stop offset="85%"  stop-color="#8c5240"/>
+      <stop offset="100%" stop-color="#5a3024"/>
+    </linearGradient>
+    <linearGradient id="fadas-rose-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#ffe8d6" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#c47860" stop-opacity="0.55"/>
+    </linearGradient>
+    <linearGradient id="fadas-gold-stroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#fff5d4"/>
+      <stop offset="25%"  stop-color="#f5d97c"/>
+      <stop offset="55%"  stop-color="#d4a857"/>
+      <stop offset="80%"  stop-color="#a87f30"/>
+      <stop offset="100%" stop-color="#6b4e18"/>
+    </linearGradient>
+    <linearGradient id="fadas-gold-fill" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#fff5d4" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#d4a857" stop-opacity="0.55"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<div id="root"></div>
+
+<script type="text/babel" src="icons.jsx"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+
+  // ────── The article — a real post-quality body ──────
+  function ArticleContent() {
+    return (
+      <React.Fragment>
+        <p>
+          A primeira consulta carrega a leveza e o peso da estreia: a vontade de saber se mistura
+          com a dúvida sobre se "tarot é pra mim". É natural — e tudo bem. O que faz uma consulta
+          render é menos a sorte da carta e mais a clareza com que você chega. Aqui em Fadas,
+          a gente prepara a leitora antes de a leitora preparar a pergunta.
+        </p>
+
+        <h2 id="defina-intencao">Defina sua intenção, não a resposta</h2>
+        <p>
+          Uma pergunta poderosa é aberta. <a href="#">"O que preciso saber sobre essa relação?"</a>
+          abre caminho. "Ele vai voltar?" fecha. O tarot é um espelho que reflete melhor quando
+          você chega com clareza, não com cobrança. Quanto menos roteiro, mais conteúdo.
+        </p>
+
+        <h3 id="exemplos">Exemplos de perguntas que funcionam</h3>
+        <ul>
+          <li>O que está pedindo a minha atenção agora?</li>
+          <li>O que essa decisão diz sobre o que eu quero?</li>
+          <li>Onde estou me esquecendo no meio dessa história?</li>
+          <li>Que parte de mim precisa ser ouvida primeiro?</li>
+        </ul>
+
+        <PullQuote>
+          O tarot é um espelho que reflete melhor quando você chega com clareza.
+        </PullQuote>
+
+        <h2 id="prepare-ambiente">Prepare o ambiente — mas sem ritual</h2>
+        <p>
+          Você não precisa acender vela, queimar incenso, nem virar para o leste. Pode, se quiser
+          — mas o que importa de verdade é estar em lugar onde você consiga ouvir. Sem celular
+          piscando, sem alguém atrás de você. Cinco minutos de silêncio antes da consulta valem
+          mais que qualquer altar improvisado.
+        </p>
+
+        <Figure
+          title="O ambiente importa mais que o ritual."
+          caption="Um canto calmo de casa, fone de ouvido e a tela inteira da consulta — é o setup que basta."
+        />
+
+        <h2 id="conduzir">Como conduzir a conversa</h2>
+        <p>
+          Tarólogas experientes guiam a leitura, mas a consulta é diálogo. Não tenha medo de pedir
+          para a taróloga voltar numa carta, aprofundar um símbolo, ou dizer que algo não fez sentido.
+          A primeira frase que vier à cabeça quando uma carta aparecer normalmente é mais útil que
+          a resposta "correta".
+        </p>
+
+        <blockquote>
+          "Eu cheguei pensando que ia ouvir sobre meu trabalho, mas o tarot quis falar sobre minha mãe.
+          Não saí com resposta — saí com pergunta melhor. Foi isso que mudou a semana inteira."
+        </blockquote>
+
+        <h2 id="depois">E depois da consulta?</h2>
+        <p>
+          Anote o que ficou na memória — não tudo, só o que vibrou. Releia uma semana depois.
+          O tarot trabalha em tempo lento: a carta que pareceu vaga no momento da leitura
+          frequentemente faz sentido três dias depois, quando uma cena cotidiana ilumina o que
+          ela queria dizer. Não cobre certeza imediata.
+        </p>
+      </React.Fragment>
+    );
+  }
+
+  function App() {
+    const [drawer, setDrawer] = React.useState(false);
+
+    const toc = [
+      { id: 'defina-intencao', label: 'Defina sua intenção' },
+      { id: 'prepare-ambiente', label: 'Prepare o ambiente' },
+      { id: 'conduzir',        label: 'Como conduzir a conversa' },
+      { id: 'depois',          label: 'E depois da consulta?' }
+    ];
+    const tags = ['tarot', 'primeira-consulta', 'autoconhecimento', 'lua-nova'];
+    const relatedPosts = [
+      { title: 'O que o tarot revela sobre relacionamentos em transição',
+        excerpt: 'Quando uma relação está em transformação, o tarot ajuda a enxergar com clareza o que precisa permanecer.',
+        category: 'Amor', cls: 'amor', read: 4, date: '08 mai 2026' },
+      { title: 'Lua nova: 7 práticas simples para começar um ciclo',
+        excerpt: 'Sem fórmulas místicas complicadas — apenas pequenos gestos que ancoram a intenção no corpo.',
+        category: 'Astrologia', cls: 'astro', read: 6, date: '02 mai 2026' },
+      { title: 'Como escolher entre Tarot, Lenormand e Baralho Cigano',
+        excerpt: 'Cada baralho fala uma língua diferente. Aqui está como reconhecer qual ressoa com a sua pergunta.',
+        category: 'Oráculos', cls: 'orac', read: 5, date: '28 abr 2026' }
+    ];
+
+    return (
+      <React.Fragment>
+        <Header onDrawerToggle={() => setDrawer(true)} taroloasOnline={8} />
+        <Drawer open={drawer} onClose={() => setDrawer(false)} />
+
+        <main className="article-grid" style={{ paddingTop: 0, paddingBottom: 48 }}>
+          <div className="content-col" data-screen-label="Article column">
+            <ArticleHero
+              category="Tarot"
+              categoryCls="tarot"
+              title="Como se preparar para a primeira consulta de tarot"
+              dek="Uma conversa franca sobre o que esperar — e não esperar — quando você sentar para sua primeira leitura. A taróloga não adivinha o futuro: ela ajuda você a escutar o presente com mais profundidade."
+              author="Maria Lua"
+              readTime={7}
+              date="14 maio 2026"
+            />
+            <AudioPlayer duration="6:42" />
+            <ArticleBody>
+              <ArticleContent />
+            </ArticleBody>
+            <ActionBar />
+            <Reactions />
+          </div>
+          <div className="sidebar-col">
+            <Sidebar toc={toc} tags={tags} />
+          </div>
+        </main>
+
+        <BannerCTA />
+
+        <div style={{ background: 'var(--bg)' }}>
+          <RelatedPosts posts={relatedPosts} />
+        </div>
+
+        <Footer />
+      </React.Fragment>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+</body>
+</html>

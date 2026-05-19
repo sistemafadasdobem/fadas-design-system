@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/23-blur-glass.html</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 720px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+  .group-meta { font-family: var(--font-body); font-size: 10px; font-weight: 700; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 7px; }
+
+  .demo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  /* ═══ Frame com conteúdo "atrás" — bg rico para o blur mostrar trabalho ═══ */
+  .demo-frame {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 160px;
+    border: 1px solid var(--border-soft);
+  }
+
+  /* Background 1 — creme com manchas coloridas (página de blog imaginária) */
+  .bg-blog {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 18% 78%, rgba(135,193,0,0.32) 0%, transparent 35%),
+      radial-gradient(circle at 82% 20%, rgba(229,36,68,0.28) 0%, transparent 38%),
+      radial-gradient(circle at 50% 50%, rgba(227,204,126,0.40) 0%, transparent 50%),
+      var(--bg);
+  }
+  /* Texto fictício do conteúdo "embaixo" */
+  .bg-blog::after {
+    content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
+    position: absolute; inset: 24px 14px 14px;
+    font-family: 'Lora', Georgia, serif;
+    font-size: 9px;
+    color: var(--text-2);
+    line-height: 1.5;
+    opacity: 0.6;
+  }
+
+  /* Background 2 — gradient verde com luz */
+  .bg-green {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.25) 0%, transparent 40%),
+      var(--grad-promo-green);
+  }
+  /* Decoração: estrelinhas para o blur mostrar */
+  .bg-green::after {
+    content: '✦ Online agora · 8 tarólogas ao vivo · primeira consulta a R$ 2,96/min · ✦';
+    position: absolute; inset: 0;
+    padding: 18px;
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  /* Background 3 — hero vermelho */
+  .bg-hero {
+    position: absolute; inset: 0;
+    background: var(--grad-hero-red);
+  }
+  .bg-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 25% 30%, rgba(255,255,255,0.20) 0%, transparent 35%),
+      radial-gradient(circle at 80% 70%, rgba(227,204,126,0.35) 0%, transparent 40%);
+  }
+  .bg-hero::after {
+    content: '✦ ✦ ✦';
+    position: absolute;
+    top: 18px; right: 18px;
+    color: var(--gold);
+    font-size: 14px;
+    letter-spacing: 6px;
+  }
+
+  /* Background 4 — foto editorial dark (luz de vela) */
+  .bg-candle {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><radialGradient id='warm' cx='25%25' cy='30%25' r='70%25'><stop offset='0' stop-color='%235a3018'/><stop offset='0.4' stop-color='%23291810'/><stop offset='1' stop-color='%23090806'/></radialGradient><radialGradient id='candle' cx='22%25' cy='28%25' r='14%25'><stop offset='0' stop-color='%23ffd380' stop-opacity='0.75'/><stop offset='0.4' stop-color='%23e3cc7e' stop-opacity='0.25'/><stop offset='1' stop-color='%23e3cc7e' stop-opacity='0'/></radialGradient><radialGradient id='glow2' cx='80%25' cy='75%25' r='35%25'><stop offset='0' stop-color='%23c48848' stop-opacity='0.45'/><stop offset='1' stop-color='%23c48848' stop-opacity='0'/></radialGradient></defs><rect width='400' height='280' fill='url(%23warm)'/><rect width='400' height='280' fill='url(%23glow2)'/><rect width='400' height='280' fill='url(%23candle)'/></svg>");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Background 5 — fotografia colorida abstrata (capa de post) */
+  .bg-photo {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 280'><defs><linearGradient id='sky' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23291018'/><stop offset='0.5' stop-color='%23a8782e'/><stop offset='1' stop-color='%23e3cc7e'/></linearGradient></defs><rect width='400' height='280' fill='url(%23sky)'/><circle cx='80' cy='60' r='10' fill='%23ffd380' opacity='0.85'/><circle cx='320' cy='110' r='5' fill='%23ffffff' opacity='0.7'/><circle cx='200' cy='40' r='3' fill='%23ffffff' opacity='0.5'/><circle cx='280' cy='220' r='6' fill='%23ffd380' opacity='0.7'/><circle cx='130' cy='180' r='3' fill='%23ffffff' opacity='0.6'/><circle cx='340' cy='40' r='2' fill='%23ffffff' opacity='0.8'/><circle cx='60' cy='150' r='4' fill='%23ffd380' opacity='0.5'/><path d='M0 240 Q100 200 200 240 T400 240 L400 280 L0 280 Z' fill='%2329110a' opacity='0.55'/></svg>");
+    background-size: cover;
+  }
+
+  /* Background 6 — verde profundo com pattern footer */
+  .bg-deep {
+    position: absolute; inset: 0;
+    background: var(--grad-footer-deep);
+  }
+  .bg-deep::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200'><path d='M0 50 Q200 20 400 50 T800 50' stroke='%23fdf4e6' stroke-width='1.2' fill='none' opacity='0.18'/><path d='M0 100 Q200 70 400 100 T800 100' stroke='%23fdf4e6' stroke-width='1.2' fill='none' opacity='0.18'/><path d='M0 150 Q200 120 400 150 T800 150' stroke='%23fdf4e6' stroke-width='1.2' fill='none' opacity='0.18'/></svg>");
+    background-size: 400px 100px;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     ① LIGHT NAV GLASS — sticky header
+  ═══════════════════════════════════════════════════════ */
+  .g-nav {
+    position: absolute; top: 12px; left: 12px; right: 12px;
+    padding: 10px 14px;
+    background: rgba(254, 244, 230, 0.35);
+    -webkit-backdrop-filter: saturate(180%) blur(22px);
+    backdrop-filter: saturate(180%) blur(22px);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow:
+      0 4px 14px rgba(72,50,30,0.10),
+      inset 0 1px 0 rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+  }
+  .g-nav .nav-mini {
+    font-family: 'Lato', sans-serif;
+    font-style: normal;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-1);
+  }
+  .g-nav .brand-green { color: var(--green); }
+
+  /* ═══════════════════════════════════════════════════════
+     ② TINTED PILL — sobre gradiente verde
+  ═══════════════════════════════════════════════════════ */
+  .g-pill {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 7px 14px;
+    background: rgba(255, 255, 255, 0.18);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 100px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.35);
+    font-family: 'Lato', sans-serif;
+    font-size: 10px; font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     ③ FROSTED CARD — over hero vermelho
+  ═══════════════════════════════════════════════════════ */
+  .g-frosted {
+    position: absolute; top: 50%; left: 14px; right: 14px;
+    transform: translateY(-50%);
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 14px;
+    box-shadow:
+      0 8px 24px rgba(0,0,0,0.18),
+      inset 0 1px 0 rgba(255,255,255,0.42);
+    color: #fff;
+  }
+  .g-frosted .ft-eyebrow {
+    font-family: 'Lato', sans-serif;
+    font-size: 8.5px; font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .g-frosted .ft-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     ④ DARK GLASS — sobre foto candle
+  ═══════════════════════════════════════════════════════ */
+  .g-dark-pill {
+    position: absolute; top: 14px; right: 14px;
+    padding: 5px 11px;
+    background: rgba(12, 6, 4, 0.32);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 100px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    font-family: 'Lato', sans-serif;
+    font-size: 9px; font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .g-dark-pill .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+  }
+  .g-dark-card {
+    position: absolute; bottom: 14px; left: 14px; right: 14px;
+    padding: 11px 13px;
+    background: rgba(12, 6, 4, 0.42);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 10px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
+    color: #fff;
+  }
+  .g-dark-card .gd-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .g-dark-card .gd-meta {
+    font-family: 'Lato', sans-serif;
+    font-size: 8.5px;
+    color: rgba(255,255,255,0.62);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     ⑤ CRYSTAL — pílula transparente sobre foto colorida
+  ═══════════════════════════════════════════════════════ */
+  .g-crystal {
+    position: absolute; bottom: 14px; left: 14px; right: 14px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.12);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.32);
+    border-top-color: rgba(255,255,255,0.55);
+    border-radius: 14px;
+    box-shadow:
+      0 6px 24px rgba(0,0,0,0.25),
+      inset 0 1px 0 rgba(255,255,255,0.42);
+    display: flex; align-items: center; justify-content: space-between;
+    color: #fff;
+  }
+  .g-crystal .cr-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .g-crystal .cr-cta {
+    font-family: 'Lato', sans-serif;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+
+  /* ═══════════════════════════════════════════════════════
+     ⑥ TINTED GOLD GLASS — sobre verde profundo
+  ═══════════════════════════════════════════════════════ */
+  .g-tinted {
+    position: absolute; top: 50%; left: 14px; right: 14px;
+    transform: translateY(-50%);
+    padding: 11px 14px;
+    background: rgba(227, 204, 126, 0.18);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(227, 204, 126, 0.42);
+    border-radius: 12px;
+    box-shadow:
+      0 6px 18px rgba(0,0,0,0.20),
+      inset 0 1px 0 rgba(255,236,180,0.38);
+    color: #fff;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .g-tinted .star {
+    font-size: 18px;
+    color: var(--gold);
+  }
+  .g-tinted .tnt-info {
+    flex: 1;
+  }
+  .g-tinted .tnt-title {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--gold-soft);
+  }
+  .g-tinted .tnt-sub {
+    font-family: 'Lato', sans-serif;
+    font-size: 8.5px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ═══ Spec abaixo de cada demo ═══ */
+  .spec {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 9px 11px;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--text-2);
+    line-height: 1.55;
+  }
+  .spec .k { color: var(--gold-deep); }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">23</span><span class="title">Blur & glass — 6 usos canônicos</span></div>
+
+  <div class="demo-grid">
+
+    <!-- ① Light nav glass -->
+    <div>
+      <div class="group-meta">① Sticky nav · light</div>
+      <div class="demo-frame">
+        <div class="bg-blog"></div>
+        <div class="g-nav">
+          <span><span class="brand-green">Fadas</span> do Bem</span>
+          <span class="nav-mini">Tarot · Amor</span>
+        </div>
+      </div>
+      <div class="spec">
+        <span class="k">bg</span>: rgba(254,244,230,0.35)<br>
+        <span class="k">filter</span>: saturate(180%) blur(22px)<br>
+        <span class="k">border-top</span>: rgba(255,255,255,0.55)
+      </div>
+    </div>
+
+    <!-- ② Tinted pill on green -->
+    <div>
+      <div class="group-meta">② Pílula · sobre verde</div>
+      <div class="demo-frame">
+        <div class="bg-green"></div>
+        <div class="g-pill">
+          <span class="status-dot green"></span>8 online agora
+        </div>
+      </div>
+      <div class="spec">
+        <span class="k">bg</span>: rgba(255,255,255,0.18)<br>
+        <span class="k">filter</span>: blur(14px) saturate(160%)
+      </div>
+    </div>
+
+    <!-- ③ Frosted card on hero red -->
+    <div>
+      <div class="group-meta">③ Frosted card · sobre hero</div>
+      <div class="demo-frame">
+        <div class="bg-hero"></div>
+        <div class="g-frosted">
+          <div class="ft-eyebrow">Primeira consulta</div>
+          <div class="ft-title">R$ 2,96/min, sem cartão</div>
+        </div>
+      </div>
+      <div class="spec">
+        <span class="k">bg</span>: rgba(255,255,255,0.15)<br>
+        <span class="k">filter</span>: blur(24px) saturate(140%)
+      </div>
+    </div>
+
+    <!-- ④ Dark glass on candle photo -->
+    <div>
+      <div class="group-meta">④ Dark glass · sobre foto</div>
+      <div class="demo-frame">
+        <div class="bg-candle"></div>
+        <span class="g-dark-pill"><span class="dot"></span>Ao vivo</span>
+        <div class="g-dark-card">
+          <div class="gd-title">"O tarot é um espelho."</div>
+          <div class="gd-meta">Laia · Tarot</div>
+        </div>
+      </div>
+      <div class="spec">
+        <span class="k">bg</span>: rgba(12,6,4, 0.32–0.42)<br>
+        <span class="k">filter</span>: blur(16–18px) saturate(140%)
+      </div>
+    </div>
+
+    <!-- ⑤ Crystal pill on cosmic photo -->
+    <div>
+      <div class="group-meta">⑤ Crystal · sobre foto colorida</div>
+      <div class="demo-frame">
+        <div class="bg-photo"></div>
+        <div class="g-crystal">
+          <span class="cr-title">Tarólogas online</span>
+          <span class="cr-cta">Ver tudo →</span>
+        </div>
+      </div>
+      <div class="spec">
+        <span class="k">bg</span>: rgba(255,255,255,0.12)<br>
+        <span class="k">filter</span>: blur(20px) saturate(180%)<br>
+        <span class="k">border-top</span>: highlight 0.55α
+      </div>
+    </div>
+
+    <!-- ⑥ Tinted gold glass on deep footer -->
+    <div>
+      <div class="group-meta">⑥ Tinted gold · sobre verde-deep</div>
+      <div class="demo-frame">
+        <div class="bg-deep"></div>
+        <div class="g-tinted">
+          <span class="star">✦</span>
+          <div class="tnt-info">
+            <div class="tnt-title">Sua consulta espera</div>
+            <div class="tnt-sub">8 tarólogas online agora</div>
+          </div>
+        </div>
+      </div>
+      <div class="spec">
+        <span class="k">bg</span>: rgba(227,204,126,0.18) <span style="color:var(--gold-deep)">/* gold tint */</span><br>
+        <span class="k">filter</span>: blur(20px) saturate(180%)
+      </div>
+    </div>
+
+  </div>
+
+  <div class="meta" style="margin-top:16px;font-family:var(--font-editorial);font-style:italic;color:var(--text-3);font-size:12px">
+    Regras: glass exige <strong style="color:var(--text-2)">conteúdo rico atrás</strong> (cor, foto, gradiente) e <strong style="color:var(--text-2)">opacidade baixa</strong> (0.12–0.35). Sempre acompanhe de borda 1px clara + inner highlight para definir a "casca" do vidro. Light glass sobre creme/cards/verde; dark glass sobre fotos ou hero vermelho; tinted glass para sutileza temática (ouro = celebração, premium).
+  </div>
+</div></body></html>

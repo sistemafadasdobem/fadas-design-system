@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/28-glass-active-row.html</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; font-family: var(--font-body); }
+  .frame { background: var(--bg-alt); border: 1px solid var(--border-soft); border-radius: 14px; padding: 18px 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .label-row .sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin-left: auto; }
+  .desc { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin: 4px 0 16px; line-height: 1.55; }
+
+  .stage { display: flex; flex-direction: column; gap: 10px; padding: 4px 6px; }
+
+  .tiragem-row {
+    background: var(--surface);
+    border: 1.5px solid var(--gold-soft);
+    border-radius: 18px;
+    padding: 14px 18px 14px 14px;
+    display: flex; align-items: center; gap: 14px;
+    position: relative;
+    transition: all 0.32s var(--ease-snap);
+  }
+
+  /* Glass active state — todas as 5 camadas + barra verde */
+  .tiragem-row.is-active {
+    transform: translateX(14px) translateY(-2px);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+    border: 1.5px solid rgba(200, 168, 64, 0.7);
+    box-shadow:
+      0 24px 56px rgba(72, 50, 30, 0.20),
+      0 10px 24px rgba(72, 50, 30, 0.14),
+      0 3px 8px rgba(72, 50, 30, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .tiragem-row.is-active::before {
+    content: '';
+    position: absolute;
+    right: -4px; top: 10px; bottom: 10px;
+    width: 4px;
+    background: linear-gradient(180deg, var(--green-dark) 0%, var(--green-deep) 100%);
+    border-radius: 3px;
+    box-shadow: 0 0 16px rgba(106, 153, 0, 0.5);
+  }
+  .tiragem-row.is-active .row-name { color: var(--red); }
+
+  .row-thumb {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    flex-shrink: 0; position: relative; overflow: hidden;
+    background: repeating-linear-gradient(45deg, rgba(229,36,68,0.08), rgba(229,36,68,0.08) 3px, var(--bg-alt) 3px, var(--bg-alt) 6px);
+    border: 1px solid var(--border);
+  }
+  .tiragem-row.is-active .row-thumb { border-color: var(--gold-deep); }
+
+  .row-info { flex: 1; min-width: 0; }
+  .row-name {
+    font-family: var(--font-display);
+    font-size: 16px; font-weight: 700;
+    color: var(--text-1); line-height: 1.2; margin-bottom: 2px;
+    letter-spacing: -0.005em;
+  }
+  .row-desc {
+    font-family: var(--font-editorial);
+    font-size: 12.5px; font-style: italic;
+    color: var(--green-deep);
+  }
+  .row-arrow {
+    flex-shrink: 0; font-size: 16px;
+    color: var(--text-muted-light);
+  }
+  .tiragem-row.is-active .row-arrow { color: var(--green-dark); }
+
+  .layers {
+    margin-top: 18px; padding-top: 14px;
+    border-top: 1px dashed var(--border);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 14px;
+    font-size: 10.5px; color: var(--text-3); line-height: 1.5;
+  }
+  .layers b {
+    color: var(--text-2); font-weight: 700;
+    font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; display: block; margin-bottom: 1px;
+  }
+  .layers code {
+    font-family: var(--font-mono); font-size: 10px;
+    background: var(--bg); padding: 0 4px; border-radius: 3px;
+    color: var(--green-deep);
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="label-row">
+    <span class="num">28</span>
+    <span class="title">Glass active row · sombra composta 5-layer</span>
+    <span class="sub">4º uso canônico de blur</span>
+  </div>
+  <p class="desc">Estado ativo de lista vertical. Combina <code>backdrop-filter: blur(14px) saturate(1.2)</code>, 5 layers de sombra (3 elevações + 2 <code>inset</code> pro highlight glass), borda dourada translúcida e barra vertical verde lateral com glow. Translada +14px no eixo X e -2px no Y.</p>
+
+  <div class="stage">
+    <div class="tiragem-row">
+      <div class="row-thumb"></div>
+      <div class="row-info">
+        <div class="row-name">Cruz Celta</div>
+        <div class="row-desc">Questão em profundidade</div>
+      </div>
+      <div class="row-arrow">→</div>
+    </div>
+
+    <div class="tiragem-row is-active">
+      <div class="row-thumb"></div>
+      <div class="row-info">
+        <div class="row-name">Mandala Astrológica</div>
+        <div class="row-desc">12 áreas da vida</div>
+      </div>
+      <div class="row-arrow">→</div>
+    </div>
+
+    <div class="tiragem-row">
+      <div class="row-thumb"></div>
+      <div class="row-info">
+        <div class="row-name">Mesa Real</div>
+        <div class="row-desc">36 cartas, visão geral</div>
+      </div>
+      <div class="row-arrow">→</div>
+    </div>
+  </div>
+
+  <div class="layers">
+    <div><b>Background</b>rgba(255,255,255,<strong>0.55</strong>) + blur 14px</div>
+    <div><b>Border</b>rgba(200,168,64,<strong>0.7</strong>) 1.5px</div>
+    <div><b>Sombra 1</b>0 24 56 rgba(72,50,30,0.20)</div>
+    <div><b>Sombra 2</b>0 10 24 rgba(72,50,30,0.14)</div>
+    <div><b>Sombra 3</b>0 3 8 rgba(72,50,30,0.08)</div>
+    <div><b>Inset top</b>0 1 0 rgba(255,255,255,0.9)</div>
+    <div><b>Inset bottom</b>0 -1 0 rgba(255,255,255,0.3)</div>
+    <div><b>Barra verde</b>4px gradient + glow 0 0 16px 50%</div>
+  </div>
+</div>
+</body>
+</html>

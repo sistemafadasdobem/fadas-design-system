@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Fadas — Tiragens (mobile)</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  /* ─── TIRAGENS MOBILE — 375px ────────────────────────────────
+     Carrossel scroll-snap + 4 keyframes ornamentais (float, glow,
+     star pulse, placeholder pulse) + entrada cascateada dos cards.
+     Border `--gold-soft` 1.5px — diferenciação semântica
+     vs cards transacionais do pricing.
+  ──────────────────────────────────────────────────────────── */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 375px;
+    margin: 0 auto;
+    background: var(--bg);
+    color: var(--text-1);
+  }
+
+  /* HEADER */
+  .tiragens-head {
+    padding: 36px 28px 8px;
+    text-align: center;
+    position: relative;
+    animation: fadas-fade-slide-up 0.6s var(--ease-snap) both;
+  }
+  .header-ornament {
+    margin: 0 auto 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(229, 36, 68, 0.08),
+      rgba(229, 36, 68, 0.08) 4px,
+      var(--bg-alt) 4px,
+      var(--bg-alt) 8px
+    );
+    border: 1.5px dashed rgba(229, 36, 68, 0.35);
+    animation: fadas-ornament-glow 3s ease-in-out infinite;
+  }
+  .header-ornament::after {
+    content: '48';
+    color: var(--red);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-family: var(--font-body);
+    position: relative;
+    z-index: 1;
+  }
+  .header-ornament img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    z-index: 2;
+  }
+  .header-ornament img[src]:not([src=""]) { display: block; }
+  .header-ornament:has(img[src]:not([src=""])) { background: none; border: none; }
+  .header-ornament:has(img[src]:not([src=""]))::after { display: none; }
+
+  .tiragens-head h2 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--text-1);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .tiragens-head .subtitle {
+    font-size: 13px;
+    color: var(--text-2);
+    font-weight: 500;
+    letter-spacing: 0.025em;
+  }
+
+  /* ✦ flanqueando o header */
+  .tiragens-head::before, .tiragens-head::after {
+    content: '✦';
+    position: absolute;
+    color: var(--gold);
+    font-size: 14px;
+    opacity: 0.6;
+    top: 90px;
+    animation: fadas-star-pulse 3.5s ease-in-out infinite;
+  }
+  .tiragens-head::before { left: 24px; animation-delay: 0s; }
+  .tiragens-head::after  { right: 24px; animation-delay: 1.2s; }
+
+  /* CARROSSEL — mesma fundação do pricing-mobile */
+  .carousel {
+    position: relative;
+    margin-top: 8px;
+    padding: 18px 0 4px;
+  }
+  .carousel::before {
+    content: '';
+    position: absolute;
+    top: 14px; bottom: 14px; left: 0; right: 0;
+    background: var(--bg-alt);
+    opacity: 0.4;
+    z-index: 0;
+  }
+  .track {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 14px;
+    padding: 14px 60px 22px;
+    scrollbar-width: none;
+    position: relative;
+    z-index: 1;
+    cursor: grab;
+    user-select: none;
+  }
+  .track.dragging { cursor: grabbing; }
+  .track::-webkit-scrollbar { display: none; }
+
+  .slot {
+    flex: 0 0 240px;
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    position: relative;
+  }
+
+  /* TIRAGEM CARD — vertical, gold-soft, divider ornamental */
+  .t-card {
+    background: var(--surface);
+    border: 1.5px solid var(--gold-soft);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(154, 140, 126, 0.08);
+    display: flex;
+    flex-direction: column;
+    min-height: 432px;
+    opacity: 0.72;
+    transition: box-shadow 0.35s ease, opacity 0.35s ease, transform 0.35s var(--ease-snap);
+    animation: fadas-card-in 0.5s var(--ease-snap) both;
+  }
+  .slot[data-i="0"] .t-card { animation-delay: 0.05s; }
+  .slot[data-i="1"] .t-card { animation-delay: 0.15s; }
+  .slot[data-i="2"] .t-card { animation-delay: 0.25s; }
+  .slot[data-i="3"] .t-card { animation-delay: 0.35s; }
+
+  .slot.is-active .t-card {
+    box-shadow:
+      0 16px 40px rgba(100, 70, 40, 0.18),
+      0 6px 16px rgba(100, 70, 40, 0.10);
+    opacity: 1;
+    animation: fadas-card-in 0.5s var(--ease-snap) both,
+               fadas-float 4s ease-in-out 0.6s infinite;
+  }
+  .slot[data-i="0"].is-active .t-card { animation-delay: 0.05s, 0.6s; }
+  .slot[data-i="1"].is-active .t-card { animation-delay: 0.15s, 0.6s; }
+  .slot[data-i="2"].is-active .t-card { animation-delay: 0.25s, 0.6s; }
+  .slot[data-i="3"].is-active .t-card { animation-delay: 0.35s, 0.6s; }
+
+  /* Imagem 1:1 com listras 6px (variação grande do placeholder) */
+  .t-card-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    background: repeating-linear-gradient(
+      45deg,
+      rgba(229, 36, 68, 0.08),
+      rgba(229, 36, 68, 0.08) 6px,
+      var(--bg-alt) 6px,
+      var(--bg-alt) 12px
+    );
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadas-placeholder-pulse 2.8s ease-in-out infinite;
+  }
+  .t-card-img::after {
+    content: 'ILUSTRAÇÃO  ✦  1 : 1';
+    white-space: pre;
+    text-align: center;
+    color: var(--red);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    line-height: 1.6;
+    font-family: var(--font-body);
+  }
+  .t-card-img img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .t-card-img:has(img[src]:not([src=""])) { background: none; animation: none; }
+  .t-card-img:has(img[src]:not([src=""]))::after { display: none; }
+  .t-card-img img:not([src]),
+  .t-card-img img[src=""] { display: none; }
+
+  .t-card-body {
+    padding: 18px 18px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+  }
+  .t-card-name {
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-1);
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+  .t-card-desc {
+    font-size: 13px;
+    color: var(--green-deep);
+    font-weight: 600;
+    margin-bottom: 4px;
+    letter-spacing: 0.01em;
+  }
+
+  /* Divider ornamental — linha dourada com ✦ no centro */
+  .ornamental-divider {
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+    margin: 4px auto;
+    position: relative;
+  }
+  .ornamental-divider::before {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface);
+    color: var(--gold-deep);
+    font-size: 10px;
+    padding: 0 4px;
+  }
+
+  /* CTA primary cerimonial (Playfair + ripple) */
+  .t-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: auto;
+  }
+  .cta-ceremonial {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--red);
+    color: var(--bg);
+    border: 1.5px solid var(--gold);
+    transition: background 0.25s ease, transform 0.18s ease, box-shadow 0.25s ease;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-ceremonial::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
+    transform: scale(0);
+    opacity: 0;
+    border-radius: inherit;
+  }
+  .cta-ceremonial:active::after { animation: fadas-ripple 0.45s ease-out forwards; }
+  .cta-ceremonial:hover {
+    background: var(--green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(106, 153, 0, 0.3);
+  }
+  .cta-ceremonial:active {
+    background: var(--green-deep);
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  /* CTA link — letter-spacing anima no hover */
+  .cta-link {
+    background: none;
+    border: none;
+    color: var(--text-3);
+    font-size: 11.5px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-body);
+    transition: color 0.2s ease, letter-spacing 0.2s ease;
+  }
+  .cta-link:hover {
+    color: var(--red);
+    letter-spacing: 0.12em;
+  }
+
+  /* Dots gold-soft → gold-deep + elástica no ativo */
+  .dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 0 4px;
+    position: relative;
+    z-index: 1;
+  }
+  .dots button {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.35s ease, width 0.35s var(--ease-snap);
+    transform-origin: center bottom;
+  }
+  .dots button.active {
+    background: var(--gold-deep);
+    width: 22px;
+    border-radius: 4px;
+    animation: fadas-dot-bounce 0.45s var(--ease-snap);
+  }
+
+  /* "Ver todas" — pill outlined com ✦ pulsing */
+  .see-all {
+    margin: 24px 28px 32px;
+    display: flex;
+    justify-content: center;
+    animation: fadas-fade-slide-up 0.6s var(--ease-snap) 0.4s both;
+  }
+  .see-all-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    background: var(--surface);
+    border: 1.5px solid var(--gold);
+    color: var(--text-1);
+    border-radius: var(--r-pill);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .see-all-btn::before, .see-all-btn::after {
+    content: '✦';
+    color: var(--gold-deep);
+    font-size: 10px;
+    display: inline-block;
+    animation: fadas-star-pulse 3s ease-in-out infinite;
+  }
+  .see-all-btn::after { animation-delay: 1.5s; }
+  .see-all-btn:hover {
+    background: var(--gold-soft);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(200, 168, 64, 0.22);
+  }
+</style>
+</head>
+<body>
+
+  <div class="tiragens-head">
+    <div class="header-ornament">
+      <img src="" alt="Ornamento topo">
+    </div>
+    <h2>Qual tiragem responde<br>melhor sua pergunta?</h2>
+    <p class="subtitle">Escolha a opção ideal para o seu momento</p>
+  </div>
+
+  <div class="carousel">
+    <div class="track" id="track">
+
+      <div class="slot" data-i="0">
+        <div class="t-card">
+          <div class="t-card-img"><img src="" alt="Cruz Celta"></div>
+          <div class="t-card-body">
+            <div class="t-card-name">Cruz Celta</div>
+            <div class="ornamental-divider"></div>
+            <div class="t-card-desc">Questão em profundidade</div>
+            <div class="t-card-actions">
+              <button class="cta-ceremonial">Escolher leitura</button>
+              <button class="cta-link">Ver detalhes →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot" data-i="1">
+        <div class="t-card">
+          <div class="t-card-img"><img src="" alt="Jogo do Relacionamento"></div>
+          <div class="t-card-body">
+            <div class="t-card-name">Jogo do<br>Relacionamento</div>
+            <div class="ornamental-divider"></div>
+            <div class="t-card-desc">Sentimentos e futuro</div>
+            <div class="t-card-actions">
+              <button class="cta-ceremonial">Escolher leitura</button>
+              <button class="cta-link">Ver detalhes →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot" data-i="2">
+        <div class="t-card">
+          <div class="t-card-img"><img src="" alt="Mesa Real"></div>
+          <div class="t-card-body">
+            <div class="t-card-name">Mesa Real</div>
+            <div class="ornamental-divider"></div>
+            <div class="t-card-desc">36 cartas, visão geral</div>
+            <div class="t-card-actions">
+              <button class="cta-ceremonial">Escolher leitura</button>
+              <button class="cta-link">Ver detalhes →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slot" data-i="3">
+        <div class="t-card">
+          <div class="t-card-img"><img src="" alt="Mandala Astrológica"></div>
+          <div class="t-card-body">
+            <div class="t-card-name">Mandala<br>Astrológica</div>
+            <div class="ornamental-divider"></div>
+            <div class="t-card-desc">12 áreas da vida</div>
+            <div class="t-card-actions">
+              <button class="cta-ceremonial">Escolher leitura</button>
+              <button class="cta-link">Ver detalhes →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="dots" id="dots">
+      <button data-i="0"></button>
+      <button data-i="1" class="active"></button>
+      <button data-i="2"></button>
+      <button data-i="3"></button>
+    </div>
+  </div>
+
+  <div class="see-all">
+    <button class="see-all-btn">Ver todas as tiragens →</button>
+  </div>
+
+<script>
+(function(){
+  const track = document.getElementById('track');
+  const dots = document.querySelectorAll('#dots button');
+  const slots = document.querySelectorAll('.slot');
+  if(!track || !dots.length) return;
+
+  function setActive(i){
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    slots.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+  }
+  function centerCard(i){
+    const target = slots[i];
+    const offset = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
+    track.scrollTo({ left: offset, behavior: 'smooth' });
+  }
+  dots.forEach(dot => dot.addEventListener('click', () => centerCard(parseInt(dot.dataset.i, 10))));
+
+  let raf = null;
+  track.addEventListener('scroll', () => {
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      const trackCenter = track.scrollLeft + track.clientWidth / 2;
+      let bestI = 0, bestDist = Infinity;
+      slots.forEach((s, i) => {
+        const sCenter = s.offsetLeft + s.offsetWidth / 2;
+        const dist = Math.abs(sCenter - trackCenter);
+        if (dist < bestDist) { bestDist = dist; bestI = i; }
+      });
+      setActive(bestI);
+      raf = null;
+    });
+  });
+  requestAnimationFrame(() => {
+    const target = slots[1];
+    track.scrollLeft = target.offsetLeft - (track.clientWidth - target.offsetWidth) / 2;
+    setActive(1);
+  });
+
+  /* Drag-to-scroll */
+  let isDown = false, startX = 0, startScroll = 0, moved = 0;
+  track.addEventListener('mousedown', (e) => {
+    isDown = true; moved = 0;
+    track.classList.add('dragging');
+    startX = e.pageX; startScroll = track.scrollLeft;
+    e.preventDefault();
+  });
+  window.addEventListener('mouseup', () => {
+    if (!isDown) return;
+    isDown = false;
+    track.classList.remove('dragging');
+    if (moved > 5) {
+      const trackCenter = track.scrollLeft + track.clientWidth / 2;
+      let bestI = 0, bestDist = Infinity;
+      slots.forEach((s, i) => {
+        const sCenter = s.offsetLeft + s.offsetWidth / 2;
+        const dist = Math.abs(sCenter - trackCenter);
+        if (dist < bestDist) { bestDist = dist; bestI = i; }
+      });
+      centerCard(bestI);
+    }
+  });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const walk = e.pageX - startX;
+    moved = Math.abs(walk);
+    track.scrollLeft = startScroll - walk;
+  });
+  track.addEventListener('click', (e) => {
+    if (moved > 5) { e.stopPropagation(); e.preventDefault(); }
+  }, true);
+})();
+</script>
+
+</body>
+</html>

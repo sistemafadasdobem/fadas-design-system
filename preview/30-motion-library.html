@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/30-motion-library.html</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; font-family: var(--font-body); }
+  .frame { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 18px 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .label-row .sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin-left: auto; }
+  .desc { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin: 4px 0 14px; line-height: 1.55; }
+
+  .group { margin-top: 14px; }
+  .group-label {
+    font-family: var(--font-body);
+    font-size: 9.5px; font-weight: 700;
+    color: var(--gold-deep);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 8px;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .cell {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px 8px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    min-height: 92px;
+  }
+  .cell-demo {
+    width: 36px; height: 36px;
+    background: var(--surface);
+    border: 1.5px solid var(--gold-soft);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold-deep);
+    font-size: 18px;
+  }
+  .cell-name {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--text-2);
+    text-align: center;
+    line-height: 1.3;
+  }
+  .cell-name b { color: var(--gold-deep); display: block; }
+
+  /* ── Aplicar animações ── */
+  .demo-fade-up    { animation: fadas-fade-slide-up 2s var(--ease-snap) infinite alternate; }
+  .demo-card-in    { animation: fadas-card-in 2s var(--ease-snap) infinite alternate; }
+  .demo-row-in     { animation: fadas-row-in 2s var(--ease-snap) infinite alternate; }
+  .demo-featured   { animation: fadas-featured-in 2s var(--ease-snap) infinite alternate; }
+  .demo-float      { animation: fadas-float 4s ease-in-out infinite; }
+  .demo-cel-float  { animation: fadas-celestial-float 6s ease-in-out infinite; }
+  .demo-glow       { animation: fadas-ornament-glow 3s ease-in-out infinite; }
+  .demo-star       { animation: fadas-star-pulse 3.5s ease-in-out infinite; }
+  .demo-placeholder{ animation: fadas-placeholder-pulse 2.8s ease-in-out infinite; background: repeating-linear-gradient(45deg, rgba(229,36,68,0.10), rgba(229,36,68,0.10) 4px, var(--bg-alt) 4px, var(--bg-alt) 8px); border: 1.5px dashed rgba(229,36,68,0.35); }
+  .demo-dot-bounce {
+    background: var(--red); border-color: var(--red);
+    color: var(--surface);
+    animation: fadas-dot-bounce 0.8s var(--ease-snap) infinite;
+    transform-origin: center bottom;
+  }
+  .demo-ripple {
+    background: var(--red); border-color: var(--gold);
+    position: relative; overflow: hidden;
+    color: var(--bg);
+  }
+  .demo-ripple::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.45) 0%, transparent 70%);
+    transform: scale(0); opacity: 0; border-radius: inherit;
+    animation: fadas-ripple 1.6s ease-out infinite;
+  }
+  .demo-fade-swap {
+    animation: fadas-card-fade-out 1s ease infinite alternate;
+  }
+
+  .footnote {
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: var(--bg);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--r-sm);
+    font-family: var(--font-editorial);
+    font-size: 11.5px;
+    font-style: italic;
+    color: var(--text-2);
+    line-height: 1.55;
+  }
+  .footnote code {
+    font-family: var(--font-mono);
+    font-style: normal;
+    background: var(--surface);
+    padding: 0 4px;
+    border-radius: 3px;
+    font-size: 10.5px;
+    color: var(--green-deep);
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="label-row">
+    <span class="num">30</span>
+    <span class="title">Motion library · 12 keyframes canônicos</span>
+    <span class="sub">tudo em <code style="font-family:var(--font-mono);font-size:10px;background:var(--bg);padding:0 4px;border-radius:3px;color:var(--green-deep)">colors_and_type.css</code></span>
+  </div>
+  <p class="desc">Vocabulário oficial de animação Fadas. Três famílias: entry (one-shot ease-out), loop (contínuo ease-in-out, ornamental), interaction (one-shot no :active). Aplique via classe utilitária <code>.fadas-anim-*</code> ou diretamente como <code>animation: fadas-...</code>.</p>
+
+  <div class="group">
+    <div class="group-label">Entry · one-shot · ease-snap</div>
+    <div class="grid">
+      <div class="cell">
+        <div class="cell-demo demo-fade-up">↑</div>
+        <div class="cell-name"><b>fadas-fade-slide-up</b>0.6s · header</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-card-in">▢</div>
+        <div class="cell-name"><b>fadas-card-in</b>0.5s · card grid</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-row-in">→</div>
+        <div class="cell-name"><b>fadas-row-in</b>0.5s · lista</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-featured">★</div>
+        <div class="cell-name"><b>fadas-featured-in</b>0.5s · destaque</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-label">Loop · contínuo · ease-in-out</div>
+    <div class="grid">
+      <div class="cell">
+        <div class="cell-demo demo-float">⇕</div>
+        <div class="cell-name"><b>fadas-float</b>4s · card ativo</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-cel-float">☁</div>
+        <div class="cell-name"><b>fadas-celestial-float</b>6s · ornamento topo</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-glow">◉</div>
+        <div class="cell-name"><b>fadas-ornament-glow</b>3s · ornament</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-star">✦</div>
+        <div class="cell-name"><b>fadas-star-pulse</b>3.5s · estrelas</div>
+      </div>
+      <div class="cell" style="grid-column: 1 / -1">
+        <div class="cell-demo demo-placeholder" style="width: 100%; height: 30px"></div>
+        <div class="cell-name"><b>fadas-placeholder-pulse</b>2.8s · placeholders de imagem</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="group">
+    <div class="group-label">Interaction · one-shot · :active / state</div>
+    <div class="grid">
+      <div class="cell">
+        <div class="cell-demo demo-ripple"></div>
+        <div class="cell-name"><b>fadas-ripple</b>0.45s · CTA cerimonial</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-dot-bounce" style="width: 22px; height: 8px; border-radius: 4px"></div>
+        <div class="cell-name"><b>fadas-dot-bounce</b>0.45s · dot ativo</div>
+      </div>
+      <div class="cell">
+        <div class="cell-demo demo-fade-swap">A</div>
+        <div class="cell-name"><b>fadas-card-fade-out/in</b>0.45-0.55s · swap</div>
+      </div>
+      <div class="cell" style="background: var(--bg-alt); border-style: dashed">
+        <div class="cell-demo" style="background: var(--bg); border-color: var(--border)">∅</div>
+        <div class="cell-name" style="color: var(--text-3)"><b style="color: var(--text-3)">prefers-reduced-motion</b>tudo silenciado</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    Em <code>@media (prefers-reduced-motion: reduce)</code>, todos os loops param e as entradas viram fade simples instantâneo. Override global: <code>* { animation-duration: 0.01ms !important }</code>.
+  </div>
+</div>
+</body>
+</html>

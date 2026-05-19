@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/03-text-colors.html</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 220px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .mono { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">03</span><span class="title">Hierarquia de texto</span></div>
+  <div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="display:grid;grid-template-columns:32px 110px 1fr;align-items:center;gap:12px;"><div style="height:24px;border-radius:6px;background:#1a1410"></div><div class="mono" style="font-size:11px">--text-1</div><div style="color:#1a1410;font-family:var(--font-editorial);font-size:14px">preto-fadas — H1-H3</div></div><div style="display:grid;grid-template-columns:32px 110px 1fr;align-items:center;gap:12px;"><div style="height:24px;border-radius:6px;background:#2a2218"></div><div class="mono" style="font-size:11px">--text-body</div><div style="color:#2a2218;font-family:var(--font-editorial);font-size:14px">corpo de leitura</div></div><div style="display:grid;grid-template-columns:32px 110px 1fr;align-items:center;gap:12px;"><div style="height:24px;border-radius:6px;background:#6a5c50"></div><div class="mono" style="font-size:11px">--text-2</div><div style="color:#6a5c50;font-family:var(--font-editorial);font-size:14px">warm dark, captions</div></div><div style="display:grid;grid-template-columns:32px 110px 1fr;align-items:center;gap:12px;"><div style="height:24px;border-radius:6px;background:#9a8c7e"></div><div class="mono" style="font-size:11px">--text-3</div><div style="color:#9a8c7e;font-family:var(--font-editorial);font-size:14px">muted, meta</div></div><div style="display:grid;grid-template-columns:32px 110px 1fr;align-items:center;gap:12px;"><div style="height:24px;border-radius:6px;background:#41434f"></div><div class="mono" style="font-size:11px">--neutral-dark</div><div style="color:#41434f;font-family:var(--font-editorial);font-size:14px">UI controles</div></div>
+  </div>
+</div></body></html>

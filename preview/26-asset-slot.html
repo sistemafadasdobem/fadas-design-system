@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/26-asset-slot.html</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; font-family: var(--font-body); }
+  .frame { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 18px 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .label-row .sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin-left: auto; }
+  .desc {
+    font-family: var(--font-editorial); font-style: italic;
+    font-size: 12px; color: var(--text-3);
+    margin: 0 0 16px; line-height: 1.55;
+  }
+  .desc code {
+    font-family: var(--font-mono);
+    background: var(--bg); padding: 1px 5px; border-radius: 3px;
+    font-size: 10.5px; color: var(--green-deep);
+    font-style: normal;
+  }
+
+  .stage-label {
+    font-family: var(--font-body); font-size: 9.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--gold-deep);
+    margin: 14px 0 10px;
+  }
+
+  .row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    gap: 14px;
+    padding: 4px 4px 12px;
+  }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .cell .lbl { font-family: var(--font-mono); font-size: 10px; color: var(--text-3); text-align: center; line-height: 1.4; }
+  .cell .lbl b {
+    color: var(--text-2);
+    display: block; font-family: var(--font-body);
+    font-weight: 700; font-size: 9.5px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  /* ── Asset slot canônico ── */
+  .asset-slot {
+    border-radius: 16px;
+    background: repeating-linear-gradient(45deg, rgba(229,36,68,0.08), rgba(229,36,68,0.08) 4px, var(--bg) 4px, var(--bg) 8px);
+    border: 1.5px dashed rgba(229,36,68,0.35);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .asset-slot i {
+    color: var(--red);
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .asset-slot i svg { width: 100%; height: 100%; display: block; }
+  .asset-slot img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: none;
+  }
+  .asset-slot img[src]:not([src=""]) { display: block; }
+  .asset-slot img[src]:not([src=""]) ~ i { display: none; }
+  .asset-slot:has(img[src]:not([src=""])) { background: var(--bg); border: none; }
+
+  .s-40 { width: 40px; height: 40px; border-radius: 10px; }
+  .s-40 i { width: 18px; height: 18px; }
+  .s-56 { width: 56px; height: 56px; }
+  .s-56 i { width: 26px; height: 26px; }
+  .s-64 { width: 64px; height: 64px; }
+  .s-64 i { width: 30px; height: 30px; }
+  .s-96 { width: 96px; height: 96px; border-radius: 18px; }
+  .s-96 i { width: 44px; height: 44px; }
+
+  /* "filled" emulation — emoji injetada como se fosse o <img> resolvido */
+  .filled {
+    background: var(--bg) !important;
+    border: 1px solid var(--border) !important;
+  }
+  .filled i { display: none; }
+  .filled .emoji {
+    font-size: 30px; line-height: 1;
+    position: relative; z-index: 1;
+  }
+  .filled.s-40 .emoji { font-size: 20px; }
+  .filled.s-96 .emoji { font-size: 52px; }
+</style>
+</head>
+<body>
+<!-- Símbolos inline pros placeholders do asset-slot (offline-safe — sem dependência do Phosphor CDN pra weight regular) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-clock" viewBox="0 0 256 256">
+    <circle cx="128" cy="128" r="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <polyline points="128 72 128 128 184 128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+  </symbol>
+  <symbol id="i-sparkle" viewBox="0 0 256 256">
+    <path d="M84.27,171.73l-55.09-20.3a7.92,7.92,0,0,1,0-14.86l55.09-20.3,20.3-55.09a7.92,7.92,0,0,1,14.86,0l20.3,55.09,55.09,20.3a7.92,7.92,0,0,1,0,14.86l-55.09,20.3-20.3,55.09a7.92,7.92,0,0,1-14.86,0Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="176" y1="16" x2="176" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="224" y1="72" x2="224" y2="104" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="152" y1="40" x2="200" y2="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="208" y1="88" x2="240" y2="88" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+  </symbol>
+  <symbol id="i-moon-stars" viewBox="0 0 256 256">
+    <path d="M210.69,158.18A96.78,96.78,0,0,1,192,160,96.08,96.08,0,0,1,97.82,45.31,88,88,0,1,0,210.69,158.18Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="208" y1="120" x2="208" y2="72" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="232" y1="96" x2="184" y2="96" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="160" y1="32" x2="160" y2="64" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+    <line x1="176" y1="48" x2="144" y2="48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+  </symbol>
+  <symbol id="i-star" viewBox="0 0 256 256">
+    <path d="M128,189.09l54.72,33.65a8.4,8.4,0,0,0,12.52-9.17l-14.88-62.79,48.7-42A8.46,8.46,0,0,0,224.27,94L160.36,88.8,135.74,29.2a8.36,8.36,0,0,0-15.48,0L95.64,88.8,31.73,94a8.46,8.46,0,0,0-4.79,14.83l48.7,42L60.76,213.57a8.4,8.4,0,0,0,12.52,9.17Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="16"/>
+  </symbol>
+</svg>
+
+<div class="frame">
+  <div class="label-row">
+    <span class="num">26</span>
+    <span class="title">Asset slot · placeholder com ícone meaningful</span>
+    <span class="sub">SVG inline · substituível por <code>&lt;img&gt;</code> via :has()</span>
+  </div>
+  <p class="desc">
+    Listras vermelhas + borda dashed sinalizam que o slot espera um asset.
+    O <strong>ícone inline SVG</strong> (cor <code>--red</code>, peso outline)
+    comunica o tema do slot — <em>não é a versão final</em>.
+    Dropar <code>&lt;img src="…"&gt;</code> dentro → o ícone <strong>e</strong>
+    as listras somem via <code>:has()</code> + irmão adjacente <code>~</code>.
+  </p>
+
+  <div class="stage-label">— Estado vazio · ícone como hint do conteúdo —</div>
+  <div class="row">
+    <div class="cell">
+      <div class="asset-slot s-56"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-clock"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>20 min</b>clock</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-56"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-sparkle"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>30 min · featured</b>sparkle</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-56"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-moon-stars"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>40 min</b>moon-stars</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-56"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-star"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>60 min</b>star</div>
+    </div>
+  </div>
+
+  <div class="stage-label" style="border-top: 1px dashed var(--border); padding-top: 14px; margin-top: 8px">— 4 tamanhos canônicos —</div>
+  <div class="row">
+    <div class="cell">
+      <div class="asset-slot s-40"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-sparkle"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>40 × 40</b>more-icon</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-56"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-sparkle"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>56 × 56</b>card mobile</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-64"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-sparkle"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>64 × 64</b>card desktop</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-96"><i><svg viewBox="0 0 256 256" aria-hidden="true"><use href="#i-sparkle"/></svg></i><img src="" alt=""></div>
+      <div class="lbl"><b>96 × 96</b>hero / destaque</div>
+    </div>
+  </div>
+
+  <div class="stage-label" style="border-top: 1px dashed var(--border); padding-top: 14px; margin-top: 8px">— Preenchido · Twemoji substitui o slot —</div>
+  <div class="row">
+    <div class="cell">
+      <div class="asset-slot s-56 filled"><span class="emoji">⏳</span></div>
+      <div class="lbl"><b>20 min</b>twemoji ⏳</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-56 filled"><span class="emoji">✨</span></div>
+      <div class="lbl"><b>30 min</b>twemoji ✨</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-56 filled"><span class="emoji">🌙</span></div>
+      <div class="lbl"><b>40 min</b>twemoji 🌙</div>
+    </div>
+    <div class="cell">
+      <div class="asset-slot s-56 filled"><span class="emoji">👑</span></div>
+      <div class="lbl"><b>60 min</b>twemoji 👑</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

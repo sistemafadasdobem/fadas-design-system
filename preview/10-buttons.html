@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/10-buttons.html</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 260px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+
+  /* ── Botões canônicos Fadas ── */
+  .btn {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 11px 22px;
+    border-radius: 100px;
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  /* Hover canônico: vermelho → verde-dark. O contraste cromático é a assinatura da marca —
+     NÃO escurecer o vermelho. */
+  .btn-primary { background: var(--red); color: #fff; border-color: var(--gold); }
+  .btn-primary:hover { background: var(--green-dark); border-color: var(--gold); box-shadow: 0 6px 16px rgba(72,50,30,0.12); }
+  .btn-primary:active { background: var(--green-deep); transform: translateY(1px); box-shadow: 0 2px 6px rgba(72,50,30,0.16); }
+
+  .btn-outline { background: var(--surface); color: var(--text-1); border-color: var(--gold); }
+  .btn-outline:hover { background: var(--bg-alt); border-color: var(--gold-deep); }
+  .btn-outline:active { background: var(--border-soft); transform: translateY(1px); }
+
+  .btn-ghost { background: transparent; color: var(--red); }
+  .btn-ghost:hover { color: var(--red-dark); background: var(--red-light); }
+  .btn-ghost:active { color: var(--red-deep); }
+
+  .btn-square { border-radius: 6px; }
+
+  .row { display: flex; gap: 10px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">10</span><span class="title">Botões — passe o mouse, segure pra ver active</span></div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div>
+      <div class="meta" style="margin-bottom:8px;text-transform:uppercase;font-weight:700;letter-spacing:0.12em">Pílula · CTAs transacionais</div>
+      <div class="row">
+        <button class="btn btn-primary">Consultar agora</button>
+        <button class="btn btn-outline">Ver tarólogas</button>
+        <button class="btn btn-ghost">Saber mais →</button>
+      </div>
+    </div>
+    <div>
+      <div class="meta" style="margin-bottom:8px;text-transform:uppercase;font-weight:700;letter-spacing:0.12em">Retangular · editorial / forms</div>
+      <div class="row">
+        <button class="btn btn-primary btn-square">Enviar</button>
+        <button class="btn btn-outline btn-square">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

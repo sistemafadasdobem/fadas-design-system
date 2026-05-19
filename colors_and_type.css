@@ -1,0 +1,423 @@
+/* ═══════════════════════════════════════════════════════════════
+   FADAS DO BEM — Design Tokens
+   Cores, tipografia, espaçamento, raios, sombras
+   Importe este arquivo no início de qualquer projeto Fadas:
+     <link rel="stylesheet" href="colors_and_type.css">
+═══════════════════════════════════════════════════════════════ */
+
+/* Fontes — Playfair Display + Lora LOCAIS (oficiais da marca), Lato + JetBrains Mono via Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ─── Playfair Display — arquivos oficiais (fonts/) ─── */
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; src: url('fonts/PlayfairDisplay-Regular.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: italic;  font-weight: 400; src: url('fonts/PlayfairDisplay-Italic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 500; src: url('fonts/PlayfairDisplay-Medium.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: italic;  font-weight: 500; src: url('fonts/PlayfairDisplay-MediumItalic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 600; src: url('fonts/PlayfairDisplay-SemiBold.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: italic;  font-weight: 600; src: url('fonts/PlayfairDisplay-SemiBoldItalic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 700; src: url('fonts/PlayfairDisplay-Bold.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: italic;  font-weight: 700; src: url('fonts/PlayfairDisplay-BoldItalic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 800; src: url('fonts/PlayfairDisplay-ExtraBold.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: italic;  font-weight: 800; src: url('fonts/PlayfairDisplay-ExtraBoldItalic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 900; src: url('fonts/PlayfairDisplay-Black.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Playfair Display'; font-style: italic;  font-weight: 900; src: url('fonts/PlayfairDisplay-BlackItalic.ttf') format('truetype'); font-display: swap; }
+
+/* ─── Lora — arquivos oficiais (fonts/) ─── */
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 400; src: url('fonts/Lora-Regular.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lora'; font-style: italic;  font-weight: 400; src: url('fonts/Lora-Italic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 500; src: url('fonts/Lora-Medium.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lora'; font-style: italic;  font-weight: 500; src: url('fonts/Lora-MediumItalic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 600; src: url('fonts/Lora-SemiBold.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lora'; font-style: italic;  font-weight: 600; src: url('fonts/Lora-SemiBoldItalic.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lora'; font-style: normal; font-weight: 700; src: url('fonts/Lora-Bold.ttf') format('truetype'); font-display: swap; }
+@font-face { font-family: 'Lora'; font-style: italic;  font-weight: 700; src: url('fonts/Lora-BoldItalic.ttf') format('truetype'); font-display: swap; }
+
+:root {
+
+  /* ─── BRAND ──────────────────────────────────────────────── */
+  --red:         #e52444;   /* CTA principal, marca */
+  --red-dark:    #b81c38;   /* vermelho escuro composto (badges, gradientes) — NÃO é hover do botão */
+  --red-deep:    #990e22;   /* vermelho profundo */
+  --red-light:   #fff0f2;   /* bg pílulas/reação amei */
+
+  --green:       #87c100;   /* status online, identidade */
+  --green-dark:  #6a9900;
+  --green-deep:  #4a6b1e;   /* títulos coluna footer, banner CTA, links */
+
+  --gold:        #e3cc7e;   /* borda CTA, ornamentos ✦ */
+  --gold-deep:   #c8a840;   /* acentos, # de tag, números */
+  --gold-soft:   #f0dc9a;   /* avatares gradient */
+
+  --red-border:  #fcc8d0;   /* borda de card ativo (diferente de --red-light, que é bg) */
+
+  /* ─── SUPORTE — nunca dominam, sempre pontuais ─────────── */
+  --blue:        #51829b;   /* botões secundários, pacotes */
+  --purple:      #ae48c7;   /* acentos pontuais — pílula categoria, ícone, nunca bloco grande */
+  --amber:       #f39c12;   /* canal telefone, status ocupado */
+  --teal:        #00a8b5;   /* oráculos (variação saturada) */
+  --green-lime:  #b8e040;   /* faixas de card, acento sutil */
+
+  /* ─── GRADIENTES OFICIAIS (4 únicos do sistema) ─────────── */
+  --grad-hero-red:    linear-gradient(155deg, #e52444 0%, #c01c36 58%, #990e22 100%);
+  --grad-promo-green: linear-gradient(135deg, #87c100 0%, #5a9400 55%, #3a7888 100%);
+  --grad-footer-deep: linear-gradient(145deg, #5a7a2e 0%, #4a6b1e 100%);
+  --grad-card-red:    linear-gradient(135deg, #ff6b8a 0%, #e52444 100%);
+
+  /* ─── SUPERFÍCIES (NUNCA branco puro nem preto puro) ───── */
+  --bg:          #fef4e6;   /* fundo da página — creme */
+  --bg-alt:      #f7ecdb;   /* fundo alternativo, hover de sidebar */
+  --surface:     #ffffff;   /* card branco (excepcional, sobre cream) */
+  --surface-2:   #fef4e6;   /* sidebar */
+  --border:      #ede0d4;   /* borda padrão */
+  --border-soft: #f5ebe0;   /* borda sutil em cards */
+
+  /* ─── TEXTO ──────────────────────────────────────────────── */
+  --text-1:      #1a1410;   /* preto-fadas (não usar #000) */
+  --text-body:   #2a2218;   /* corpo de leitura — usar em <p> */
+  --text-2:      #6a5c50;   /* warm dark — captions, secundário */
+  --text-3:      #9a8c7e;   /* muted — meta, breadcrumbs */
+  --text-muted-light: #c0a898; /* muted mais claro — microcopy ("uso numa única consulta"), ícones secundários */
+  --text-on-gold: #5a3e00;  /* texto escuro sobre dourado — badge ✦, hover de CTA featured */
+  --neutral-dark: #41434f;  /* UI controles */
+
+  /* ─── SOMBRAS ────────────────────────────────────────────── */
+  --shadow-sm:   0 2px 8px rgba(72,50,30,0.06);
+  --shadow-md:   0 6px 20px rgba(72,50,30,0.09);
+  --shadow-lg:   0 16px 40px rgba(72,50,30,0.12);
+
+  /* ─── CATEGORIAS DO BLOG (bg + fg) ───────────────────────── */
+  --cat-amor-bg:    #fce4e8;  --cat-amor-fg:    #c1185b;  /* rose */
+  --cat-orac-bg:    #d9eef0;  --cat-orac-fg:    #00838f;  /* cyan/teal */
+  --cat-astro-bg:   #fce8d0;  --cat-astro-fg:   #b56500;  /* amber */
+  --cat-auto-bg:    #ebe0f0;  --cat-auto-fg:    #7b3590;  /* violet */
+  --cat-tarot-bg:   #e8f0e0;  --cat-tarot-fg:   #4a6b1e;  /* moss */
+  --cat-runas-bg:   #dee5ec;  --cat-runas-fg:   #45607a;  /* slate (nórdico) */
+  --cat-cigano-bg:  #fce0f4;  --cat-cigano-fg:  #b01a8a;  /* magenta (festivo) */
+  --cat-magia-bg:   #dee0f0;  --cat-magia-fg:   #383270;  /* indigo profundo */
+  --cat-rituais-bg: #f3e0d4;  --cat-rituais-fg: #9c4a2e;  /* terracota (terra) */
+  --cat-medit-bg:   #e4ece4;  --cat-medit-fg:   #5a7a5a;  /* sage */
+  --cat-horos-bg:   #e8e0f2;  --cat-horos-fg:   #5d4a90;  /* cosmic (noite) */
+
+  /* ─── ESPAÇAMENTO — base 4 ───────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+
+  /* ─── RAIOS ──────────────────────────────────────────────── */
+  --r-sm:   6px;    /* tag, botão retangular */
+  --r-md:   10px;   /* input, blockquote */
+  --r-lg:   14px;   /* card de artigo */
+  --r-xl:   22px;   /* CTA inline, card grande */
+  --r-pill: 100px;  /* pílulas, CTA principal, badge */
+
+  /* ─── TIPOGRAFIA — famílias ──────────────────────────────── */
+  --font-display:   'Playfair Display', Georgia, serif;  /* H1, logo, ornamentos */
+  --font-editorial: 'Lora', Georgia, serif;              /* H2-H4, blockquote */
+  --font-body:      'Lato', system-ui, -apple-system, sans-serif;
+  --font-mono:      'JetBrains Mono', Menlo, monospace;
+
+  /* ─── TIPOGRAFIA — escala (clamp responsivo) ─────────────── */
+  --h1-size: clamp(28px, 3.6vw, 40px);
+  --h2-size: clamp(20px, 2.4vw, 24px);
+  --h3-size: clamp(18px, 2.0vw, 20px);
+  --h4-size: clamp(16px, 1.8vw, 18px);
+  --lead-size: clamp(16px, 1.6vw, 18px);
+  --body-size: 16px;
+  --body-lh:   1.75;
+  --card-title-size: 17px;
+  --ui-size:   13px;
+  --caption-size: 12px;
+  --label-size: 11px;
+
+  /* ─── TRANSIÇÕES ─────────────────────────────────────────── */
+  --transition: 0.2s ease;                                           /* base — color/border simples */
+  --transition-slow: 0.35s ease;                                     /* cross-fade de camadas (ícones duotone) */
+  --ease-snap: cubic-bezier(0.2, 0.8, 0.2, 1);                       /* curva assinatura — micro-movements */
+  --transition-snap: 0.32s var(--ease-snap);                         /* card lift, faixa verde, arrow translate, preço shift */
+  --transition-stage: 0.6s cubic-bezier(0.2, 0.85, 0.2, 1);          /* transição do carrossel 3D desktop (z-stack) */
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ESTILOS SEMÂNTICOS BASE
+   Aplica diretamente em <body>, <h1>, <p>, etc.
+═══════════════════════════════════════════════════════════════ */
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: var(--body-size);
+  line-height: var(--body-lh);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+/* Hero h1 — Playfair, com escassez */
+h1 {
+  font-family: var(--font-display);
+  font-size: var(--h1-size);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-1);
+}
+
+/* H2-H4 — Lora editorial */
+h2 {
+  font-family: var(--font-editorial);
+  font-size: var(--h2-size);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  line-height: 1.25;
+  color: var(--text-1);
+}
+h3 {
+  font-family: var(--font-editorial);
+  font-size: var(--h3-size);
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text-1);
+}
+h4 {
+  font-family: var(--font-editorial);
+  font-size: var(--h4-size);
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--green-deep);  /* H4 ganha acento verde */
+}
+
+/* Lead — primeiro parágrafo, italic Lora */
+.lead, p.lead {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: var(--lead-size);
+  color: var(--text-body);
+  line-height: 1.6;
+}
+
+/* Body — parágrafo padrão */
+p {
+  font-size: var(--body-size);
+  line-height: var(--body-lh);
+  color: var(--text-body);
+  margin: 0 0 16px;
+}
+
+/* Blockquote */
+blockquote {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--text-body);
+  line-height: 1.6;
+  padding-left: 20px;
+  border-left: 3px solid var(--gold);
+  margin: 24px 0;
+}
+
+/* Pull quote (sem atribuição, estilo destaque) */
+.pull-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--green-deep);
+  letter-spacing: -0.005em;
+  text-align: center;
+  padding: 28px 12px;
+}
+
+/* Caption — Lora italic, abaixo de figure */
+figcaption, .caption {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-3);
+  text-align: center;
+  line-height: 1.55;
+  margin-top: 14px;
+}
+figcaption strong, .caption strong {
+  font-weight: 600;
+  color: var(--text-2);
+  font-style: normal;
+}
+
+/* Label uppercase */
+.label {
+  font-family: var(--font-body);
+  font-size: var(--label-size);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-3);
+}
+
+/* Meta / caption pequena */
+.meta {
+  font-family: var(--font-body);
+  font-size: var(--caption-size);
+  color: var(--text-3);
+}
+
+/* Mono / código */
+code, .mono {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+/* Link editorial — verde-deep normal, vermelho + underline dourado no hover */
+.article a:not(.pill):not(.btn):not(.tag) {
+  color: var(--green-deep);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 1px;
+  transition: color var(--transition), border-color var(--transition);
+}
+.article a:not(.pill):not(.btn):not(.tag):hover {
+  color: var(--red);
+  border-bottom-color: var(--gold);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATUS DOT — pulse canônico Fadas
+   Única animação contínua do sistema. Comunica vida.
+   Uso:
+     <span class="status-dot green"></span> 8 tarólogas online
+     <span class="status-dot red"></span> Ao vivo
+═══════════════════════════════════════════════════════════════ */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: inline-block;
+}
+.status-dot.green {
+  background: var(--green);
+  animation: fadas-pulse-green 2s ease-in-out infinite;
+}
+.status-dot.red {
+  background: var(--red);
+  animation: fadas-pulse-red 2s ease-in-out infinite;
+}
+@keyframes fadas-pulse-green {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(135, 193, 0, 0.45); }
+  50%      { box-shadow: 0 0 0 6px rgba(135, 193, 0, 0.00); }
+}
+@keyframes fadas-pulse-red {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(229, 36, 68, 0.45); }
+  50%      { box-shadow: 0 0 0 6px rgba(229, 36, 68, 0.00); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-dot.green { animation: none; box-shadow: 0 0 0 3px rgba(135, 193, 0, 0.20); }
+  .status-dot.red   { animation: none; box-shadow: 0 0 0 3px rgba(229, 36, 68, 0.20); }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOTION LIBRARY — Fadas
+   Vocabulário canônico de animação. Use os keyframes diretamente
+   ou via classes utilitárias (.fadas-anim-*) abaixo.
+
+   3 famílias:
+   1. ENTRY — one-shot, ease-out snap (entrada de seção, card, row)
+   2. LOOP — contínuo ease-in-out (ornamentos vivos, ✦ pulse, float)
+   3. INTERACTION — one-shot no :active/:hover (ripple, dot bounce)
+
+   Todos respeitam prefers-reduced-motion: reduce no fim do arquivo.
+═══════════════════════════════════════════════════════════════ */
+
+/* ── ENTRY ───────────────────────────────────────────────── */
+@keyframes fadas-fade-slide-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadas-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes fadas-row-in {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadas-featured-in {
+  from { opacity: 0; transform: scale(0.97) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ── SWAP (one-shot, usado em troca de conteúdo dentro do mesmo container) ── */
+@keyframes fadas-card-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes fadas-card-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+
+/* ── LOOP ─────────────────────────────────────────────────── */
+@keyframes fadas-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-5px); }
+}
+@keyframes fadas-celestial-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+@keyframes fadas-ornament-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(229,36,68,0); }
+  50%       { box-shadow: 0 0 0 8px rgba(229,36,68,0.08); }
+}
+@keyframes fadas-star-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1) rotate(0deg); }
+  50%       { opacity: 1;   transform: scale(1.3) rotate(20deg); }
+}
+@keyframes fadas-placeholder-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+/* ── INTERACTION (one-shot em :active / state change) ───── */
+@keyframes fadas-ripple {
+  from { transform: scale(0);   opacity: 0.5; }
+  to   { transform: scale(3.5); opacity: 0; }
+}
+@keyframes fadas-dot-bounce {
+  0%   { transform: scaleY(1); }
+  30%  { transform: scaleY(0.6); }
+  60%  { transform: scaleY(1.25); }
+  80%  { transform: scaleY(0.9); }
+  100% { transform: scaleY(1); }
+}
+
+/* ── Classes utilitárias (para uso rápido sem rescrever) ── */
+.fadas-anim-fade-up    { animation: fadas-fade-slide-up 0.6s var(--ease-snap) both; }
+.fadas-anim-card-in    { animation: fadas-card-in 0.5s var(--ease-snap) both; }
+.fadas-anim-row-in     { animation: fadas-row-in 0.5s var(--ease-snap) both; }
+.fadas-anim-featured   { animation: fadas-featured-in 0.5s var(--ease-snap) both; }
+.fadas-anim-float      { animation: fadas-float 4s ease-in-out infinite; }
+.fadas-anim-glow       { animation: fadas-ornament-glow 3s ease-in-out infinite; }
+.fadas-anim-star-pulse { animation: fadas-star-pulse 3.5s ease-in-out infinite; }
+.fadas-anim-placeholder { animation: fadas-placeholder-pulse 2.8s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Loops ornamentais ficam parados; entradas viram fade simples */
+  .fadas-anim-float, .fadas-anim-glow, .fadas-anim-star-pulse, .fadas-anim-placeholder { animation: none; }
+  .fadas-anim-fade-up, .fadas-anim-card-in, .fadas-anim-row-in, .fadas-anim-featured {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  /* Kill ALL animation/transition globally — incluindo inline `animation:` shorthand.
+     Não usamos 0.01ms aqui porque com keyframes que começam em opacity:0 / transform,
+     a duração ínfima clipa antes do fill-mode entrar e o elemento fica preso no `from`.
+     `animation: none` remove o binding, o elemento usa opacity/transform naturais. */
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/15-divider-ornaments.html</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 180px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .mono { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">15</span><span class="title">Ornamentos & divisores</span></div>
+  <div style="display:flex;flex-direction:column;gap:14px">
+    <div style="display:flex;align-items:center;gap:10px;color:var(--gold-deep)">
+      <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
+      <span style="font-size:14px">✦</span>
+      <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent)"></div>
+    </div>
+    <div style="display:flex;gap:24px;align-items:center;justify-content:center;color:var(--gold-deep);font-size:22px;font-family:serif">
+      <span>✦</span><span>☾</span><span>✧</span><span>❋</span>
+    </div>
+    <div class="meta" style="text-align:center;color:var(--text-3);font-family:var(--font-editorial);font-style:italic;font-size:12px">U+2726 (✦) é o segundo símbolo da marca · cor --gold-deep</div>
+  </div>
+</div></body></html>

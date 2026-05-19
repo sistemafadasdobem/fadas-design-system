@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/12-form.html</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 280px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .mono { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">12</span><span class="title">Formulários · foco dourado</span></div>
+  <form style="display:flex;flex-direction:column;gap:14px;max-width:380px" onsubmit="return false">
+    <div>
+      <label style="font-family:var(--font-body);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-2);display:block;margin-bottom:5px">Email</label>
+      <input type="email" placeholder="seu@email.com" style="width:100%;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-family:var(--font-body);font-size:14px;color:var(--text-1);outline:none;box-sizing:border-box">
+    </div>
+    <div>
+      <label style="font-family:var(--font-body);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-2);display:block;margin-bottom:5px">Mensagem</label>
+      <input type="text" placeholder="Como podemos ajudar?" style="width:100%;padding:11px 14px;background:var(--surface);border:1.5px solid var(--gold-deep);border-radius:10px;font-family:var(--font-body);font-size:14px;color:var(--text-1);outline:none;box-sizing:border-box">
+    </div>
+    <button style="font-family:var(--font-body);font-size:13px;font-weight:700;padding:11px 22px;background:var(--red);color:#fff;border:1.5px solid var(--gold);border-radius:100px;cursor:pointer;align-self:flex-start;letter-spacing:0.02em">Enviar</button>
+  </form>
+</div></body></html>

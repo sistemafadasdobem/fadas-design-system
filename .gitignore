@@ -1,0 +1,42 @@
+# Editor / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (caso o dev integre num build de Node)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp.*
+
+# Build outputs
+dist/
+build/
+.next/
+.nuxt/
+.cache/
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+ehthumbs.db
+
+# Temp / Backup
+*.bak
+*.tmp
+*.temp

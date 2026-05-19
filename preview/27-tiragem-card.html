@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/27-tiragem-card.html</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; font-family: var(--font-body); }
+  .frame { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 18px 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .label-row .sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin-left: auto; }
+
+  .stage { display: flex; gap: 16px; justify-content: center; align-items: flex-start; }
+
+  /* Tiragem card */
+  .t-card {
+    width: 200px;
+    background: var(--surface);
+    border: 1.5px solid var(--gold-soft);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(154, 140, 126, 0.08);
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.35s ease, transform 0.35s var(--ease-snap);
+  }
+  .t-card.active {
+    box-shadow: 0 16px 40px rgba(100, 70, 40, 0.18), 0 6px 16px rgba(100, 70, 40, 0.10);
+    animation: fadas-float 4s ease-in-out infinite;
+  }
+  .t-card.inactive { opacity: 0.72; }
+
+  .t-card-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    overflow: hidden;
+    background: repeating-linear-gradient(45deg, rgba(229,36,68,0.08), rgba(229,36,68,0.08) 6px, var(--bg-alt) 6px, var(--bg-alt) 12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    animation: fadas-placeholder-pulse 2.8s ease-in-out infinite;
+  }
+  .t-card-img::after {
+    content: 'ILUSTRAÇÃO  ✦  1 : 1';
+    color: var(--red); font-size: 9px; font-weight: 700;
+    letter-spacing: 0.14em; text-align: center; font-family: var(--font-body);
+  }
+
+  .t-card-body { padding: 14px 14px 16px; text-align: center; display: flex; flex-direction: column; gap: 6px; }
+  .t-card-name {
+    font-family: var(--font-display); font-size: 16px; font-weight: 700;
+    color: var(--text-1); line-height: 1.15; letter-spacing: -0.005em;
+  }
+  .t-card-desc {
+    font-size: 12px; color: var(--green-deep);
+    font-weight: 600; letter-spacing: 0.01em;
+  }
+
+  .ornamental-divider {
+    width: 28px; height: 1px;
+    background: var(--gold);
+    margin: 2px auto;
+    position: relative;
+  }
+  .ornamental-divider::before {
+    content: '✦';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--surface);
+    color: var(--gold-deep);
+    font-size: 9px; padding: 0 4px;
+  }
+
+  .t-card-actions { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .cta-ceremonial {
+    width: 100%; padding: 8px 12px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    background: var(--red); color: var(--bg);
+    border: 1.5px solid var(--gold);
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.18s ease;
+  }
+  .cta-ceremonial:hover { background: var(--green-dark); transform: translateY(-2px); }
+  .cta-link {
+    background: none; border: none; color: var(--text-3);
+    font-size: 10.5px; font-weight: 600; cursor: pointer;
+    padding: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease, letter-spacing 0.2s ease;
+  }
+  .cta-link:hover { color: var(--red); letter-spacing: 0.12em; }
+
+  /* Anotações */
+  .anno {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px 16px;
+    font-size: 10.5px;
+    color: var(--text-3);
+    line-height: 1.5;
+  }
+  .anno b {
+    color: var(--text-2); font-weight: 700;
+    font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; display: block;
+    margin-bottom: 1px;
+  }
+  .anno code {
+    font-family: var(--font-mono); font-size: 10px;
+    background: var(--bg); padding: 0 4px; border-radius: 3px;
+    color: var(--green-deep);
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="label-row">
+    <span class="num">27</span>
+    <span class="title">Tiragem card · vertical editorial</span>
+    <span class="sub">gold-soft border · ativo flutua</span>
+  </div>
+
+  <div class="stage">
+    <div class="t-card inactive">
+      <div class="t-card-img"></div>
+      <div class="t-card-body">
+        <div class="t-card-name">Cruz Celta</div>
+        <div class="ornamental-divider"></div>
+        <div class="t-card-desc">Questão em profundidade</div>
+        <div class="t-card-actions">
+          <button class="cta-ceremonial">Escolher leitura</button>
+          <button class="cta-link">Ver detalhes →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="t-card active">
+      <div class="t-card-img"></div>
+      <div class="t-card-body">
+        <div class="t-card-name">Mandala<br>Astrológica</div>
+        <div class="ornamental-divider"></div>
+        <div class="t-card-desc">12 áreas da vida</div>
+        <div class="t-card-actions">
+          <button class="cta-ceremonial">Escolher leitura</button>
+          <button class="cta-link">Ver detalhes →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="anno">
+    <div><b>Border</b><code>var(--gold-soft)</code> 1.5px — assinatura editorial/místico</div>
+    <div><b>Imagem 1:1</b>placeholder listras 6px + <code>fadas-placeholder-pulse</code></div>
+    <div><b>Nome</b>Playfair 700 16-19px · <code>letter-spacing: -0.005em</code></div>
+    <div><b>Descrição</b>Lato 12-13 verde-deep 600</div>
+    <div><b>Divisor</b>Linha 28-32×1 dourada + ✦ centrado</div>
+    <div><b>Inativo / Ativo</b><code>opacity: 0.72</code> → <code>1 + fadas-float</code></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/25-section-header-overline.html</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; font-family: var(--font-body); }
+  .frame { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 18px 20px 28px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .label-row .sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin-left: auto; }
+
+  .preview-head { text-align: center; padding: 16px 0 4px; }
+  .overline {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+  .preview-head h2 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--text-1);
+    margin: 0 0 10px;
+    letter-spacing: -0.015em;
+  }
+  .preview-head h2 em { font-style: italic; color: var(--gold-deep); }
+  .preview-head p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-3);
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  /* Annotations */
+  .anno {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    font-size: 10px;
+    color: var(--text-3);
+    font-family: var(--font-mono);
+    text-align: center;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+  }
+  .anno b { font-family: var(--font-body); color: var(--text-2); font-weight: 700; display: block; font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 3px; }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="label-row">
+    <span class="num">25</span>
+    <span class="title">Section header · overline + em + subtitle</span>
+    <span class="sub">3 camadas</span>
+  </div>
+
+  <div class="preview-head">
+    <span class="overline">Pacotes de consulta</span>
+    <h2>Escolha o tempo ideal para obter<br>as respostas que <em>você precisa!</em></h2>
+    <p>Cada pacote é para consulta única, por voz ou texto.</p>
+  </div>
+
+  <div class="anno">
+    <div><b>Overline</b>11px · 0.18em<br>var(--red) · uppercase</div>
+    <div><b>Title</b>Playfair 700<br>&lt;em&gt; → var(--gold-deep)</div>
+    <div><b>Subtitle</b>Lato 14px<br>var(--text-3)</div>
+  </div>
+</div>
+</body>
+</html>

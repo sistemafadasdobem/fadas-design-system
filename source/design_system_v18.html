@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — Fadas do Bem</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════════════════
+   DESIGN TOKENS — LIGHT (default)
+═══════════════════════════════════════════════════════ */
+:root {
+  /* Brand */
+  --red:         #e52444;
+  --red-dark:    #b81c38;
+  --red-deep:    #990e22;
+  --red-light:   #fff0f2;
+  --green:       #87c100;
+  --green-dark:  #6a9900;
+  --green-deep:  #4a6b1e;
+  --gold:        #e3cc7e;
+  --gold-deep:   #c8a840;
+  --gold-soft:   #f0dc9a;
+
+  /* Superfície */
+  --bg:          #fef4e6;
+  --bg-alt:      #f7ecdb;
+  --surface:     #ffffff;
+  --surface-2:   #fef4e6;
+  --border:      #ede0d4;
+  --border-soft: #f5ebe0;
+
+  /* Texto */
+  --text-1:      #1a1410;
+  --text-2:      #6a5c50;
+  --text-3:      #9a8c7e;
+  --text-body:   #2a2218;
+
+  /* Neutro (UI) */
+  --neutral-dark: #41434f;
+
+  /* Sombras */
+  --shadow-sm:   0 2px 8px rgba(72,50,30,0.06);
+  --shadow-md:   0 6px 20px rgba(72,50,30,0.09);
+  --shadow-lg:   0 16px 40px rgba(72,50,30,0.12);
+
+  /* Categorias */
+  --cat-amor-bg:    #fce4e8;  --cat-amor-fg:    #c1185b;
+  --cat-orac-bg:    #d9eef0;  --cat-orac-fg:    #00838f;
+  --cat-astro-bg:   #fce8d0;  --cat-astro-fg:   #b56500;
+  --cat-auto-bg:    #ebe0f0;  --cat-auto-fg:    #7b3590;
+  --cat-tarot-bg:   #e8f0e0;  --cat-tarot-fg:   #4a6b1e;
+
+  /* Espaçamento — base 4 */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+
+  /* Raio */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 22px;
+  --r-pill: 100px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESET + BASE
+═══════════════════════════════════════════════════════ */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--red); text-decoration: none; transition: color 0.2s ease; }
+
+/* ═══════════════════════════════════════════════════════
+   LAYOUT
+═══════════════════════════════════════════════════════ */
+.ds-app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+@media (max-width: 960px) {
+  .ds-app { grid-template-columns: 1fr; }
+  .ds-sidebar { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   HEADER
+═══════════════════════════════════════════════════════ */
+.ds-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.ds-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.ds-brand-mark {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: -0.02em;
+}
+.ds-brand-mark span { color: var(--green); }
+.ds-brand-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-3);
+  padding-left: 14px;
+  border-left: 1px solid var(--border);
+}
+.ds-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.ds-version {
+  padding: 4px 10px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-2);
+}
+/* ═══════════════════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════════════════ */
+.ds-sidebar {
+  position: sticky;
+  top: 73px;
+  height: calc(100vh - 73px);
+  overflow-y: auto;
+  padding: 32px 24px;
+  border-right: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.ds-nav-title {
+  font-family: 'Lato', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-3);
+  margin-bottom: 14px;
+  padding-left: 12px;
+}
+.ds-nav { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+.ds-nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--neutral-dark);
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+.ds-nav a:hover { background: var(--bg-alt); color: var(--text-1); }
+.ds-nav a.active {
+  background: var(--bg-alt);
+  border-left-color: var(--red);
+  color: var(--red);
+}
+.ds-nav .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--gold-deep);
+  min-width: 22px;
+}
+.ds-nav a.active .num { color: var(--red); }
+
+/* ═══════════════════════════════════════════════════════
+   CONTEÚDO
+═══════════════════════════════════════════════════════ */
+.ds-content { padding: 56px 64px 120px; max-width: 1080px; }
+@media (max-width: 960px) { .ds-content { padding: 32px 24px 80px; } }
+
+.ds-section { margin-bottom: 88px; }
+.ds-section-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gold-deep);
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+.ds-section h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.ds-section-lead {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text-body);
+  line-height: 1.6;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ds-block { margin-bottom: 40px; }
+.ds-block h2 {
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 6px;
+}
+.ds-block h3 {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-1);
+  margin-bottom: 8px;
+  margin-top: 24px;
+}
+.ds-block-desc {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  max-width: 680px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARDS DE EXEMPLO
+═══════════════════════════════════════════════════════ */
+.ds-demo {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+.ds-demo.compact { padding: 20px; }
+.ds-demo.flush { padding: 0; overflow: hidden; }
+
+.ds-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+/* ═══════════════════════════════════════════════════════
+   CÓDIGO
+═══════════════════════════════════════════════════════ */
+.ds-code {
+  background: #1a1410;
+  color: #f0e8de;
+  border-radius: 10px;
+  padding: 18px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+.ds-code .key   { color: #f5c890; }
+.ds-code .val   { color: #b5d680; }
+.ds-code .com   { color: #7a6c60; font-style: italic; }
+.ds-code .str   { color: #ffb3c6; }
+
+/* ═══════════════════════════════════════════════════════
+   GRID DE CORES
+═══════════════════════════════════════════════════════ */
+.color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; }
+.color-card { border-radius: 12px; overflow: hidden; border: 1px solid var(--border-soft); }
+.color-swatch { height: 86px; }
+.color-info { padding: 10px 12px; background: var(--surface); }
+.color-name { font-family: 'Lato', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--text-1); }
+.color-hex { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-3); margin-top: 2px; }
+.color-token { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--gold-deep); margin-top: 4px; }
+
+/* ═══════════════════════════════════════════════════════
+   ESCALA TIPOGRÁFICA
+═══════════════════════════════════════════════════════ */
+.type-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 90px;
+  align-items: baseline;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.type-row:last-child { border-bottom: none; }
+.type-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+.type-spec { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-3); text-align: right; }
+
+/* ═══════════════════════════════════════════════════════
+   ESPAÇAMENTO
+═══════════════════════════════════════════════════════ */
+.space-grid { display: flex; flex-direction: column; gap: 6px; }
+.space-row { display: flex; align-items: center; gap: 18px; padding: 6px 0; }
+.space-token { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-2); min-width: 80px; }
+.space-bar { height: 16px; background: var(--gold); border-radius: 3px; }
+.space-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-3); }
+
+/* ═══════════════════════════════════════════════════════
+   COMPONENTES — botões
+═══════════════════════════════════════════════════════ */
+.btn {
+  font-family: 'Lato', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 11px 22px;
+  border-radius: 100px;
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1;
+}
+.btn-primary { background: var(--red); color: #fff; border-color: var(--gold); }
+.btn-primary:hover { background: var(--green-dark); border-color: var(--gold); }
+.btn-primary:active { background: var(--green-deep); }
+.btn-outline { background: var(--surface); color: var(--text-1); border-color: var(--gold); }
+.btn-outline:hover { background: var(--bg-alt); }
+.btn-ghost { background: transparent; color: var(--red); }
+.btn-ghost:hover { color: var(--red-dark); }
+.btn-square { border-radius: 6px; }
+
+.demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+/* ═══════════════════════════════════════════════════════
+   PÍLULAS / TAGS / BADGES
+═══════════════════════════════════════════════════════ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 100px;
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+.pill::before { content: '✦'; font-size: 9px; line-height: 1; display: inline-block; }
+.pill.amor    { background: var(--cat-amor-bg);  color: var(--cat-amor-fg); }
+.pill.orac    { background: var(--cat-orac-bg);  color: var(--cat-orac-fg); }
+.pill.astro   { background: var(--cat-astro-bg); color: var(--cat-astro-fg); }
+.pill.auto    { background: var(--cat-auto-bg);  color: var(--cat-auto-fg); }
+.pill.tarot   { background: var(--cat-tarot-bg); color: var(--cat-tarot-fg); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: var(--text-2);
+  font-weight: 600;
+  line-height: 1.1;
+  transition: all 0.2s ease;
+}
+.tag:hover { border-color: var(--gold); }
+.tag::before { content: '#'; color: var(--gold-deep); margin-right: 3px; display: inline-block; }
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--surface);
+  border: 1px solid var(--green);
+  border-radius: 100px;
+  font-family: 'Lato', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--green-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.badge-status .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(135, 193, 0, 0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(135, 193, 0, 0.2); }
+  50%      { box-shadow: 0 0 0 6px rgba(135, 193, 0, 0.08); }
+}
+
+/* ═══════════════════════════════════════════════════════
+   CARD GENÉRICO
+═══════════════════════════════════════════════════════ */
+.card-demo {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  max-width: 320px;
+  cursor: pointer;
+}
+.card-demo:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--gold); }
+.card-photo {
+  aspect-ratio: 16 / 10;
+  background:
+    repeating-linear-gradient(45deg,
+      rgba(229,36,68,0.07),
+      rgba(229,36,68,0.07) 6px,
+      var(--bg-alt) 6px,
+      var(--bg-alt) 12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.card-photo::after { content: 'FOTO'; color: var(--red); font-family: 'Lato', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; }
+.card-photo .pill { position: absolute; top: 14px; left: 14px; }
+.card-body { padding: 18px 20px; }
+.card-title { font-family: 'Lora', serif; font-size: 17px; font-weight: 600; color: var(--text-1); line-height: 1.3; margin-bottom: 6px; }
+.card-excerpt { font-family: 'Lato', sans-serif; font-size: 13px; color: var(--text-2); line-height: 1.55; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-meta { font-family: 'Lato', sans-serif; font-size: 11px; color: var(--text-3); padding-top: 12px; border-top: 1px solid var(--border-soft); }
+
+/* ═══════════════════════════════════════════════════════
+   DIVISOR ORNAMENTAL
+═══════════════════════════════════════════════════════ */
+.divider-orn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-deep);
+  margin: 20px 0;
+}
+.divider-orn::before, .divider-orn::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ═══════════════════════════════════════════════════════
+   AVATAR
+═══════════════════════════════════════════════════════ */
+.av {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold-deep));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--green-deep);
+  position: relative;
+}
+.av-stack { display: inline-flex; }
+.av-stack .av:not(:first-child) { margin-left: -12px; }
+.av-live::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 2px solid var(--surface);
+}
+
+/* ═══════════════════════════════════════════════════════
+   PRINCÍPIOS — boxes faça/não faça
+═══════════════════════════════════════════════════════ */
+.principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 700px) { .principles { grid-template-columns: 1fr; } }
+.principle {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 20px 22px;
+  border-left: 3px solid var(--green);
+}
+.principle.dont { border-left-color: var(--red); }
+.principle-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--green-dark);
+  margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.principle.dont .principle-label { color: var(--red); }
+.principle-title { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; color: var(--text-1); margin-bottom: 6px; }
+.principle-text { font-family: 'Lato', sans-serif; font-size: 13px; color: var(--text-2); line-height: 1.6; }
+
+/* ═══════════════════════════════════════════════════════
+   TOKENS DE LISTA
+═══════════════════════════════════════════════════════ */
+.tokens-list { display: flex; flex-direction: column; gap: 0; }
+.token-row {
+  display: grid;
+  grid-template-columns: 200px 90px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+.token-row:last-child { border-bottom: none; }
+.token-name { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-2); }
+.token-value { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--gold-deep); }
+.token-desc { font-family: 'Lato', sans-serif; font-size: 12.5px; color: var(--text-3); }
+
+/* ═══════════════════════════════════════════════════════
+   FONT SHOWCASE
+═══════════════════════════════════════════════════════ */
+.font-card {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 28px;
+  margin-bottom: 14px;
+}
+.font-name { font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-deep); margin-bottom: 6px; }
+.font-role { font-family: 'Lora', serif; font-size: 18px; font-weight: 600; color: var(--text-1); margin-bottom: 4px; }
+.font-when { font-family: 'Lato', sans-serif; font-size: 13px; color: var(--text-2); margin-bottom: 18px; line-height: 1.6; }
+.font-sample { line-height: 1.2; color: var(--text-1); }
+.font-sample-1 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; letter-spacing: -0.02em; }
+.font-sample-2 { font-family: 'Lora', serif; font-size: 28px; font-weight: 600; }
+.font-sample-3 { font-family: 'Lato', sans-serif; font-size: 22px; font-weight: 400; }
+
+/* ═══════════════════════════════════════════════════════
+   FORM
+═══════════════════════════════════════════════════════ */
+.form-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 400px;
+}
+.form-label {
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-2);
+  margin-bottom: 4px;
+  display: block;
+}
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--text-1);
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.form-input:focus { border-color: var(--gold-deep); }
+.form-input::placeholder { color: var(--text-3); }
+
+/* ═══════════════════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════════════════ */
+.ds-footer {
+  margin-top: 80px;
+  padding: 40px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.ds-footer-orn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.ds-footer-orn::before, .ds-footer-orn::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+</style>
+</head>
+<body>
+
+<div class="ds-app">
+
+  <!-- HEADER -->
+  <header class="ds-header">
+    <div class="ds-brand">
+      <div class="ds-brand-mark">Fadas<span>.</span></div>
+      <div class="ds-brand-label">Design System</div>
+    </div>
+    <div class="ds-meta">
+      <div class="ds-version">v2.7 · maio 2026</div>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="ds-sidebar">
+    <div class="ds-nav-title">Conteúdo</div>
+    <ol class="ds-nav">
+      <li><a href="#filosofia"><span class="num">01</span>Filosofia</a></li>
+      <li><a href="#marca"><span class="num">02</span>Marca e Voz</a></li>
+      <li><a href="#cores"><span class="num">03</span>Cores</a></li>
+      <li><a href="#tipografia"><span class="num">04</span>Tipografia</a></li>
+      <li><a href="#espacamento"><span class="num">05</span>Espaçamento</a></li>
+      <li><a href="#raios"><span class="num">06</span>Cantos e Sombras</a></li>
+      <li><a href="#botoes"><span class="num">07</span>Botões</a></li>
+      <li><a href="#pilulas"><span class="num">08</span>Pílulas, Tags e Badges</a></li>
+      <li><a href="#cards"><span class="num">09</span>Cards</a></li>
+      <li><a href="#formularios"><span class="num">10</span>Formulários</a></li>
+      <li><a href="#listas"><span class="num">11</span>Listas e Divisores</a></li>
+      <li><a href="#avatares"><span class="num">12</span>Avatares e Status</a></li>
+      <li><a href="#principios"><span class="num">13</span>Princípios</a></li>
+      <li><a href="#antipadroes"><span class="num">14</span>Antipadrões</a></li>
+      <li><a href="#zonas"><span class="num">15</span>Zonas da Página</a></li>
+      <li><a href="#editorial"><span class="num">16</span>Componentes Editoriais</a></li>
+      <li><a href="#breakpoints"><span class="num">17</span>Breakpoints e Responsivo</a></li>
+      <li><a href="#composicao"><span class="num">18</span>Composição Flexível</a></li>
+    </ol>
+  </nav>
+
+  <!-- CONTEÚDO -->
+  <main class="ds-content">
+
+    <!-- ═══════════ 01. FILOSOFIA ═══════════ -->
+    <section class="ds-section" id="filosofia">
+      <div class="ds-section-num">01 · Fundamentos</div>
+      <h1>Filosofia</h1>
+      <p class="ds-section-lead">A Fadas do Bem é uma publicação cuidada, não um app SaaS. O design carrega a vibe mística-editorial sem ser pomposa, e converte sem ser agressiva. Esses são os três pilares.</p>
+
+      <div class="ds-block">
+        <h2>Calorosa, não estridente</h2>
+        <p class="ds-block-desc">A paleta nasce no creme (#fef4e6), não no branco puro. Vermelho, verde e dourado aparecem em doses precisas. O usuário deve se sentir acolhida, não vendida.</p>
+      </div>
+
+      <div class="ds-block">
+        <h2>Editorial, não corporativa</h2>
+        <p class="ds-block-desc">Serifs (Playfair, Lora) carregam a hierarquia. Linhas douradas, ✦, divisores ornamentais. A leitura é o protagonista — UI é discreta. Inspiração: NYT, The Atlantic, Substack premium, Vogue.</p>
+      </div>
+
+      <div class="ds-block">
+        <h2>Funcional, não decorativa demais</h2>
+        <p class="ds-block-desc">Toda peça visual paga aluguel: ou cria identidade, ou conduz a ação, ou organiza a leitura. Ornamento sem função é cortado.</p>
+      </div>
+    </section>
+
+    <!-- ═══════════ 02. MARCA E VOZ ═══════════ -->
+    <section class="ds-section" id="marca">
+      <div class="ds-section-num">02 · Identidade</div>
+      <h1>Marca e Voz</h1>
+      <p class="ds-section-lead">A logo "Fadas." em Playfair italic vermelho com ponto verde é a assinatura. O ✦ dourado é o segundo elemento icônico, presente em divisores, pílulas e ornamentos.</p>
+
+      <div class="ds-block">
+        <h2>Tom de voz</h2>
+        <p class="ds-block-desc"><strong style="color:var(--green-dark);">POSITIVO, ALEGRE, caloroso, humano, místico.</strong> Nunca: festivo (palavra banida), wellness genérico, frio, corporativo, agressivo. Falamos como uma amiga sábia que já passou por aqui.</p>
+
+        <div class="ds-demo">
+          <div class="ds-label">Logo</div>
+          <div class="ds-brand-mark" style="font-size:48px;">Fadas<span>.</span></div>
+        </div>
+
+        <div class="ds-demo">
+          <div class="ds-label">Ornamentos</div>
+          <div style="display:flex; gap:32px; align-items:center; font-size:24px; color:var(--gold-deep);">
+            <span>✦</span>
+            <div style="flex:1;" class="divider-orn"><span>✦</span></div>
+            <span>☾</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 03. CORES ═══════════ -->
+    <section class="ds-section" id="cores">
+      <div class="ds-section-num">03 · Visual</div>
+      <h1>Cores</h1>
+      <p class="ds-section-lead">A paleta funciona em camadas: superfícies cremes na base, brand em pontos de identidade, neutros para estados e UI. Em todo lugar onde apareceria branco puro, usamos creme. Em todo lugar onde apareceria preto puro, usamos preto-quente.</p>
+
+      <div class="ds-block">
+        <h2>Brand</h2>
+        <p class="ds-block-desc">As três cores que carregam a identidade da Fadas. Vermelho para ação, verde para status e identidade, dourado para acentos.</p>
+        <div class="color-grid">
+          <div class="color-card"><div class="color-swatch" style="background:#e52444"></div><div class="color-info"><div class="color-name">Vermelho</div><div class="color-hex">#e52444</div><div class="color-token">--red</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#b81c38"></div><div class="color-info"><div class="color-name">Vermelho escuro</div><div class="color-hex">#b81c38</div><div class="color-token">--red-dark</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#990e22"></div><div class="color-info"><div class="color-name">Vermelho profundo</div><div class="color-hex">#990e22</div><div class="color-token">--red-deep</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#87c100"></div><div class="color-info"><div class="color-name">Verde</div><div class="color-hex">#87c100</div><div class="color-token">--green</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#6a9900"></div><div class="color-info"><div class="color-name">Verde escuro</div><div class="color-hex">#6a9900</div><div class="color-token">--green-dark</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#4a6b1e"></div><div class="color-info"><div class="color-name">Verde profundo</div><div class="color-hex">#4a6b1e</div><div class="color-token">--green-deep</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#e3cc7e"></div><div class="color-info"><div class="color-name">Dourado</div><div class="color-hex">#e3cc7e</div><div class="color-token">--gold</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#c8a840"></div><div class="color-info"><div class="color-name">Dourado escuro</div><div class="color-hex">#c8a840</div><div class="color-token">--gold-deep</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#f0dc9a"></div><div class="color-info"><div class="color-name">Dourado claro</div><div class="color-hex">#f0dc9a</div><div class="color-token">--gold-soft</div></div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Superfícies</h2>
+        <p class="ds-block-desc">Background da página, fundos alternativos e cards. Em todo lugar onde Material Design usaria branco, usamos creme. Em todo lugar onde Material usaria #f5f5f5, usamos cream-alt.</p>
+        <div class="color-grid">
+          <div class="color-card"><div class="color-swatch" style="background:#fef4e6;border:1px solid var(--border)"></div><div class="color-info"><div class="color-name">Background</div><div class="color-hex">#fef4e6</div><div class="color-token">--bg</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#f7ecdb"></div><div class="color-info"><div class="color-name">Background alt</div><div class="color-hex">#f7ecdb</div><div class="color-token">--bg-alt</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#ffffff;border:1px solid var(--border)"></div><div class="color-info"><div class="color-name">Surface (card)</div><div class="color-hex">#ffffff</div><div class="color-token">--surface</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#ede0d4"></div><div class="color-info"><div class="color-name">Border</div><div class="color-hex">#ede0d4</div><div class="color-token">--border</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#f5ebe0"></div><div class="color-info"><div class="color-name">Border soft</div><div class="color-hex">#f5ebe0</div><div class="color-token">--border-soft</div></div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Texto</h2>
+        <p class="ds-block-desc">Hierarquia de cores de texto. Para corpo de leitura longo (parágrafos do artigo), usamos <code>--text-body</code> (#2a2218) que tem contraste real para leitura de 18px+.</p>
+        <div class="color-grid">
+          <div class="color-card"><div class="color-swatch" style="background:#1a1410"></div><div class="color-info"><div class="color-name">Preto Fadas</div><div class="color-hex">#1a1410</div><div class="color-token">--text-1</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#2a2218"></div><div class="color-info"><div class="color-name">Body</div><div class="color-hex">#2a2218</div><div class="color-token">--text-body</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#6a5c50"></div><div class="color-info"><div class="color-name">Warm dark</div><div class="color-hex">#6a5c50</div><div class="color-token">--text-2</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#9a8c7e"></div><div class="color-info"><div class="color-name">Muted</div><div class="color-hex">#9a8c7e</div><div class="color-token">--text-3</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#41434f"></div><div class="color-info"><div class="color-name">Neutro UI</div><div class="color-hex">#41434f</div><div class="color-token">--neutral-dark</div></div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Categorias do blog</h2>
+        <p class="ds-block-desc">Cinco categorias com cores próprias (bg + foreground). Usar nas pílulas de categoria, dots de navegação e ícones contextuais.</p>
+        <div class="color-grid">
+          <div class="color-card"><div class="color-swatch" style="background:#fce4e8;display:flex;align-items:center;justify-content:center;"><span class="pill amor">Amor</span></div><div class="color-info"><div class="color-name">Amor</div><div class="color-hex">#fce4e8 / #c1185b</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#d9eef0;display:flex;align-items:center;justify-content:center;"><span class="pill orac">Oráculos</span></div><div class="color-info"><div class="color-name">Oráculos</div><div class="color-hex">#d9eef0 / #00838f</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#fce8d0;display:flex;align-items:center;justify-content:center;"><span class="pill astro">Astrologia</span></div><div class="color-info"><div class="color-name">Astrologia</div><div class="color-hex">#fce8d0 / #b56500</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#ebe0f0;display:flex;align-items:center;justify-content:center;"><span class="pill auto">Autoconhecimento</span></div><div class="color-info"><div class="color-name">Autoconhecimento</div><div class="color-hex">#ebe0f0 / #7b3590</div></div></div>
+          <div class="color-card"><div class="color-swatch" style="background:#e8f0e0;display:flex;align-items:center;justify-content:center;"><span class="pill tarot">Tarot</span></div><div class="color-info"><div class="color-name">Tarot</div><div class="color-hex">#e8f0e0 / #4a6b1e</div></div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Uso por contexto</h2>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">CTA principal</div><div class="token-value">--red</div><div class="token-desc">"Consultar agora", "Comprar pacote" — 1-2 por tela</div></div>
+          <div class="token-row"><div class="token-name">Status online/sucesso</div><div class="token-value">--green</div><div class="token-desc">Bolinha live, pulse, badge "Disponível"</div></div>
+          <div class="token-row"><div class="token-name">Acentos / Ornamentos</div><div class="token-value">--gold-deep</div><div class="token-desc">✦, linhas decorativas, # da tag, borda esquerda</div></div>
+          <div class="token-row"><div class="token-name">Botões neutros (UI)</div><div class="token-value">--neutral-dark</div><div class="token-desc">Back-to-top, ações secundárias, controles</div></div>
+          <div class="token-row"><div class="token-name">Body editorial</div><div class="token-value">--text-body</div><div class="token-desc">Parágrafos do artigo (16px line-height 1.75)</div></div>
+          <div class="token-row"><div class="token-name">Captions / Meta</div><div class="token-value">--text-2 / --text-3</div><div class="token-desc">Breadcrumb, data, autor, labels</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 04. TIPOGRAFIA ═══════════ -->
+    <section class="ds-section" id="tipografia">
+      <div class="ds-section-num">04 · Visual</div>
+      <h1>Tipografia</h1>
+      <p class="ds-section-lead">Três famílias com papéis específicos. Playfair é joia, usada com escassez. Lora carrega a hierarquia editorial. Lato faz o trabalho de leitura. Quando o sistema é respeitado, a página respira como uma publicação de verdade.</p>
+
+      <div class="ds-block">
+        <div class="font-card">
+          <div class="font-name">Família 01 · Decorativa</div>
+          <div class="font-role">Playfair Display</div>
+          <div class="font-when">Use APENAS em H1 do post, logo da marca, ornamentos, números decorativos, aspas grandes do blockquote. Quando aparece, vira destaque — usar em todo lugar é diluir o efeito.</div>
+          <div class="font-sample font-sample-1">Como se preparar</div>
+        </div>
+
+        <div class="font-card">
+          <div class="font-name">Família 02 · Editorial</div>
+          <div class="font-role">Lora</div>
+          <div class="font-when">Carrega a hierarquia: H2, H3, H4, títulos de card, lead em italic, blockquote em italic. Tem peso editorial sem ser pomposa. Usar weight 600 em vez de 700 — fica mais elegante.</div>
+          <div class="font-sample font-sample-2">Defina sua intenção</div>
+        </div>
+
+        <div class="font-card">
+          <div class="font-name">Família 03 · Leitura</div>
+          <div class="font-role">Lato</div>
+          <div class="font-when">Body, UI, captions, labels, navegação, botões, meta info. Funcional, neutra, legível. Pesos 400 (corpo), 600 (UI), 700 (CTAs e labels).</div>
+          <div class="font-sample font-sample-3">A leitura é o protagonista da página.</div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Escala tipográfica</h2>
+        <p class="ds-block-desc">Padrão editorial 2026 — body 18px com line-height 1.75. NYT, The Atlantic, Substack, Bloomberg seguem essa referência. Tamanho 16px era padrão "técnico" 2015-2020, hoje cansa.</p>
+        <div class="ds-demo">
+          <div class="type-row"><span class="type-tag">H1 · Playfair</span><span style="font-family:'Playfair Display'; font-size:40px; font-weight:700; letter-spacing:-0.02em;">Hero do post</span><span class="type-spec">clamp(28, 3.6vw, 40)</span></div>
+          <div class="type-row"><span class="type-tag">H2 · Lora</span><span style="font-family:'Lora'; font-size:24px; font-weight:600;">Sub-seção</span><span class="type-spec">clamp(20, 2.4vw, 24)</span></div>
+          <div class="type-row"><span class="type-tag">H3 · Lora</span><span style="font-family:'Lora'; font-size:20px; font-weight:600;">Sub-sub</span><span class="type-spec">clamp(17, 2vw, 20)</span></div>
+          <div class="type-row"><span class="type-tag">H4 · Lora</span><span style="font-family:'Lora'; font-size:18px; font-weight:600; color:var(--green-deep);">Mini título</span><span class="type-spec">clamp(16, 1.8vw, 18)</span></div>
+          <div class="type-row"><span class="type-tag">Lead</span><span style="font-family:'Lora'; font-style:italic; font-size:18px; color:var(--text-body);">Parágrafo destaque em italic</span><span class="type-spec">clamp(16, 1.6vw, 18)</span></div>
+          <div class="type-row"><span class="type-tag">Blockquote</span><span style="font-family:'Lora'; font-style:italic; font-size:17px; color:var(--text-body);">Citação atribuída em italic</span><span class="type-spec">17 / 1.6</span></div>
+          <div class="type-row"><span class="type-tag">Body</span><span style="font-family:'Lato'; font-size:16px; color:var(--text-body); line-height:1.75;">Corpo de leitura padrão</span><span class="type-spec">16 / 1.75</span></div>
+          <div class="type-row"><span class="type-tag">Card title</span><span style="font-family:'Lora'; font-size:17px; font-weight:600;">Título de card</span><span class="type-spec">17 / 1.3</span></div>
+          <div class="type-row"><span class="type-tag">UI / Caption</span><span style="font-family:'Lato'; font-size:13px; color:var(--text-2);">Metadados, captions</span><span class="type-spec">13 / 1.55</span></div>
+          <div class="type-row"><span class="type-tag">Label</span><span style="font-family:'Lato'; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.12em; color:var(--text-3);">Label Uppercase</span><span class="type-spec">11 / 0.12em</span></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Regras de letter-spacing</h2>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Playfair grande (>20px)</div><div class="token-value">-0.02em</div><div class="token-desc">Negativo aperta, fica elegante</div></div>
+          <div class="token-row"><div class="token-name">Lora títulos</div><div class="token-value">-0.005em</div><div class="token-desc">Levemente negativo</div></div>
+          <div class="token-row"><div class="token-name">Lato body</div><div class="token-value">0</div><div class="token-desc">Sem ajuste, deixa natural</div></div>
+          <div class="token-row"><div class="token-name">Lato uppercase</div><div class="token-value">0.10–0.14em</div><div class="token-desc">Labels, badges, captions UPPER</div></div>
+          <div class="token-row"><div class="token-name">Lora italic pequeno</div><div class="token-value">0</div><div class="token-desc">Não usar spacing extra (lê esquisito)</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Estilo de links no corpo do texto</h2>
+        <p class="ds-block-desc">Links dentro de parágrafos do artigo. <strong>Cor é o sinal principal</strong>, não o sublinhado. Sublinhado dourado aparece no hover/focus como recompensa visual. Padrão Notion, Linear, Stripe — minimalismo editorial.</p>
+
+        <div class="ds-demo">
+          <p style="font-family:'Lato'; font-size:16px; line-height:1.75; color:#2a2218; margin:0;">
+            O tarot funciona como um <a href="#" style="color:var(--green-deep); font-weight:600; text-decoration:none; border-bottom: 1px solid transparent; padding-bottom:1px;">espelho de reflexão</a> — ele devolve ao consulente o poder de escolher. <span style="color:var(--text-3); font-size:13px;">(passe o mouse sobre o link)</span>
+          </p>
+          <p style="font-family:'Lato'; font-size:16px; line-height:1.75; color:#2a2218; margin:12px 0 0;">
+            E aqui um <a href="#" style="color:var(--red); font-weight:600; text-decoration:none; border-bottom: 1px solid var(--gold); padding-bottom:1px;">link no estado hover</a> — vermelho com underline dourado.
+          </p>
+        </div>
+
+        <h3 style="margin-top:24px;">Comportamento</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Estado normal</div><div class="token-value">verde-deep</div><div class="token-desc">Cor é o sinal · sem underline · font-weight 600</div></div>
+          <div class="token-row"><div class="token-name">Hover / focus</div><div class="token-value">red + underline gold</div><div class="token-desc">Cor muda para vermelho · underline dourado aparece de baixo</div></div>
+          <div class="token-row"><div class="token-name">Visited</div><div class="token-value">igual ao normal</div><div class="token-desc">Não diferenciar (padrão editorial) · não confundir leitora com cor diferente</div></div>
+          <div class="token-row"><div class="token-name">Transição</div><div class="token-value">0.2s ease</div><div class="token-desc">Suave em color e border-color</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">CSS</h3>
+        <div class="ds-code"><span class="key">.article a</span>:<span class="key">not</span>(.pill):<span class="key">not</span>(.btn-primary):<span class="key">not</span>(.tag) {
+  <span class="key">color</span>: <span class="val">var(--green-deep)</span>;
+  <span class="key">font-weight</span>: <span class="val">600</span>;
+  <span class="key">text-decoration</span>: <span class="val">none</span>;
+  <span class="key">border-bottom</span>: <span class="val">1px solid transparent</span>;
+  <span class="key">transition</span>: <span class="val">color 0.2s ease, border-color 0.2s ease</span>;
+}
+<span class="key">.article a</span>:<span class="key">hover</span> {
+  <span class="key">color</span>: <span class="val">var(--red)</span>;
+  <span class="key">border-bottom-color</span>: <span class="val">var(--gold)</span>;
+}</div>
+
+        <h3 style="margin-top:24px;">Princípios</h3>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Cor verde-deep no estado normal</div>
+            <div class="principle-text">Padrão limpo, editorial. Verde combina com brand voice e cria contraste suficiente contra body marrom-escuro sem gritar.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Underline padrão preto</div>
+            <div class="principle-text">Forma "wikipédia" / web 2010. Cansa em artigos longos. Sublinhado quebra o ritmo de leitura quando aplicado por padrão.</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Underline dourado no hover</div>
+            <div class="principle-text">Sublinhado vira recompensa do hover, não o estado padrão. Cor muda para vermelho, underline dourado aparece — sinal duplo, satisfatório.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Cor diferente para visited</div>
+            <div class="principle-text">Roxo para visited é padrão browser 1995. Editorial moderno (NYT, Atlantic, Substack) não diferencia visited — confunde a leitora.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 05. ESPAÇAMENTO ═══════════ -->
+    <section class="ds-section" id="espacamento">
+      <div class="ds-section-num">05 · Sistema</div>
+      <h1>Espaçamento</h1>
+      <p class="ds-section-lead">Sistema baseado em múltiplos de 4. Mantém ritmo visual em toda a interface.</p>
+
+      <div class="ds-demo">
+        <div class="space-grid">
+          <div class="space-row"><div class="space-token">--space-1</div><div class="space-bar" style="width:4px;"></div><div class="space-val">4px</div></div>
+          <div class="space-row"><div class="space-token">--space-2</div><div class="space-bar" style="width:8px;"></div><div class="space-val">8px</div></div>
+          <div class="space-row"><div class="space-token">--space-3</div><div class="space-bar" style="width:12px;"></div><div class="space-val">12px</div></div>
+          <div class="space-row"><div class="space-token">--space-4</div><div class="space-bar" style="width:16px;"></div><div class="space-val">16px</div></div>
+          <div class="space-row"><div class="space-token">--space-5</div><div class="space-bar" style="width:20px;"></div><div class="space-val">20px</div></div>
+          <div class="space-row"><div class="space-token">--space-6</div><div class="space-bar" style="width:24px;"></div><div class="space-val">24px</div></div>
+          <div class="space-row"><div class="space-token">--space-7</div><div class="space-bar" style="width:32px;"></div><div class="space-val">32px</div></div>
+          <div class="space-row"><div class="space-token">--space-8</div><div class="space-bar" style="width:40px;"></div><div class="space-val">40px</div></div>
+          <div class="space-row"><div class="space-token">--space-9</div><div class="space-bar" style="width:48px;"></div><div class="space-val">48px</div></div>
+          <div class="space-row"><div class="space-token">--space-10</div><div class="space-bar" style="width:64px;"></div><div class="space-val">64px</div></div>
+          <div class="space-row"><div class="space-token">--space-11</div><div class="space-bar" style="width:80px;"></div><div class="space-val">80px</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 06. CANTOS E SOMBRAS ═══════════ -->
+    <section class="ds-section" id="raios">
+      <div class="ds-section-num">06 · Sistema</div>
+      <h1>Cantos e Sombras</h1>
+      <p class="ds-section-lead">Cantos arredondados criam personalidade: pílulas (100px) para elementos transacionais, retângulo suave (6-22px) para superfícies editoriais.</p>
+
+      <div class="ds-block">
+        <h2>Raios</h2>
+        <div class="ds-demo">
+          <div class="demo-row">
+            <div style="background:var(--gold-soft); width:80px; height:80px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono'; font-size:11px; color:var(--green-deep);">6px</div>
+            <div style="background:var(--gold-soft); width:80px; height:80px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono'; font-size:11px; color:var(--green-deep);">10px</div>
+            <div style="background:var(--gold-soft); width:80px; height:80px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono'; font-size:11px; color:var(--green-deep);">14px</div>
+            <div style="background:var(--gold-soft); width:80px; height:80px; border-radius:22px; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono'; font-size:11px; color:var(--green-deep);">22px</div>
+            <div style="background:var(--gold-soft); width:80px; height:80px; border-radius:100px; display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono'; font-size:11px; color:var(--green-deep);">pill</div>
+          </div>
+        </div>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">--r-sm  6px</div><div class="token-value">tag</div><div class="token-desc">Tag (#tarot), botão retangular sutil</div></div>
+          <div class="token-row"><div class="token-name">--r-md  10px</div><div class="token-value">input</div><div class="token-desc">Input, blockquote, small card</div></div>
+          <div class="token-row"><div class="token-name">--r-lg  14px</div><div class="token-value">card</div><div class="token-desc">Card de artigo, box sidebar</div></div>
+          <div class="token-row"><div class="token-name">--r-xl  22px</div><div class="token-value">cta</div><div class="token-desc">CTA inline, card grande</div></div>
+          <div class="token-row"><div class="token-name">--r-pill 100px</div><div class="token-value">pill</div><div class="token-desc">Pílulas, badges, botões CTA principal</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Sombras</h2>
+        <div class="ds-demo">
+          <div class="demo-row" style="gap:24px;">
+            <div style="background:var(--surface); padding:24px; border-radius:14px; box-shadow:var(--shadow-sm); font-family:'JetBrains Mono'; font-size:11px; color:var(--text-2);">--shadow-sm</div>
+            <div style="background:var(--surface); padding:24px; border-radius:14px; box-shadow:var(--shadow-md); font-family:'JetBrains Mono'; font-size:11px; color:var(--text-2);">--shadow-md</div>
+            <div style="background:var(--surface); padding:24px; border-radius:14px; box-shadow:var(--shadow-lg); font-family:'JetBrains Mono'; font-size:11px; color:var(--text-2);">--shadow-lg</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 07. BOTÕES ═══════════ -->
+    <section class="ds-section" id="botoes">
+      <div class="ds-section-num">07 · Componentes</div>
+      <h1>Botões</h1>
+      <p class="ds-section-lead">Três variações principais. CTAs principais em pílula vermelha com borda dourada — a assinatura Fadas. Ações editoriais podem usar retângulo neutro.</p>
+
+      <div class="ds-block">
+        <h2>Pílula (CTAs transacionais)</h2>
+        <p class="ds-block-desc">Usar para ações de conversão: "Consultar agora", "Ver tarólogas", "Comprar pacote". Vermelho com borda dourada é a marca visual.</p>
+        <div class="ds-demo">
+          <div class="demo-row">
+            <button class="btn btn-primary">Consultar agora</button>
+            <button class="btn btn-outline">Ver tarólogas</button>
+            <button class="btn btn-ghost">Saber mais →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Retangular (editorial)</h2>
+        <p class="ds-block-desc">Para contextos editoriais e formulários onde a pílula seria informal demais.</p>
+        <div class="ds-demo">
+          <div class="demo-row">
+            <button class="btn btn-primary btn-square">Enviar</button>
+            <button class="btn btn-outline btn-square">Cancelar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 08. PÍLULAS, TAGS, BADGES ═══════════ -->
+    <section class="ds-section" id="pilulas">
+      <div class="ds-section-num">08 · Componentes</div>
+      <h1>Pílulas, Tags e Badges</h1>
+      <p class="ds-section-lead">Três famílias de etiquetas com papéis distintos: categorias (cor + ✦), tags (#topico) e status (pulse animado).</p>
+
+      <div class="ds-block">
+        <h2>Pílulas de categoria</h2>
+        <p class="ds-block-desc">Identificam a categoria de um artigo, tiragem ou conteúdo. Cada categoria tem sua cor (bg + fg). Sempre com ✦ dourado à esquerda.</p>
+        <div class="ds-demo">
+          <div class="demo-row">
+            <span class="pill amor">Amor</span>
+            <span class="pill orac">Oráculos</span>
+            <span class="pill astro">Astrologia</span>
+            <span class="pill auto">Autoconhecimento</span>
+            <span class="pill tarot">Tarot</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Tags (#tópicos)</h2>
+        <p class="ds-block-desc">Identificam tópicos finos dentro de um artigo. Sempre com # dourado. Mais leves que pílulas de categoria.</p>
+        <div class="ds-demo">
+          <div class="demo-row">
+            <span class="tag">tarot</span>
+            <span class="tag">primeira-consulta</span>
+            <span class="tag">autoconhecimento</span>
+            <span class="tag">lua-nova</span>
+            <span class="tag">arcanos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Status (online, ao vivo)</h2>
+        <p class="ds-block-desc">Comunica disponibilidade em tempo real. Pulse animado no dot verde transmite "vivo, agora".</p>
+        <div class="ds-demo">
+          <div class="demo-row">
+            <span class="badge-status"><span class="dot"></span>8 tarólogas online</span>
+            <span class="badge-status" style="border-color:var(--red); color:var(--red);"><span class="dot" style="background:var(--red); box-shadow:0 0 0 3px rgba(229,36,68,0.2); animation:none;"></span>Ao vivo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 09. CARDS ═══════════ -->
+    <section class="ds-section" id="cards">
+      <div class="ds-section-num">09 · Componentes</div>
+      <h1>Cards</h1>
+      <p class="ds-section-lead">Card de descoberta: imagem + pílula de categoria + título Lora + excerpt truncado. Card inteiro clicável, sem CTA absoluto. Hover sutil: translateY -3px + sombra + borda dourada + título neutral-dark.</p>
+
+      <div class="ds-block">
+        <div class="ds-demo">
+          <article class="card-demo">
+            <div class="card-photo"><span class="pill amor">Amor</span></div>
+            <div class="card-body">
+              <h3 class="card-title">O que o tarot revela sobre relacionamentos em transição</h3>
+              <p class="card-excerpt">Quando uma relação está em transformação, o tarot ajuda a enxergar com clareza o que precisa permanecer e o que pede para ser solto.</p>
+              <div class="card-meta">4 min · 08 mai 2026</div>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Regras de truncação</h2>
+        <p class="ds-block-desc">Usar <code>-webkit-line-clamp</code> em vez de escrever copy que cabe exato. Em produção o CMS coloca texto livre, e o CSS trunca com "..." automaticamente.</p>
+        <div class="ds-code"><span class="key">.card-excerpt</span> {
+  <span class="key">display</span>: <span class="val">-webkit-box</span>;
+  <span class="key">-webkit-line-clamp</span>: <span class="val">2</span>;
+  <span class="key">-webkit-box-orient</span>: <span class="val">vertical</span>;
+  <span class="key">overflow</span>: <span class="val">hidden</span>;
+}</div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 10. FORMULÁRIOS ═══════════ -->
+    <section class="ds-section" id="formularios">
+      <div class="ds-section-num">10 · Componentes</div>
+      <h1>Formulários</h1>
+      <p class="ds-section-lead">Inputs com cantos suaves (10px), borda discreta, foco dourado. Labels em uppercase com letter-spacing.</p>
+
+      <div class="ds-demo">
+        <form class="form-demo" onsubmit="return false;">
+          <div>
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="seu@email.com">
+          </div>
+          <div>
+            <label class="form-label">Mensagem</label>
+            <input type="text" class="form-input" placeholder="Como podemos ajudar?">
+          </div>
+          <button class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ═══════════ 11. LISTAS E DIVISORES ═══════════ -->
+    <section class="ds-section" id="listas">
+      <div class="ds-section-num">11 · Componentes</div>
+      <h1>Listas e Divisores</h1>
+      <p class="ds-section-lead">Listas com bullet ✦ dourado para tom místico. Listas numeradas com círculo vermelho. Divisores com gradiente dourado.</p>
+
+      <div class="ds-block">
+        <h2>Lista bullet ✦</h2>
+        <div class="ds-demo">
+          <ul style="list-style:none; padding-left:4px;">
+            <li style="position:relative; padding:6px 0 6px 28px; color:var(--text-body); font-size:16px;"><span style="position:absolute; left:0; top:6px; color:var(--gold-deep); font-size:12px;">✦</span>Tarot Rider-Waite — 78 arcanos, leituras de profundidade</li>
+            <li style="position:relative; padding:6px 0 6px 28px; color:var(--text-body); font-size:16px;"><span style="position:absolute; left:0; top:6px; color:var(--gold-deep); font-size:12px;">✦</span>Baralho Cigano — 36 cartas, respostas práticas</li>
+            <li style="position:relative; padding:6px 0 6px 28px; color:var(--text-body); font-size:16px;"><span style="position:absolute; left:0; top:6px; color:var(--gold-deep); font-size:12px;">✦</span>Lenormand — 36 cartas, previsões objetivas</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Lista numerada</h2>
+        <div class="ds-demo">
+          <ol style="list-style:none; padding-left:0; counter-reset:n;">
+            <li style="counter-increment:n; position:relative; padding:6px 0 6px 32px; color:var(--text-body); font-size:16px;"><span style="position:absolute; left:0; top:6px; width:22px; height:22px; border-radius:50%; background:var(--red); color:#fff; font-family:Lato; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center;">1</span>Texto via chat</li>
+            <li style="counter-increment:n; position:relative; padding:6px 0 6px 32px; color:var(--text-body); font-size:16px;"><span style="position:absolute; left:0; top:6px; width:22px; height:22px; border-radius:50%; background:var(--red); color:#fff; font-family:Lato; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center;">2</span>Voz</li>
+            <li style="counter-increment:n; position:relative; padding:6px 0 6px 32px; color:var(--text-body); font-size:16px;"><span style="position:absolute; left:0; top:6px; width:22px; height:22px; border-radius:50%; background:var(--red); color:#fff; font-family:Lato; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center;">3</span>Vídeo</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Divisor ornamental</h2>
+        <div class="ds-demo">
+          <div class="divider-orn"><span style="font-size:14px;">✦</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 12. AVATARES E STATUS ═══════════ -->
+    <section class="ds-section" id="avatares">
+      <div class="ds-section-num">12 · Componentes</div>
+      <h1>Avatares e Status</h1>
+      <p class="ds-section-lead">Avatares circulares com gradiente dourado e inicial em Playfair. Stack empilhado mostra grupo de tarólogas disponíveis.</p>
+
+      <div class="ds-block">
+        <h2>Avatar simples</h2>
+        <div class="ds-demo">
+          <div class="demo-row">
+            <span class="av">F</span>
+            <span class="av av-live">M</span>
+            <span class="av av-live">L</span>
+            <span class="av av-live">A</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Stack empilhado</h2>
+        <div class="ds-demo">
+          <div class="av-stack">
+            <span class="av av-live">F</span>
+            <span class="av av-live">M</span>
+            <span class="av av-live">L</span>
+            <span class="av av-live">A</span>
+            <span class="av" style="background:var(--bg-alt); color:var(--text-2); font-family:Lato; font-size:11px;">+5</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 13. PRINCÍPIOS ═══════════ -->
+    <section class="ds-section" id="principios">
+      <div class="ds-section-num">13 · Decisões</div>
+      <h1>Princípios</h1>
+      <p class="ds-section-lead">Decisões de design que orientam toda a construção. Quando houver dúvida sobre como implementar algo, consultar essa lista primeiro.</p>
+
+      <div class="principles">
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Vermelho como escassez</div>
+          <div class="principle-text">Reserve para CTA principal (1-2 por tela). Quando aparece, comunica "aqui é a ação". Sai do CTA, não compete com o conteúdo.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">Vermelho em todo hover</div>
+          <div class="principle-text">Botão sempre vermelho, hover de link vermelho, hover de card vermelho — vira ruído. O cérebro deixa de registrar.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Card inteiro clicável</div>
+          <div class="principle-text">Sem CTA absoluto sobreposto ao texto. Cursor pointer no card. Hover muda título para neutral-dark, borda dourada, elevação 3px.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">CTA absoluto sobre o texto</div>
+          <div class="principle-text">Botão circular position:absolute que força padding-right artificial no conteúdo. Desperdiça área útil, antipadrão UX.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Body 16px / line-height 1.75</div>
+          <div class="principle-text">Padrão Stripe, Linear, Vercel — funciona em qualquer comprimento de linha. Line-height 1.75 dá o respiro editorial sem inflar tamanho.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">Body 18px+ no desktop</div>
+          <div class="principle-text">Faz sentido em sites 100% texto longo (Substack premium). No Fadas, com cards, sidebar, ornamentos — 18px compete e tira hierarquia dos outros elementos.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">H1 ratio 2.5x do body</div>
+          <div class="principle-text">Body 16 → H1 40px max no desktop. Linear, Stripe, Substack seguem 2.5-2.75x. Tamanho ponto-focal sem dominar a página com sidebar/cards ao redor.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">H1 ratio 3x ou mais</div>
+          <div class="principle-text">46px+ funciona em Atlantic/NYT (jornalismo longform puro, sem sidebar). Em Fadas com cards e boxes competindo, fica gritante e quebra a hierarquia editorial.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">H3 sempre &gt; body (mínimo 1.125x)</div>
+          <div class="principle-text">Body 16 → H3 mínimo 18 em qualquer breakpoint. Peso 600 Lora ajuda, mas não substitui hierarquia de tamanho. H3 igual ao body confunde a leitora — parece "mais um parágrafo destacado".</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">H3 = body (mesmo com peso diferente)</div>
+          <div class="principle-text">No mobile dá tentação de comprimir tudo. H3=16 com body=16 confia 100% no peso/família como diferenciação. Em scroll rápido a leitora não percebe o título — fica achando que continua na seção anterior.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Playfair com escassez</div>
+          <div class="principle-text">Hero H1, logo, ornamentos, números decorativos. Quando aparece, é joia. Lora carrega H2-H4.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">Playfair em tudo</div>
+          <div class="principle-text">H1, H2, H3, H4, card title, sidebar — perde o efeito. Site fica datado, "blog de 2010". Playfair italic pequeno fica ilegível.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Truncação CSS</div>
+          <div class="principle-text">-webkit-line-clamp em descrições de card. O CMS coloca texto livre, o CSS corta com "..." onde cair.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">Copy que cabe exato</div>
+          <div class="principle-text">Escrever texto manicured para encerrar em frase no limite do card. Em produção a frase quebra. Confie no CSS.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Blog é conversão</div>
+          <div class="principle-text">CTAs em 4 momentos: sidebar, inline meio, action bar, banner fundo. Leitor que chega no fim é o mais quente — não deixar conversão na mesa.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">Blog só conteúdo</div>
+          <div class="principle-text">Artigo sem CTAs, esperando "marketing por osmose". O site é para vender. Conteúdo é entrada do funil.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Descida visual em 3 zonas</div>
+          <div class="principle-text">Página tem ritmo cromático: cream (conteúdo) → verde (banner CTA) → cinza (footer). Cada cor com função. Olho desce e entende cada "ato".</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">Página toda uma cor</div>
+          <div class="principle-text">Cream do topo ao fim, banner e footer no mesmo tom. Sem hierarquia visual. Banner CTA não destaca. Footer não fecha. Tudo flat.</div>
+        </div>
+
+        <div class="principle">
+          <div class="principle-label">FAÇA ✓</div>
+          <div class="principle-title">Labels que conversam</div>
+          <div class="principle-text">"Caminhos" em vez de "Navegação". "Fale com as Fadas" em vez de "Contato". Palavras que carregam a marca, não jargão UX.</div>
+        </div>
+        <div class="principle dont">
+          <div class="principle-label">NÃO FAÇA ✗</div>
+          <div class="principle-title">Labels UX genéricos</div>
+          <div class="principle-text">"Navegação", "Contato", "Sobre", "Links". Funciona em qualquer site → não comunica nada da Fadas. Trocar por palavras com alma.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 14. ANTIPADRÕES ═══════════ -->
+    <section class="ds-section" id="antipadroes">
+      <div class="ds-section-num">14 · Decisões</div>
+      <h1>Antipadrões</h1>
+      <p class="ds-section-lead">Coisas que já erramos no caminho. Lista cresceu sessão a sessão e fica aqui pra não repetirmos.</p>
+
+      <div class="ds-block">
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Letter-spacing</div><div class="token-value">erro</div><div class="token-desc">Playfair italic pequeno com letter-spacing 0.03em fica "soltinho", ilegível</div></div>
+          <div class="token-row"><div class="token-name">Branco puro</div><div class="token-value">#fff</div><div class="token-desc">Em fundos coloridos, usar #fef8ec — branco puro quebra a paleta cream</div></div>
+          <div class="token-row"><div class="token-name">Preto puro</div><div class="token-value">#000</div><div class="token-desc">Usar #1a1410 (preto-fadas) ou #2a2218 (body) — preto puro é frio demais</div></div>
+          <div class="token-row"><div class="token-name">Cinza médio body</div><div class="token-value">#999</div><div class="token-desc">Em corpo de texto longo. Sempre #2a2218 para leitura</div></div>
+          <div class="token-row"><div class="token-name">CSS counter herdado</div><div class="token-value">.article ol</div><div class="token-desc">Aplicar list-style em .article ol vaza para listas internas. Usar :not() e !important</div></div>
+          <div class="token-row"><div class="token-name">border-bottom em &lt;a&gt;</div><div class="token-value">.article a</div><div class="token-desc">Regra de link inline vaza para pílulas/tags. Excluir com :not(.pill):not(.tag)</div></div>
+          <div class="token-row"><div class="token-name">Comentários no blog</div><div class="token-value">2026</div><div class="token-desc">Caíram em desuso. Medium tirou, Substack pouco usa. Engajamento via compartilhar</div></div>
+          <div class="token-row"><div class="token-name">Pílula 100px em editorial</div><div class="token-value">contexto</div><div class="token-desc">Em contexto de produto (consultar) ok; em forms editoriais, retângulo 6-10px</div></div>
+          <div class="token-row"><div class="token-name">"Festivo" no tom de voz</div><div class="token-value">copy</div><div class="token-desc">Banido. Correto: POSITIVO, ALEGRE, caloroso, humano, místico</div></div>
+          <div class="token-row"><div class="token-name">"Navegação"</div><div class="token-value">menu</div><div class="token-desc">Palavra UX genérica de 2010. Use "Caminhos" (Fadas), "Por aqui", "Explore"</div></div>
+          <div class="token-row"><div class="token-name">"Telefone:", "E-mail:"</div><div class="token-value">label</div><div class="token-desc">Redundantes ao lado do número/endereço com ícone. Tirar — o ícone já comunica</div></div>
+          <div class="token-row"><div class="token-name">Banner final preto puro</div><div class="token-value">contraste</div><div class="token-desc">Pesa demais e quebra identidade Fadas. Use verde-deep com gradiente</div></div>
+          <div class="token-row"><div class="token-name">Banner final dourado sutil</div><div class="token-value">contraste</div><div class="token-desc">Funde com a página cream. Banner CTA precisa QUEBRAR o fluxo de cor</div></div>
+          <div class="token-row"><div class="token-name">Verde em todos os títulos</div><div class="token-value">excesso</div><div class="token-desc">H1-H4 em verde satura a página. H1-H3 preto, só H4 verde como acento</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 15. ZONAS DA PÁGINA ═══════════ -->
+    <section class="ds-section" id="zonas">
+      <div class="ds-section-num">15 · Sistema</div>
+      <h1>Zonas da Página</h1>
+      <p class="ds-section-lead">Toda página completa Fadas se organiza em três zonas com cor e propósito distintos. A descida visual conduz o olho do conteúdo (cream) para a ação (verde) e para a informação (cinza). Cada zona tem regras próprias.</p>
+
+      <div class="ds-block">
+        <h2>Mapa cromático</h2>
+        <p class="ds-block-desc">Sequência de cores que organiza a página inteira. Banner CTA precisa <strong>quebrar</strong> o fluxo cream para chamar atenção. Footer fecha com cinza-neutro, atemporal, deixando as cores da marca brilharem.</p>
+
+        <div class="ds-demo" style="padding:0; overflow:hidden;">
+          <div style="height:80px; background:var(--bg); display:flex; align-items:center; padding:0 24px; gap:14px;">
+            <div style="font-family:'JetBrains Mono'; font-size:11px; color:var(--text-3); min-width:80px;">#fef4e6</div>
+            <div style="font-family:'Lora'; font-size:14px; color:var(--text-body); flex:1;"><strong>Conteúdo</strong> — artigo, hero, sidebar, cards relacionados</div>
+            <div style="font-family:'Lato'; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold-deep); font-weight:700;">leitura</div>
+          </div>
+          <div style="height:80px; background:linear-gradient(135deg, #6a8a30 0%, #4a6b1e 50%, #34501a 100%); display:flex; align-items:center; padding:0 24px; gap:14px;">
+            <div style="font-family:'JetBrains Mono'; font-size:11px; color:rgba(255,255,255,0.7); min-width:80px;">#4a6b1e</div>
+            <div style="font-family:'Lora'; font-size:14px; color:#fff; flex:1;"><strong>Ação</strong> — banner CTA de fechamento, conversão final</div>
+            <div style="font-family:'Lato'; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:rgba(255,255,255,0.9); font-weight:700;">consultar</div>
+          </div>
+          <div style="height:80px; background:#383330; display:flex; align-items:center; padding:0 24px; gap:14px;">
+            <div style="font-family:'JetBrains Mono'; font-size:11px; color:rgba(253,244,230,0.5); min-width:80px;">#383330</div>
+            <div style="font-family:'Lora'; font-size:14px; color:rgba(253,244,230,0.85); flex:1;"><strong>Informação</strong> — footer, contatos, mapa do site, redes</div>
+            <div style="font-family:'Lato'; font-size:10px; text-transform:uppercase; letter-spacing:0.1em; color:var(--green); font-weight:700;">info</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Zona de Ação — Banner Final</h2>
+        <p class="ds-block-desc">Banner antes do footer. Verde-deep com gradiente diagonal (135°) para profundidade. Botão primário <strong>branco</strong> com texto verde-deep (inverte hierarquia padrão pra destacar). Avatares dourados com borda verde-deep. Status "online" em pílula translúcida com pulse branco.</p>
+
+        <div class="ds-demo" style="padding:0; overflow:hidden;">
+          <div style="position:relative; padding:60px 32px; background:linear-gradient(135deg, #6a8a30 0%, #4a6b1e 50%, #34501a 100%); color:#fff; text-align:center; overflow:hidden;">
+            <div style="position:absolute; top:-100px; left:5%; width:300px; height:300px; border-radius:50%; background:radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 65%); pointer-events:none;"></div>
+            <div style="position:absolute; bottom:-150px; right:0; width:280px; height:280px; border-radius:50%; background:radial-gradient(circle, rgba(227,204,126,0.15) 0%, transparent 65%); pointer-events:none;"></div>
+            <div style="position:relative; z-index:2;">
+              <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3); border-radius:100px; font-family:'Lato'; font-size:10px; font-weight:700; color:#fff; text-transform:uppercase; letter-spacing:0.14em; margin-bottom:20px; backdrop-filter:blur(8px);">
+                <span style="width:6px; height:6px; border-radius:50%; background:#fff;"></span>Online agora
+              </div>
+              <div style="font-family:'Playfair Display'; font-size:30px; font-weight:700; color:#fff; line-height:1.15; letter-spacing:-0.02em; margin-bottom:10px;">Sua consulta está esperando</div>
+              <div style="font-family:'Lora'; font-style:italic; font-size:15px; color:rgba(255,255,255,0.85); margin-bottom:24px;">Tarólogas experientes prontas para te ouvir.</div>
+              <button style="font-family:'Lato'; font-size:13px; font-weight:700; padding:13px 28px; background:#fff; color:var(--green-deep); border:1.5px solid var(--gold); border-radius:100px; cursor:pointer; box-shadow:0 4px 14px rgba(0,0,0,0.15);">Consultar agora →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Zona de Informação — Footer</h2>
+        <p class="ds-block-desc">Cinza-quente neutro (#383330) com pattern sutil de ondas SVG (5% opacidade). Títulos das colunas em <strong>verde forte</strong> (#87c100) uppercase, com underline cream curto. Ícones outline simples (sem badges). Hover dos links migra para verde.</p>
+
+        <div class="ds-demo" style="padding:0; overflow:hidden;">
+          <div style="background:#383330; background-image:url(&quot;data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 200' opacity='0.05'><path d='M0 50 Q200 20 400 50 T800 50' stroke='%23fdf4e6' stroke-width='0.8' fill='none'/><path d='M0 100 Q200 70 400 100 T800 100' stroke='%23fdf4e6' stroke-width='0.8' fill='none'/></svg>&quot;); background-size:800px 200px; padding:36px 32px; display:grid; grid-template-columns:1fr 1fr; gap:32px;">
+            <div>
+              <div style="font-family:'Lato'; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em; color:var(--green); padding-bottom:10px; position:relative; margin-bottom:14px;">
+                Fale com as Fadas
+                <span style="position:absolute; left:0; bottom:0; width:32px; height:1px; background:rgba(253,244,230,0.5);"></span>
+              </div>
+              <div style="font-family:'Lato'; font-size:13px; color:rgba(253,244,230,0.82); line-height:1.9;">
+                💬 Suporte via Chat<br>
+                📱 WhatsApp: (11) 91308-9469<br>
+                📞 (11) 2626-7145
+              </div>
+            </div>
+            <div>
+              <div style="font-family:'Lato'; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em; color:var(--green); padding-bottom:10px; position:relative; margin-bottom:14px;">
+                Caminhos
+                <span style="position:absolute; left:0; bottom:0; width:32px; height:1px; background:rgba(253,244,230,0.5);"></span>
+              </div>
+              <div style="font-family:'Lato'; font-size:13px; color:rgba(253,244,230,0.82); line-height:1.9;">
+                Tarólogas<br>
+                Oráculos<br>
+                Tiragens · Blog
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Regras gerais das zonas</h2>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Banner Final</div><div class="token-value">verde-deep</div><div class="token-desc">Gradiente diagonal #6a8a30 → #4a6b1e → #34501a; CTA branco</div></div>
+          <div class="token-row"><div class="token-name">Footer</div><div class="token-value">#383330</div><div class="token-desc">Cinza-quente neutro; títulos verde; pattern ondas 5%; texto cream</div></div>
+          <div class="token-row"><div class="token-name">Coluna Contato</div><div class="token-value">Fale com as Fadas</div><div class="token-desc">Suporte via Chat, WhatsApp, Telefone, E-mail (sem labels "Telefone:")</div></div>
+          <div class="token-row"><div class="token-name">Coluna Site</div><div class="token-value">Mapa do Fadas do Bem</div><div class="token-desc">Como se consultar, Preços, FAQ, Privacidade, Termos</div></div>
+          <div class="token-row"><div class="token-name">Coluna Menu</div><div class="token-value">Caminhos</div><div class="token-desc">Home, Tarólogas, Oráculos, Tiragens, Blog, Avaliações</div></div>
+          <div class="token-row"><div class="token-name">Coluna Tarólogas</div><div class="token-value">avatares</div><div class="token-desc">Grid 3×2 de avatares dourados com bolinha live verde + redes sociais</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 16. COMPONENTES EDITORIAIS ═══════════ -->
+    <section class="ds-section" id="editorial">
+      <div class="ds-section-num">16 · Conteúdo</div>
+      <h1>Componentes Editoriais</h1>
+      <p class="ds-section-lead">Elementos específicos do blog que enriquecem o post: player de áudio para leitura assistida por IA, foto secundária com caption e pull quote. Cada um cumpre função editorial precisa, sem competir com o texto.</p>
+
+      <div class="ds-block">
+        <h2>Player de áudio</h2>
+        <p class="ds-block-desc">Em 2026, "ouvir o artigo" é tendência consolidada (NYT, Apple News, Substack, Spotify Article). Permite consumo enquanto a leitora faz outras coisas. Para Fadas é especialmente valioso — usuária pode ouvir antes de dormir, no transporte, cozinhando. <strong>Posição:</strong> imediatamente depois do lead, antes do TOC.</p>
+
+        <div class="ds-demo">
+          <div style="padding: 18px 20px; background: linear-gradient(135deg, var(--bg-alt) 0%, var(--surface) 100%); border: 1px solid var(--gold-soft); border-radius: 16px; display: flex; align-items: center; gap: 18px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: radial-gradient(circle, var(--gold-soft) 0%, transparent 65%); opacity: 0.35; pointer-events: none;"></div>
+            <button style="position: relative; flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; background: var(--red); border: 1.5px solid var(--gold); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 14px rgba(229, 36, 68, 0.22);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+            </button>
+            <div style="position: relative; flex: 1;">
+              <div style="font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-deep); margin-bottom: 4px;">Ouvir o artigo</div>
+              <div style="font-family: 'Lora', serif; font-size: 14px; color: var(--text-2); margin-bottom: 8px;">6:42 ● narrado por IA ● voz feminina</div>
+              <div style="height: 3px; background: var(--border); border-radius: 2px; overflow: hidden;">
+                <div style="height: 100%; width: 35%; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); border-radius: 2px;"></div>
+              </div>
+            </div>
+            <button style="position: relative; flex-shrink: 0; font-family: 'Lato', sans-serif; font-size: 12px; font-weight: 700; padding: 6px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 6px; color: var(--text-2); min-width: 44px;">1x</button>
+          </div>
+        </div>
+
+        <h3 style="margin-top:24px;">Implementação técnica</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">TTS Engine</div><div class="token-value">API</div><div class="token-desc">ElevenLabs (voz feminina BR) ou Google Cloud TTS</div></div>
+          <div class="token-row"><div class="token-name">Geração</div><div class="token-value">CMS</div><div class="token-desc">Pré-gerado quando artigo é publicado, armazenado em CDN</div></div>
+          <div class="token-row"><div class="token-name">Velocidades</div><div class="token-value">1x · 1.25x · 1.5x · 2x</div><div class="token-desc">Toggle no botão da direita</div></div>
+          <div class="token-row"><div class="token-name">Posição</div><div class="token-value">após lead</div><div class="token-desc">Antes do TOC; usuária decide se vai ler ou ouvir antes do conteúdo</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Por que importa para SEO/GEO 2026</h3>
+        <p class="ds-block-desc">Player visível com "narrado por IA" sinaliza acessibilidade e modernidade. Pode ser indexado por search engines de áudio (Apple Podcasts, Google Podcasts, Spotify) se exportado como feed. Aumenta tempo na página (engagement metric forte).</p>
+      </div>
+
+      <div class="ds-block">
+        <h2>Figure — imagens secundárias</h2>
+        <p class="ds-block-desc">Diferente do hero (imagem principal no topo, 16:9), as imagens secundárias dentro do artigo seguem padrão editorial: aspect ratio 16:9, cantos arredondados 16px, e <strong>caption italic em Lora abaixo da imagem</strong>. A caption tem duas partes: <code>&lt;strong&gt;</code> bold não-italic (título da imagem) + descrição italic. Padrão NYT, Atlantic, The Cut.</p>
+
+        <div class="ds-demo">
+          <figure style="margin: 0;">
+            <div style="width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; background: repeating-linear-gradient(45deg, rgba(229,36,68,0.07), rgba(229,36,68,0.07) 6px, var(--bg-alt) 6px, var(--bg-alt) 12px); display: flex; align-items: center; justify-content: center;">
+              <span style="color: var(--red); font-family: 'Lato', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.18em;">IMAGEM SECUNDÁRIA · 16:9</span>
+            </div>
+            <figcaption style="margin-top: 14px; padding: 0 20px; font-family: 'Lora', serif; font-style: italic; font-size: 14px; color: var(--text-3); text-align: center; line-height: 1.55;">
+              <strong style="font-weight: 600; color: var(--text-2); font-style: normal;">Os principais oráculos da plataforma.</strong> Cada baralho fala uma língua diferente — escolha o que mais ressoa.
+            </figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:24px;">Variações</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Inline</div><div class="token-value">padrão</div><div class="token-desc">Dentro do article container, 16:9, cantos arredondados 16px</div></div>
+          <div class="token-row"><div class="token-name">Full-bleed</div><div class="token-value">.full-bleed</div><div class="token-desc">Sai dos limites do article, ocupa 100vw, sem border-radius, aspect 21:9</div></div>
+          <div class="token-row"><div class="token-name">Caption obrigatória</div><div class="token-value">sempre</div><div class="token-desc">Toda imagem secundária tem caption; nunca imagem solta sem contexto</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Estrutura da caption</h3>
+        <p class="ds-block-desc">A caption tem duas partes obrigatórias: <strong>título descritivo bold</strong> (não-italic, cor <code>--text-2</code>) seguido de <em>descrição/contexto em italic</em> (cor <code>--text-3</code>). Termina sem ponto se for fragmento, com ponto se for frase. Centralizada, Lora 14px.</p>
+      </div>
+
+      <div class="ds-block">
+        <h2>Pull quote (relembrando)</h2>
+        <p class="ds-block-desc">Frase de destaque editorial em Playfair italic verde-deep, com ✦ acima e abaixo. Usar quando há frase impactante que merece pausar a leitura. Não confundir com blockquote (citação atribuída) — pull quote é só <strong>tipografia de destaque</strong> sem atribuição.</p>
+
+        <div class="ds-demo">
+          <div style="text-align: center; padding: 28px 12px;">
+            <div style="font-size: 14px; color: var(--gold-deep); margin-bottom: 14px;">✦</div>
+            <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 22px; font-weight: 400; line-height: 1.35; color: var(--green-deep); letter-spacing: -0.005em;">O tarot é um espelho que reflete melhor quando você chega com clareza.</p>
+            <div style="font-size: 14px; color: var(--gold-deep); margin-top: 14px;">✦</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Hierarquia dos 3 destaques</h2>
+        <p class="ds-block-desc">Os três componentes editoriais (player, figure, pull quote) NÃO devem aparecer juntos numa mesma sub-seção — eles competem pelo olhar. Distribuir ao longo do artigo:</p>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Topo do artigo</div><div class="token-value">player áudio</div><div class="token-desc">Logo após o lead, antes do TOC</div></div>
+          <div class="token-row"><div class="token-name">Após 1ª/2ª seção</div><div class="token-value">pull quote</div><div class="token-desc">Frase forte que sintetiza o tema</div></div>
+          <div class="token-row"><div class="token-name">Meio do artigo</div><div class="token-value">figure ou vídeo</div><div class="token-desc">Imagem secundária com caption OU vídeo embed</div></div>
+          <div class="token-row"><div class="token-name">Espaçamento mínimo</div><div class="token-value">3+ parágrafos</div><div class="token-desc">Entre cada um deles, pra dar respiro</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Vídeo embed (YouTube, Vimeo)</h2>
+        <p class="ds-block-desc">Vídeos enriquecem o artigo quando o conteúdo é demonstrativo (tour pela plataforma, tarólogas se apresentando, tutorial de tiragem, depoimentos). <strong>Mesma estrutura do figure</strong> — iframe dentro de wrap + caption italic. Por padrão 16:9 (horizontal); variante <code>.vertical</code> para Reels/Shorts (9:16 com largura máxima).</p>
+
+        <div class="ds-demo">
+          <figure style="margin:0;">
+            <div style="position:relative; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background: repeating-linear-gradient(45deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6) 6px, rgba(0,0,0,0.75) 6px, rgba(0,0,0,0.75) 12px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); display:flex; align-items:center; justify-content:center;">
+              <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                <div style="width:64px; height:64px; border-radius:50%; background:var(--red); border:3px solid #fff; display:flex; align-items:center; justify-content:center; box-shadow: 0 8px 20px rgba(229,36,68,0.4);">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"></path></svg>
+                </div>
+                <div style="font-family:'Lato'; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.16em; color:rgba(255,255,255,0.85);">Vídeo · YouTube · 4:32</div>
+              </div>
+            </div>
+            <figcaption style="margin-top:12px; padding:0 16px; font-family:'Lora'; font-style:italic; font-size:13px; color:var(--text-3); text-align:center; line-height:1.55;">
+              <strong style="font-weight:600; color:var(--text-2); font-style:normal;">Tour pela plataforma.</strong> Veja como funciona uma consulta ao vivo.
+            </figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:24px;">Implementação técnica</h3>
+        <div class="ds-code"><span class="com">/* HTML padrão (horizontal 16:9) */</span>
+&lt;<span class="key">figure</span> <span class="key">class</span>=<span class="str">"article-video"</span>&gt;
+  &lt;<span class="key">div</span> <span class="key">class</span>=<span class="str">"video-wrap"</span>&gt;
+    &lt;<span class="key">iframe</span> <span class="key">src</span>=<span class="str">"https://www.youtube.com/embed/VIDEO_ID"</span> <span class="key">loading</span>=<span class="str">"lazy"</span> <span class="key">allowfullscreen</span>&gt;&lt;/<span class="key">iframe</span>&gt;
+  &lt;/<span class="key">div</span>&gt;
+  &lt;<span class="key">figcaption</span>&gt;
+    &lt;<span class="key">strong</span>&gt;Tour pela plataforma.&lt;/<span class="key">strong</span>&gt; Veja como funciona...
+  &lt;/<span class="key">figcaption</span>&gt;
+&lt;/<span class="key">figure</span>&gt;
+
+<span class="com">/* Vertical (Reels / Shorts) */</span>
+&lt;<span class="key">figure</span> <span class="key">class</span>=<span class="str">"article-video vertical"</span>&gt;
+  <span class="com">/* mesma estrutura */</span>
+&lt;/<span class="key">figure</span>&gt;</div>
+
+        <h3 style="margin-top:24px;">Quando usar vídeo (vs figure)</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Tour / demonstração</div><div class="token-value">vídeo</div><div class="token-desc">Como funciona uma consulta, tour pela plataforma, fluxo de pagamento</div></div>
+          <div class="token-row"><div class="token-name">Apresentação humana</div><div class="token-value">vídeo</div><div class="token-desc">Tarólogas se apresentando, depoimentos de clientes</div></div>
+          <div class="token-row"><div class="token-name">Ilustração estática</div><div class="token-value">figure</div><div class="token-desc">Cartas, símbolos, retratos de tarólogas em pose</div></div>
+          <div class="token-row"><div class="token-name">Reels / Shorts</div><div class="token-value">vídeo vertical</div><div class="token-desc">Conteúdo de Instagram/TikTok incorporado (9:16)</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Reações (curtir, grata, iluminou, ressoou)</h2>
+        <p class="ds-block-desc">Padrão 2026 — em vez de "curtir" único, múltiplas reações temáticas. LinkedIn, Facebook, Slack já fazem assim. Para Fadas, 4 reações que combinam com o tom místico-acolhedor da marca. Cada reação tem contador próprio e o usuário pode escolher uma só.</p>
+
+        <div class="ds-demo">
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button style="display:inline-flex; align-items:center; gap:7px; padding:7px 14px; background: linear-gradient(135deg, var(--red-light) 0%, var(--surface) 100%); border:1px solid var(--red); border-radius:100px; cursor:pointer; font-family:'Lato';">
+              <span style="font-size:16px; line-height:1;">❤️</span>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--red);">Amei</span>
+              <span style="font-size:12px; font-weight:700; color:var(--text-1);">142</span>
+            </button>
+            <button style="display:inline-flex; align-items:center; gap:7px; padding:7px 14px; background:var(--surface); border:1px solid var(--border); border-radius:100px; cursor:pointer; font-family:'Lato';">
+              <span style="font-size:16px; line-height:1;">🙏</span>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-2);">Grata</span>
+              <span style="font-size:12px; font-weight:700; color:var(--text-1);">89</span>
+            </button>
+            <button style="display:inline-flex; align-items:center; gap:7px; padding:7px 14px; background:var(--surface); border:1px solid var(--border); border-radius:100px; cursor:pointer; font-family:'Lato';">
+              <span style="font-size:16px; line-height:1;">💡</span>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-2);">Iluminou</span>
+              <span style="font-size:12px; font-weight:700; color:var(--text-1);">56</span>
+            </button>
+            <button style="display:inline-flex; align-items:center; gap:7px; padding:7px 14px; background:var(--surface); border:1px solid var(--border); border-radius:100px; cursor:pointer; font-family:'Lato';">
+              <span style="font-size:16px; line-height:1;">✨</span>
+              <span style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-2);">Ressoou</span>
+              <span style="font-size:12px; font-weight:700; color:var(--text-1);">71</span>
+            </button>
+          </div>
+        </div>
+
+        <h3 style="margin-top:24px;">As 4 reações Fadas</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">❤️ Amei</div><div class="token-value">universal</div><div class="token-desc">Reação clássica, funciona pra qualquer post</div></div>
+          <div class="token-row"><div class="token-name">🙏 Grata</div><div class="token-value">reconhecimento</div><div class="token-desc">Gratidão espiritual — alma Fadas</div></div>
+          <div class="token-row"><div class="token-name">💡 Iluminou</div><div class="token-value">insight</div><div class="token-desc">Quando o artigo trouxe clareza ou aprendizado</div></div>
+          <div class="token-row"><div class="token-name">✨ Ressoou</div><div class="token-value">conexão profunda</div><div class="token-desc">Quando algo tocou em nível místico, vibrou junto</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Regras de UX</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Estado ativo</div><div class="token-value">.is-active</div><div class="token-desc">Background gradient vermelho-rosado claro, borda vermelha, label vermelha</div></div>
+          <div class="token-row"><div class="token-name">Uma reação por usuário</div><div class="token-value">comportamento</div><div class="token-desc">Selecionar outra desmarca a anterior (não acumula)</div></div>
+          <div class="token-row"><div class="token-name">Anônimo permitido</div><div class="token-value">UX</div><div class="token-desc">Reagir não exige login, identifica por session/cookie (rate limit)</div></div>
+          <div class="token-row"><div class="token-name">Sem reação negativa</div><div class="token-value">princípio</div><div class="token-desc">Fadas é positivo — não tem "discordo", "raiva". Só celebração</div></div>
+          <div class="token-row"><div class="token-name">Posição</div><div class="token-value">após action-bar</div><div class="token-desc">Logo abaixo de Salvar/Compartilhar, antes do conteúdo do artigo</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Por que reações múltiplas (vs curtir único)</h3>
+        <p class="ds-block-desc">Reações múltiplas geram <strong>4-7× mais engajamento</strong> que curtir único (estudo Facebook 2017, ainda válido em 2026). Razão: dão à leitora mais formas de se expressar. Pra Fadas é especialmente importante porque os artigos tocam temas variados — autoconhecimento ("Iluminou"), espiritualidade ("Ressoou"), apoio ("Grata") — que "curtir" não cobre bem.</p>
+      </div>
+
+    </section>
+
+    <!-- ═══════════ 17. BREAKPOINTS E RESPONSIVO ═══════════ -->
+    <section class="ds-section" id="breakpoints">
+      <div class="ds-section-num">17 · Sistema</div>
+      <h1>Breakpoints e Responsivo</h1>
+      <p class="ds-section-lead">Apenas dois layouts são desenhados: mobile e desktop. Tablet é caso intermediário e usa CSS responsivo, não mockup próprio. É a prática profissional em 2026 (NYT, Atlantic, Substack, Stripe) e reflete a realidade: tablet representa 3-7% do tráfego e quase nunca tem comportamento puro — com teclado vira laptop, vertical sem teclado vira mobile.</p>
+
+      <div class="ds-block">
+        <h2>Três breakpoints, dois mockups</h2>
+        <div class="ds-demo" style="padding:0; overflow:hidden;">
+          <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:0;">
+            <div style="padding:24px 20px; background: var(--surface); border-right: 1px solid var(--border);">
+              <div style="font-family:'JetBrains Mono'; font-size:11px; color:var(--text-3); margin-bottom:8px;">≤ 700px</div>
+              <div style="font-family:'Lora'; font-size:18px; font-weight:600; color:var(--text-1); margin-bottom:4px;">Mobile</div>
+              <div style="font-family:'Lato'; font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; color:var(--green-dark); font-weight:700;">Mockup próprio</div>
+            </div>
+            <div style="padding:24px 20px; background: var(--bg-alt); border-right: 1px solid var(--border);">
+              <div style="font-family:'JetBrains Mono'; font-size:11px; color:var(--text-3); margin-bottom:8px;">701–1024px</div>
+              <div style="font-family:'Lora'; font-size:18px; font-weight:600; color:var(--text-1); margin-bottom:4px;">Tablet</div>
+              <div style="font-family:'Lato'; font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; font-weight:700;">CSS responsivo (sem mockup)</div>
+            </div>
+            <div style="padding:24px 20px; background: var(--surface);">
+              <div style="font-family:'JetBrains Mono'; font-size:11px; color:var(--text-3); margin-bottom:8px;">≥ 1025px</div>
+              <div style="font-family:'Lora'; font-size:18px; font-weight:600; color:var(--text-1); margin-bottom:4px;">Desktop</div>
+              <div style="font-family:'Lato'; font-size:11px; color:var(--text-3); text-transform:uppercase; letter-spacing:0.1em; color:var(--green-dark); font-weight:700;">Mockup próprio</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Comportamento por breakpoint</h2>
+        <p class="ds-block-desc">Cada elemento se adapta entre os 3 breakpoints. Tablet é "desktop comprimido" — mesmo HTML, regras CSS ajustadas. Mobile tem componentes específicos (footer minimalista, sidebar empilhada).</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Layout do artigo</div><div class="token-value">3 → 2 → 1</div><div class="token-desc">Mobile coluna única · tablet 1 col + sidebar embaixo · desktop 2 col com sidebar sticky</div></div>
+          <div class="token-row"><div class="token-name">Hero imagem</div><div class="token-value">4:3 → 4:3 → 3:2</div><div class="token-desc">Mobile e tablet com presença vertical · desktop com proporção editorial</div></div>
+          <div class="token-row"><div class="token-name">Figure secundária</div><div class="token-value">4:3 → 4:3 → 3:2</div><div class="token-desc">Mesma família do hero · fotos sempre seguem proporção editorial</div></div>
+          <div class="token-row"><div class="token-name">Vídeo embed</div><div class="token-value">16:9 em todos</div><div class="token-desc">Padrão universal de player (YouTube, Vimeo) · não muda por breakpoint</div></div>
+          <div class="token-row"><div class="token-name">Footer</div><div class="token-value">minimal → 2 col → 4 col</div><div class="token-desc">Mobile estilo Substack · tablet metade do desktop · desktop completo</div></div>
+          <div class="token-row"><div class="token-name">Cards relacionados</div><div class="token-value">1 → 2 → 3 col</div><div class="token-desc">Stack vertical mobile · grid 2 col tablet · grid 3 col desktop</div></div>
+          <div class="token-row"><div class="token-name">H1 hero</div><div class="token-value">24 → 34 → 40px</div><div class="token-desc">Cresce com largura disponível · ratio 2.5x body (padrão Linear/Stripe)</div></div>
+          <div class="token-row"><div class="token-name">H2 seção</div><div class="token-value">20 → 22 → 24px</div><div class="token-desc">Ratio H1↔H2: mobile 1.20x · desktop 1.67x</div></div>
+          <div class="token-row"><div class="token-name">H3 sub-seção</div><div class="token-value">18 → 18 → 20px</div><div class="token-desc">Sempre acima do body 16 · ratio mínimo 1.125x</div></div>
+          <div class="token-row"><div class="token-name">Body</div><div class="token-value">16px em todos</div><div class="token-desc">Line-height 1.75 cria respiro editorial sem precisar de tamanho maior</div></div>
+          <div class="token-row"><div class="token-name">Container padding</div><div class="token-value">20 → 32 → 48px</div><div class="token-desc">Margem lateral acompanha tela</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Aspect ratios — quando usar cada um</h2>
+        <p class="ds-block-desc">16:9 é convenção tech (vídeo). Para fotografia editorial cuidada (que é o que Fadas pede), 16:9 fica frio e "YouTube-style". As proporções abaixo carregam mais alma editorial.</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">3:2 (1.5:1)</div><div class="token-value">fotos desktop</div><div class="token-desc">Hero + figure desktop · fotográfico DSLR · Atlantic, GQ, Magnum</div></div>
+          <div class="token-row"><div class="token-name">4:3 (1.33:1)</div><div class="token-value">fotos mobile/tablet</div><div class="token-desc">Hero + figure mobile/tablet · clássico editorial · Vogue, retratos</div></div>
+          <div class="token-row"><div class="token-name">16:9 (1.78:1)</div><div class="token-value">vídeo embed</div><div class="token-desc">Universal de player · YouTube, Vimeo · não muda por breakpoint</div></div>
+          <div class="token-row"><div class="token-name">9:16 (0.56:1)</div><div class="token-value">vídeo vertical</div><div class="token-desc">Reels, Shorts · max-width 360px desktop, 280px mobile</div></div>
+          <div class="token-row"><div class="token-name">21:9 (2.33:1)</div><div class="token-value">full-bleed desktop</div><div class="token-desc">Cinemático dramático · momentos especiais raros</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Coerência por tipo de mídia</h2>
+        <p class="ds-block-desc">Regra simples que evita o "Frankenstein" visual: <strong>fotos secundárias seguem família editorial</strong> (proporção elegante), <strong>vídeos seguem padrão de player</strong> (16:9 universal). <strong>Hero é exceção</strong> — cada post escolhe sua proporção (ver bloco abaixo).</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Família foto secundária</div><div class="token-value">3:2 / 4:3</div><div class="token-desc">Figure dentro do artigo, cards relacionados — toda foto SECUNDÁRIA segue mesma proporção por breakpoint</div></div>
+          <div class="token-row"><div class="token-name">Família vídeo</div><div class="token-value">16:9</div><div class="token-desc">Sempre 16:9 (com .vertical para Reels/Shorts) — não muda por breakpoint</div></div>
+          <div class="token-row"><div class="token-name">Hero (flexível)</div><div class="token-value">4 variantes</div><div class="token-desc">portrait 4:5 · editorial 3:2 · cinematic 16:9 · wide 21:9 — editor escolhe por post</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Variantes de hero</h2>
+        <p class="ds-block-desc">O hero é o único elemento de imagem com aspect ratio <strong>flexível</strong> — cada post escolhe a proporção que melhor representa a foto. Foto vertical de taróloga merece 4:5. Paisagem mística merece 16:9. Editorial padrão 3:2. Patrick aplica como classe modificadora no HTML.</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">.hero-image</div><div class="token-value">3:2 (default)</div><div class="token-desc">Padrão da casa · fotografia DSLR editorial · 4:3 em mobile</div></div>
+          <div class="token-row"><div class="token-name">.hero-image.portrait</div><div class="token-value">4:5</div><div class="token-desc">Retrato vertical · tarólogas, retratos, fotos em close · max-width 600px no desktop</div></div>
+          <div class="token-row"><div class="token-name">.hero-image.editorial</div><div class="token-value">3:2</div><div class="token-desc">Alias do default — use quando quiser ser explícito</div></div>
+          <div class="token-row"><div class="token-name">.hero-image.cinematic</div><div class="token-value">16:9</div><div class="token-desc">Cinematográfico · paisagens, panorâmicas, fotos amplas</div></div>
+          <div class="token-row"><div class="token-name">.hero-image.wide</div><div class="token-value">21:9</div><div class="token-desc">Wide dramático · só desktop · em mobile vira 16:9 automaticamente</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Quando usar cada uma</h3>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-label">PORTRAIT 4:5</div>
+            <div class="principle-title">Pessoas, produtos, retratos</div>
+            <div class="principle-text">Foto da taróloga, retrato de personagem mística, foto vertical de baralho em close. Usa muito da tela vertical em mobile, elegante no desktop.</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">EDITORIAL 3:2</div>
+            <div class="principle-title">Padrão da casa</div>
+            <div class="principle-text">Quando em dúvida, é essa. Fotografia DSLR profissional, momentos cotidianos, conteúdos rotineiros.</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">CINEMATIC 16:9</div>
+            <div class="principle-title">Paisagens, ambientes</div>
+            <div class="principle-text">Foto panorâmica de natureza mística, ambiente preparado pra consulta, foto cinematográfica wide.</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">WIDE 21:9</div>
+            <div class="principle-title">Momentos especiais (raro)</div>
+            <div class="principle-text">Posts especiais, lançamentos, conteúdos premium. Cinemático dramático. Não usar em todo post — perde o impacto.</div>
+          </div>
+        </div>
+
+        <h3 style="margin-top:24px;">Como aplicar (HTML)</h3>
+        <div class="ds-code"><span class="com">&lt;!-- Padrão da casa (3:2 desktop / 4:3 mobile) --&gt;</span>
+&lt;<span class="key">div</span> <span class="key">class</span>=<span class="str">"hero-image"</span>&gt;...&lt;/<span class="key">div</span>&gt;
+
+<span class="com">&lt;!-- Retrato vertical (4:5) --&gt;</span>
+&lt;<span class="key">div</span> <span class="key">class</span>=<span class="str">"hero-image portrait"</span>&gt;...&lt;/<span class="key">div</span>&gt;
+
+<span class="com">&lt;!-- Cinematográfico (16:9) --&gt;</span>
+&lt;<span class="key">div</span> <span class="key">class</span>=<span class="str">"hero-image cinematic"</span>&gt;...&lt;/<span class="key">div</span>&gt;
+
+<span class="com">&lt;!-- Wide dramático (21:9 desktop / 16:9 mobile) --&gt;</span>
+&lt;<span class="key">div</span> <span class="key">class</span>=<span class="str">"hero-image wide"</span>&gt;...&lt;/<span class="key">div</span>&gt;</div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Regras CSS</h2>
+        <p class="ds-block-desc">Padrão de media queries usado em todos os templates:</p>
+        <div class="ds-code"><span class="com">/* Mobile (default — mobile first) */</span>
+<span class="key">.hero-image</span>     { <span class="key">aspect-ratio</span>: <span class="val">4 / 3</span>; }
+<span class="key">.article-image</span>  { <span class="key">aspect-ratio</span>: <span class="val">4 / 3</span>; }
+<span class="key">.article-video</span> .<span class="key">video-wrap</span> { <span class="key">aspect-ratio</span>: <span class="val">16 / 9</span>; }
+<span class="key">.article p</span>     { <span class="key">font-size</span>: <span class="val">16px</span>; <span class="key">line-height</span>: <span class="val">1.75</span>; }
+
+<span class="com">/* Tablet (701-1024px) */</span>
+<span class="key">@media</span> (<span class="key">min-width</span>: <span class="val">701px</span>) <span class="key">and</span> (<span class="key">max-width</span>: <span class="val">1024px</span>) {
+  <span class="key">.article-grid</span>  { <span class="key">grid-template-columns</span>: <span class="val">1fr</span>; }
+  <span class="key">.sidebar</span>       { <span class="key">position</span>: <span class="val">static</span>; <span class="key">margin-top</span>: <span class="val">48px</span>; }
+  <span class="key">.footer-grid</span>   { <span class="key">grid-template-columns</span>: <span class="val">1fr 1fr</span>; }
+  <span class="key">.related-grid</span>  { <span class="key">grid-template-columns</span>: <span class="val">1fr 1fr</span>; }
+}
+
+<span class="com">/* Desktop (1025+) */</span>
+<span class="key">@media</span> (<span class="key">min-width</span>: <span class="val">1025px</span>) {
+  <span class="key">.hero-image</span>     { <span class="key">aspect-ratio</span>: <span class="val">3 / 2</span>; }
+  <span class="key">.article-image</span>  { <span class="key">aspect-ratio</span>: <span class="val">3 / 2</span>; }
+  <span class="key">.article-grid</span>   { <span class="key">grid-template-columns</span>: <span class="val">1fr 320px</span>; }
+  <span class="key">.footer-grid</span>    { <span class="key">grid-template-columns</span>: <span class="val">1.3fr 1fr 0.7fr 1fr</span>; }
+  <span class="key">.related-grid</span>   { <span class="key">grid-template-columns</span>: <span class="val">repeat(3, 1fr)</span>; }
+}</div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Por que só dois mockups?</h2>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Mobile + Desktop apenas</div>
+            <div class="principle-text">Documenta os dois extremos. Tablet vira regra CSS no design system. Padrão NYT, Atlantic, Stripe.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Mockup tablet separado</div>
+            <div class="principle-text">Triplica o trabalho de manutenção. Cada mudança replica em 3 lugares. Decisões podem divergir entre mockups.</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Mobile-first CSS</div>
+            <div class="principle-text">Regras base são mobile. Media query <code>min-width</code> adiciona ajustes pra telas maiores. Menos código.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Desktop-first com overrides</div>
+            <div class="principle-text">Desenhar pro desktop e "comprimir" pro mobile com <code>max-width</code>. Mobile fica com performance pior e overrides bagunçados.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════ 18. COMPOSIÇÃO FLEXÍVEL ═══════════ -->
+    <section class="ds-section" id="composicao">
+      <div class="ds-section-num">18 · Sistema</div>
+      <h1>Composição flexível do artigo</h1>
+      <p class="ds-section-lead">Nem todo artigo tem todos os blocos. O template precisa funcionar quando o player de áudio não foi gerado, quando não há vídeo, quando não há FAQ. Esta seção define o que é obrigatório, o que é opcional, e como Patrick deve renderizar condicionalmente sem deixar buracos visuais.</p>
+
+      <div class="ds-block">
+        <h2>Ordem das seções finais</h2>
+        <p class="ds-block-desc">A sequência do que aparece depois do último parágrafo do artigo importa para a leitura natural. <strong>Conteúdo primeiro, metadados depois, conversão por último.</strong></p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">1. Texto do artigo</div><div class="token-value">conteúdo principal</div><div class="token-desc">Termina com último parágrafo</div></div>
+          <div class="token-row"><div class="token-name">2. FAQ</div><div class="token-value">conteúdo (extensão)</div><div class="token-desc">Perguntas e respostas são CONTEÚDO — continuam ensinando a leitora</div></div>
+          <div class="token-row"><div class="token-name">3. Tags ("Tópicos do artigo")</div><div class="token-value">metadados (fechamento)</div><div class="token-desc">Palavras-chave do que foi lido · fecha o artigo formal</div></div>
+          <div class="token-row"><div class="token-name">4. Action bar inferior</div><div class="token-value">interação</div><div class="token-desc">Salvar + Compartilhar + redes sociais (repete pra leitora que rolou até o fim)</div></div>
+          <div class="token-row"><div class="token-name">5. Reações Fadas</div><div class="token-value">engajamento pós-leitura</div><div class="token-desc">❤️ Amei · 🙏 Grata · 💡 Iluminou · ✨ Ressoou — só aparecem AQUI (padrão Medium, Substack)</div></div>
+          <div class="token-row"><div class="token-name">6. Banner CTA final</div><div class="token-value">conversão</div><div class="token-desc">Convite para consulta (verde gradient)</div></div>
+          <div class="token-row"><div class="token-name">7. Related posts ("Continue lendo")</div><div class="token-value">descoberta</div><div class="token-desc">Caminho para próximo conteúdo</div></div>
+          <div class="token-row"><div class="token-name">8. Footer</div><div class="token-value">institucional</div><div class="token-desc">Mapa do site, contato, redes</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Por que essa ordem</h3>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Reações só no fim do artigo</div>
+            <div class="principle-text">Reações são engajamento PÓS-leitura — leitora terminou, agora reage. Padrão Medium (clap), Substack (like), Atlantic. Topo do artigo tem só Salvar/Compartilhar (decisões pré-leitura).</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Reações em duplicidade (topo + fim)</div>
+            <div class="principle-text">Cria ruído visual e dilui o sinal de quando reagir. Leitora não sabe se deve reagir antes ou depois — duas chances enfraquecem ambas.</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">FAQ antes das tags</div>
+            <div class="principle-text">FAQ é CONTEÚDO (extensão do artigo). Tags são METADADOS (palavras-chave de fechamento). Padrão NYT, Atlantic, Medium.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Tags antes do FAQ</div>
+            <div class="principle-text">Tags interrompem o fluxo entre texto principal e FAQ. Leitora sente "isto é o fim" e depois pensa "ah, ainda tem mais conteúdo?".</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">CTA depois do conteúdo</div>
+            <div class="principle-text">Banner CTA verde aparece DEPOIS de FAQ + tags. Leitora terminou o conteúdo, está pronta para conversão.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">CTA no meio do conteúdo final</div>
+            <div class="principle-text">CTA entre artigo e FAQ corta a leitura. Quando aparecer no meio do artigo (posts longos), é um CTA inline diferente, não o banner final.</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Related por último (antes do footer)</div>
+            <div class="principle-text">Quando leitora termina conteúdo + CTA, próximo passo é descobrir mais. Related é caminho de continuação.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Related antes do CTA</div>
+            <div class="principle-text">Tira força do CTA principal. Leitora pode pular pra próximo post sem ver a conversão.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Schema JSON-LD condicional</h2>
+        <p class="ds-block-desc">Os schemas de SEO também devem ser condicionais — não renderizar schema vazio.</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Article</div><div class="token-value">sempre</div><div class="token-desc">Sempre presente · headline, datePublished, author, image, description</div></div>
+          <div class="token-row"><div class="token-name">FAQPage</div><div class="token-value">se FAQ existir</div><div class="token-desc">Só renderizar se houver 1+ FAQItem · senão Google reprova como "thin content"</div></div>
+          <div class="token-row"><div class="token-name">VideoObject</div><div class="token-value">se vídeo existir</div><div class="token-desc">Só renderizar se houver vídeo embed · embedURL + thumbnailURL obrigatórios</div></div>
+          <div class="token-row"><div class="token-name">BreadcrumbList</div><div class="token-value">sempre</div><div class="token-desc">Home > Blog > Categoria > Post — em toda página interna</div></div>
+          <div class="token-row"><div class="token-name">WebSite + SearchAction</div><div class="token-value">sempre (global)</div><div class="token-desc">No &lt;head&gt; do layout global · permite ao Google mostrar caixa de busca dentro do snippet</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">WebSite + SearchAction</h3>
+        <p class="ds-block-desc">Schema global do site que faz o Google mostrar uma <strong>caixa de busca dentro do snippet</strong> nos resultados. Requer URL de busca interna funcional (<code>/buscar?q=...</code>).</p>
+        <div class="ds-code"><span class="key">&lt;script</span> <span class="key">type</span>=<span class="str">"application/ld+json"</span><span class="key">&gt;</span>
+{
+  <span class="str">"@context"</span>: <span class="str">"https://schema.org"</span>,
+  <span class="str">"@type"</span>: <span class="str">"WebSite"</span>,
+  <span class="str">"name"</span>: <span class="str">"Fadas do Bem"</span>,
+  <span class="str">"url"</span>: <span class="str">"https://fadasdobem.com.br/"</span>,
+  <span class="str">"potentialAction"</span>: {
+    <span class="str">"@type"</span>: <span class="str">"SearchAction"</span>,
+    <span class="str">"target"</span>: {
+      <span class="str">"@type"</span>: <span class="str">"EntryPoint"</span>,
+      <span class="str">"urlTemplate"</span>: <span class="str">"https://fadasdobem.com.br/buscar?q={search_term_string}"</span>
+    },
+    <span class="str">"query-input"</span>: <span class="str">"required name=search_term_string"</span>
+  }
+}
+<span class="key">&lt;/script&gt;</span></div>
+
+        <h3 style="margin-top:24px;">BreadcrumbList (toda página interna)</h3>
+        <div class="ds-code"><span class="key">&lt;script</span> <span class="key">type</span>=<span class="str">"application/ld+json"</span><span class="key">&gt;</span>
+{
+  <span class="str">"@context"</span>: <span class="str">"https://schema.org"</span>,
+  <span class="str">"@type"</span>: <span class="str">"BreadcrumbList"</span>,
+  <span class="str">"itemListElement"</span>: [
+    { <span class="str">"@type"</span>: <span class="str">"ListItem"</span>, <span class="str">"position"</span>: 1, <span class="str">"name"</span>: <span class="str">"Início"</span>, <span class="str">"item"</span>: <span class="str">"https://fadasdobem.com.br/"</span> },
+    { <span class="str">"@type"</span>: <span class="str">"ListItem"</span>, <span class="str">"position"</span>: 2, <span class="str">"name"</span>: <span class="str">"Blog"</span>, <span class="str">"item"</span>: <span class="str">"https://fadasdobem.com.br/blog/"</span> },
+    { <span class="str">"@type"</span>: <span class="str">"ListItem"</span>, <span class="str">"position"</span>: 3, <span class="str">"name"</span>: <span class="str">"Como se preparar para a primeira consulta"</span> }
+  ]
+}
+<span class="key">&lt;/script&gt;</span></div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Compartilhamento social</h2>
+        <p class="ds-block-desc"><strong>WhatsApp é prioridade #1</strong> — Brasil + público feminino + 96% de penetração no país. Posicionar como primeiro botão da fileira na action bar inferior.</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">WhatsApp</div><div class="token-value">prioridade #1</div><div class="token-desc">Principal para Brasil · viraliza por grupos · <code>wa.me/?text={text}%20{url}</code></div></div>
+          <div class="token-row"><div class="token-name">Telegram</div><div class="token-value">comunidades</div><div class="token-desc">Crescendo em comunidades espirituais · <code>t.me/share/url?url={url}&text={text}</code></div></div>
+          <div class="token-row"><div class="token-name">Facebook</div><div class="token-value">público 30+</div><div class="token-desc">Ainda relevante · <code>facebook.com/sharer/sharer.php?u={url}</code></div></div>
+          <div class="token-row"><div class="token-name">X (Twitter)</div><div class="token-value">opcional</div><div class="token-desc">Menor no público Fadas · <code>twitter.com/intent/tweet?url={url}&text={text}</code></div></div>
+          <div class="token-row"><div class="token-name">Pinterest</div><div class="token-value">visual</div><div class="token-desc">Tarot tem alta tração lá · <code>pinterest.com/pin/create/button/?url={url}&description={text}&media={image}</code></div></div>
+          <div class="token-row"><div class="token-name">Email</div><div class="token-value">discreto</div><div class="token-desc">Sempre incluir · <code>mailto:?subject={title}&body={url}</code></div></div>
+          <div class="token-row"><div class="token-name">Copiar link</div><div class="token-value">utilitário</div><div class="token-desc">Botão com <code>navigator.clipboard.writeText()</code> + toast "Link copiado ✓"</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Regras de implementação</h3>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">target="_blank" rel="noopener"</div>
+            <div class="principle-text">Sempre nos links de share (segurança · evita ataques tabnabbing).</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">encodeURIComponent() no JS</div>
+            <div class="principle-text">URLs e textos passados via share intent devem ser sempre encoded · senão títulos com acentos quebram.</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">SVG ícones inline</div>
+            <div class="principle-text">Não depender de Font Awesome / CDN externa · 16px desktop, 14px mobile · cor herdada do parent.</div>
+          </div>
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Title attribute em cada</div>
+            <div class="principle-text">"Compartilhar no WhatsApp", "Copiar link", etc · acessibilidade screen reader + tooltip hover.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Blocos obrigatórios vs opcionais</h2>
+        <p class="ds-block-desc">Obrigatórios sempre aparecem. Opcionais aparecem se a condição for atendida — caso contrário, NÃO renderizar (não usar <code>display:none</code>, pois mantém margens).</p>
+
+        <h3 style="margin-top:24px;">Sempre aparecem</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Hero</div><div class="token-value">obrigatório</div><div class="token-desc">H1 + meta (data, autor, tempo) + imagem hero (em qualquer das 4 variantes)</div></div>
+          <div class="token-row"><div class="token-name">Lead</div><div class="token-value">obrigatório</div><div class="token-desc">Primeiro parágrafo em Lora italic com borda inferior dourada</div></div>
+          <div class="token-row"><div class="token-name">Action bar</div><div class="token-value">obrigatório</div><div class="token-desc">Salvar + Compartilhar (sempre presentes)</div></div>
+          <div class="token-row"><div class="token-name">Reações Fadas</div><div class="token-value">obrigatório</div><div class="token-desc">4 reações fixas: Amei, Grata, Iluminou, Ressoou</div></div>
+          <div class="token-row"><div class="token-name">Texto do artigo</div><div class="token-value">obrigatório</div><div class="token-desc">Corpo principal — H2/H3/parágrafos/listas</div></div>
+          <div class="token-row"><div class="token-name">Banner CTA final</div><div class="token-value">obrigatório</div><div class="token-desc">Verde gradient antes do footer · convite "Conheça nossas tarólogas"</div></div>
+          <div class="token-row"><div class="token-name">Footer</div><div class="token-value">obrigatório</div><div class="token-desc">4 colunas desktop · 2 col tablet · minimal mobile</div></div>
+        </div>
+
+        <h3 style="margin-top:24px;">Aparecem condicionalmente</h3>
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Player de áudio</div><div class="token-value">se TTS foi gerado</div><div class="token-desc">Patrick gera via API, salva o áudio · se não existir, omitir bloco</div></div>
+          <div class="token-row"><div class="token-name">Vídeo embed</div><div class="token-value">se houver link</div><div class="token-desc">Editor cola URL YouTube/Vimeo · se vazio, omitir <code>&lt;figure class="article-video"&gt;</code></div></div>
+          <div class="token-row"><div class="token-name">Foto secundária</div><div class="token-value">se houver imagem</div><div class="token-desc">Editor sobe imagem extra · se ausente, omitir <code>&lt;figure class="article-image"&gt;</code></div></div>
+          <div class="token-row"><div class="token-name">Pull quote</div><div class="token-value">se editor destacou</div><div class="token-desc">Editor marca frase como destaque · se ausente, omitir</div></div>
+          <div class="token-row"><div class="token-name">FAQ</div><div class="token-value">se houver 1+ pergunta</div><div class="token-desc">Se vazio, omitir bloco E o schema JSON-LD FAQPage também</div></div>
+          <div class="token-row"><div class="token-name">TOC sidebar</div><div class="token-value">se artigo tem 3+ H2s</div><div class="token-desc">Artigos curtos não precisam de sumário · regra automática por contagem</div></div>
+          <div class="token-row"><div class="token-name">Related posts</div><div class="token-value">se houver 3+ posts</div><div class="token-desc">Se houver menos, omitir bloco — não mostrar placeholders</div></div>
+          <div class="token-row"><div class="token-name">CTA no meio do artigo</div><div class="token-value">se 5+ H2s</div><div class="token-desc">Apenas posts longos · entre o 3º e 4º H2 · não em posts médios/curtos</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Como renderizar (regra técnica)</h2>
+        <p class="ds-block-desc">Patrick controla via condicional no template. <strong>Não usar <code>display:none</code></strong> — mantém margens dos blocos vizinhos e cria espaço fantasma. Renderizar condicionalmente direto no HTML.</p>
+
+        <div class="ds-code"><span class="com">// Padrão correto — condicional no servidor</span>
+{audio_url && <span class="key">&lt;AudioPlayer</span> src={audio_url} <span class="key">/&gt;</span>}
+{secondary_image && <span class="key">&lt;Figure</span> image={secondary_image} <span class="key">/&gt;</span>}
+{video_url && <span class="key">&lt;VideoEmbed</span> url={video_url} <span class="key">/&gt;</span>}
+{pull_quote && <span class="key">&lt;PullQuote</span> text={pull_quote} <span class="key">/&gt;</span>}
+{faq_items?.length > 0 && <span class="key">&lt;FAQSection</span> items={faq_items} <span class="key">/&gt;</span>}
+{related_posts?.length >= 3 && <span class="key">&lt;Related</span> posts={related_posts} <span class="key">/&gt;</span>}
+
+<span class="com">// Antipadrão — não usar</span>
+<span class="key">&lt;div</span> <span class="key">style</span>=<span class="str">"display:none"</span><span class="key">&gt;</span>...<span class="key">&lt;/div&gt;</span>  <span class="com">// mantém margem fantasma</span></div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Adaptação por tamanho do artigo</h2>
+        <p class="ds-block-desc">O design adapta automaticamente quantidade de elementos ao tamanho do post. Patrick conta H2s via build do template.</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Curto (1-2 H2s)</div><div class="token-value">~500-1000 palavras</div><div class="token-desc">Sem TOC · sem CTA no meio · player áudio dispensável (audio é caro pra texto curto) · pull quote dispensável</div></div>
+          <div class="token-row"><div class="token-name">Médio (3-5 H2s)</div><div class="token-value">~1000-2500 palavras</div><div class="token-desc">TOC sticky · 1 pull quote · player áudio recomendado · figure ou vídeo no meio</div></div>
+          <div class="token-row"><div class="token-name">Longo (5+ H2s)</div><div class="token-value">~2500+ palavras</div><div class="token-desc">TOC sticky + indicador de progresso · player áudio essencial · CTA no meio do artigo · pull quote + figure + vídeo todos</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Espaçamento sem buracos</h2>
+        <p class="ds-block-desc">Quando um bloco é omitido, o espaço deve fechar naturalmente. Como cada bloco tem suas próprias margens top/bottom, ao remover o bloco a margem do próximo elemento já assume.</p>
+
+        <div class="tokens-list">
+          <div class="token-row"><div class="token-name">Player áudio omitido</div><div class="token-value">lead → TOC direto</div><div class="token-desc">Lead tem margin-bottom 36px · TOC tem margin-top próprio · não cria buraco</div></div>
+          <div class="token-row"><div class="token-name">Figure omitida</div><div class="token-value">H2 → próximo H2</div><div class="token-desc">Margem 48px entre H2s assume · sem espaço extra</div></div>
+          <div class="token-row"><div class="token-name">Vídeo omitido</div><div class="token-value">H2 → próximo H2</div><div class="token-desc">Margem natural entre seções</div></div>
+          <div class="token-row"><div class="token-name">FAQ omitida</div><div class="token-value">artigo → CTA final direto</div><div class="token-desc">Last paragraph do artigo + margem 60px do banner CTA = transição limpa</div></div>
+          <div class="token-row"><div class="token-name">Related posts omitido</div><div class="token-value">artigo → footer direto</div><div class="token-desc">Banner CTA final continua presente · footer assume normalmente</div></div>
+        </div>
+      </div>
+
+      <div class="ds-block">
+        <h2>Princípios da composição</h2>
+        <div class="principles">
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Condicional no servidor</div>
+            <div class="principle-text">Patrick decide o que renderizar no momento da build. HTML final só tem o que existe. Mantém DOM limpo, SEO limpo, performance.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">display:none em blocos vazios</div>
+            <div class="principle-text">Cria espaço fantasma (margem vertical continua aplicada), bagunça schemas, suja DOM. Renderizar condicionalmente é melhor.</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Cada bloco tem margem própria</div>
+            <div class="principle-text">Player áudio, figure, vídeo, pull quote, FAQ, related — cada um tem margin-top próprio. Quando removido, o próximo elemento assume sua margem normalmente.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Margens dependentes de vizinhos</div>
+            <div class="principle-text">Evitar selectores tipo <code>.figure + .blockquote</code> que se quebram quando um dos dois some. Margens independentes por bloco.</div>
+          </div>
+
+          <div class="principle">
+            <div class="principle-label">FAÇA ✓</div>
+            <div class="principle-title">Schema JSON-LD condicional</div>
+            <div class="principle-text">FAQPage sem perguntas, VideoObject sem vídeo — Google penaliza schemas vazios. Renderizar só quando há conteúdo.</div>
+          </div>
+          <div class="principle dont">
+            <div class="principle-label">NÃO FAÇA ✗</div>
+            <div class="principle-title">Schemas em branco</div>
+            <div class="principle-text">FAQPage com array vazio, Article sem image — gera warnings no Search Console e prejudica ranking.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ds-footer">
+      <div class="ds-footer-orn">✦</div>
+      <p>Design System Fadas do Bem · v2.6 · maio 2026</p>
+      <p style="margin-top:6px;">Construído para crescer com a marca · documentação viva</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('.ds-section[id]');
+  const navLinks = document.querySelectorAll('.ds-nav a');
+  function setActive() {
+    let current = '';
+    sections.forEach(s => {
+      const rect = s.getBoundingClientRect();
+      if (rect.top <= 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', setActive);
+  setActive();
+</script>
+
+</body>
+</html>

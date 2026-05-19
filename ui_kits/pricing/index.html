@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>UI Kit — Pricing / Pacotes</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg-alt); color: var(--text-1); padding: 56px 32px 80px; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .kit-head { text-align: center; margin-bottom: 40px; }
+  .kit-pill {
+    display: inline-block; padding: 6px 16px;
+    background: var(--gold); color: var(--text-on-gold);
+    border-radius: var(--r-pill);
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em;
+    margin-bottom: 14px;
+  }
+  .kit-head h1 {
+    font-family: var(--font-display);
+    font-size: 36px; font-weight: 700; color: var(--text-1);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .kit-head h1 em { font-style: italic; color: var(--gold-deep); }
+  .kit-head p {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--text-3);
+    font-size: 16px;
+    margin: 0 auto;
+    max-width: 540px;
+  }
+
+  .files {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 28px;
+  }
+  .file-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-xl);
+    padding: 28px 28px 24px;
+    text-decoration: none;
+    color: var(--text-1);
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-snap), border-color var(--transition-snap), box-shadow var(--transition-snap);
+  }
+  .file-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--green);
+    box-shadow: 0 16px 36px rgba(135, 193, 0, 0.18), var(--shadow-sm);
+  }
+  .file-num {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--gold-deep); letter-spacing: 0.14em; margin-bottom: 6px;
+  }
+  .file-card h3 {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 700;
+    color: var(--text-1);
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .file-card p {
+    font-family: var(--font-editorial);
+    font-style: italic;
+    color: var(--text-3);
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+  .file-meta {
+    margin-top: auto;
+    padding-top: 14px;
+    border-top: 1px solid var(--border-soft);
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .file-arrow {
+    font-size: 18px;
+    color: var(--text-muted-light);
+    transition: transform var(--transition-snap), color var(--transition-snap);
+  }
+  .file-card:hover .file-arrow {
+    transform: translateX(4px);
+    color: var(--green);
+  }
+
+  .notes {
+    margin-top: 48px;
+    padding: 24px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    border-radius: var(--r-md);
+  }
+  .notes h4 {
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 700;
+    color: var(--gold-deep);
+    text-transform: uppercase; letter-spacing: 0.14em;
+    margin: 0 0 10px;
+  }
+  .notes ul { margin: 0; padding-left: 18px; }
+  .notes li {
+    font-family: var(--font-editorial);
+    font-size: 13.5px; line-height: 1.7;
+    color: var(--text-2);
+  }
+  .notes li code {
+    font-family: var(--font-mono); font-size: 12px;
+    background: var(--bg); padding: 1px 6px; border-radius: 3px;
+    color: var(--green-deep);
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="kit-head">
+    <span class="kit-pill">UI Kit · Pricing</span>
+    <h1>Tabela de pacotes <em>de consulta</em></h1>
+    <p>Dois formatos canônicos — mobile scroll-snap e desktop 3D stage. Ambos com card destaque, badge ✦, asset slot pra Twemoji, e CTA com snap shrink.</p>
+  </div>
+
+  <div class="files">
+
+    <a class="file-card" href="pricing-mobile.html">
+      <div class="file-num">01</div>
+      <h3>Pricing — Mobile</h3>
+      <p>Carrossel horizontal scroll-snap (375px) com drag, swipe e dot indicators. Card ativo ganha CTA verde; hover vira vermelho.</p>
+      <div class="file-meta">
+        <span>375 × auto · scroll-snap</span>
+        <span class="file-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="file-card" href="pricing-desktop.html">
+      <div class="file-num">02</div>
+      <h3>Pricing — Desktop stage</h3>
+      <p>Carrossel 3D com 5 estados z-stacked (far-prev/prev/active/next/far-next). Perspective + blur + scale progressivos. Teclado ←/→.</p>
+      <div class="file-meta">
+        <span>1200+ · perspective 1400</span>
+        <span class="file-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="notes">
+    <h4>Notas do kit</h4>
+    <ul>
+      <li>Tokens novos usados: <code>--text-muted-light</code>, <code>--text-on-gold</code>, <code>--ease-snap</code>, <code>--transition-snap</code>, <code>--transition-stage</code>.</li>
+      <li>Ícones de modalidade (voz/texto/vídeo) e relógio usam Phosphor Duotone via CDN (<code>ph-microphone</code>, <code>ph-chat-text</code>, <code>ph-video-camera</code>, <code>ph-clock</code>, <code>ph-squares-four</code>). Em produção, copiar pros locais em <code>assets/icons/</code>.</li>
+      <li>Ícones temáticos do card (vela, bola de cristal, lua, estrela) entram no <strong>asset slot</strong> via <code>&lt;img src&gt;</code> — Twemoji SVGs idealmente.</li>
+      <li>CTA usa Style A (snap shrink) — ver README raiz, seção "Press feedback — A vs B".</li>
+    </ul>
+  </div>
+
+</div>
+</body>
+</html>

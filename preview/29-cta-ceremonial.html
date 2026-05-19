@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/29-cta-ceremonial.html</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; font-family: var(--font-body); }
+  .frame { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 18px 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .label-row .sub { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin-left: auto; }
+  .desc { font-family: var(--font-editorial); font-style: italic; font-size: 12px; color: var(--text-3); margin: 4px 0 16px; line-height: 1.55; }
+
+  .stage { display: flex; flex-direction: column; gap: 14px; padding: 6px 4px 14px; }
+  .row { display: flex; align-items: center; gap: 14px; padding: 6px 0; }
+  .row > .lbl {
+    font-family: var(--font-body);
+    font-size: 9.5px; font-weight: 700;
+    color: var(--gold-deep);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    min-width: 110px;
+  }
+
+  /* CTA ceremonial */
+  .cta-ceremonial {
+    padding: 11px 22px;
+    border-radius: var(--r-pill);
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
+    background: var(--red); color: var(--bg);
+    border: 1.5px solid var(--gold);
+    cursor: pointer;
+    position: relative; overflow: hidden;
+    letter-spacing: 0.02em;
+    transition: background 0.25s ease, transform 0.18s ease, box-shadow 0.25s ease;
+  }
+  .cta-ceremonial::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.35) 0%, transparent 70%);
+    transform: scale(0); opacity: 0; border-radius: inherit;
+  }
+  .cta-ceremonial:active::after { animation: fadas-ripple 0.45s ease-out forwards; }
+  .cta-ceremonial:hover { background: var(--green-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(106, 153, 0, 0.3); }
+  .cta-ceremonial:active { background: var(--green-deep); transform: translateY(0); box-shadow: none; }
+
+  /* CTA link */
+  .cta-link {
+    background: none; border: none; color: var(--text-3);
+    font-family: var(--font-body);
+    font-size: 12px; font-weight: 600;
+    cursor: pointer; padding: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease, letter-spacing 0.2s ease;
+  }
+  .cta-link:hover { color: var(--red); letter-spacing: 0.12em; }
+
+  /* See-all */
+  .see-all {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 22px;
+    background: var(--surface);
+    border: 1.5px solid var(--gold);
+    color: var(--text-1);
+    border-radius: var(--r-pill);
+    font-family: var(--font-body);
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+  }
+  .see-all::before, .see-all::after {
+    content: '✦';
+    color: var(--gold-deep);
+    font-size: 10px;
+    animation: fadas-star-pulse 3s ease-in-out infinite;
+  }
+  .see-all::after { animation-delay: 1.5s; }
+  .see-all:hover {
+    background: var(--gold-soft);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(200, 168, 64, 0.22);
+  }
+
+  .anno {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px dashed var(--border);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px 14px;
+    font-size: 10.5px;
+    color: var(--text-3);
+    line-height: 1.5;
+  }
+  .anno b { color: var(--text-2); font-weight: 700; font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 1px; }
+  .anno code { font-family: var(--font-mono); font-size: 10px; background: var(--bg); padding: 0 4px; border-radius: 3px; color: var(--green-deep); }
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="label-row">
+    <span class="num">29</span>
+    <span class="title">CTAs editoriais · ceremonial + link + ver todas</span>
+    <span class="sub">passe o mouse · clique no primeiro pra ripple</span>
+  </div>
+  <p class="desc">Variantes para zonas decisivas mas editoriais (escolher tiragem, contratar consulta) — não transacionais. Playfair em vez de Lato, ripple no press em vez de snap shrink, hover vermelho→verde-dark com lift.</p>
+
+  <div class="stage">
+    <div class="row">
+      <span class="lbl">ceremonial</span>
+      <button class="cta-ceremonial">Escolher leitura</button>
+    </div>
+    <div class="row">
+      <span class="lbl">link</span>
+      <button class="cta-link">Ver detalhes →</button>
+    </div>
+    <div class="row">
+      <span class="lbl">ver todas</span>
+      <button class="see-all">Ver todas as tiragens →</button>
+    </div>
+  </div>
+
+  <div class="anno">
+    <div><b>Ceremonial</b>Playfair 13/600 · pill · bg red border gold · texto <code>var(--bg)</code></div>
+    <div><b>Press</b><code>fadas-ripple</code> 0.45s · sem snap shrink (vs Style A do pricing)</div>
+    <div><b>Hover</b>red → green-dark + translateY -2 + sombra verde</div>
+    <div><b>Link</b>Lato 12 uppercase 0.08em → hover red + letter-spacing 0.12em</div>
+    <div><b>See-all</b>Outline gold + ✦ pulsing nas pontas (<code>fadas-star-pulse</code>)</div>
+    <div><b>Quando</b>Zonas editoriais/místicas — não pricing/transacional</div>
+  </div>
+</div>
+</body>
+</html>

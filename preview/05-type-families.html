@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>preview/05-type-families.html</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Lato:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: var(--bg); padding: 20px; box-sizing: border-box; min-height: 280px; font-family: var(--font-body); }
+  .card { background: var(--surface); border: 1px solid var(--border-soft); border-radius: 14px; padding: 20px 22px; box-shadow: var(--shadow-sm); }
+  .label-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+  .label-row .num { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: var(--gold-deep); letter-spacing: 0.12em; }
+  .label-row .title { font-family: var(--font-editorial); font-size: 14px; font-weight: 600; color: var(--text-1); }
+  .mono { font-family: var(--font-mono); font-size: 11px; color: var(--text-3); }
+  .meta { font-family: var(--font-body); font-size: 11px; color: var(--text-3); letter-spacing: 0.06em; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="label-row"><span class="num">05</span><span class="title">Três famílias com papéis</span></div>
+  <div style="display:flex;flex-direction:column;gap:14px;">
+    <div>
+      <div class="meta" style="text-transform:uppercase;font-weight:700;letter-spacing:0.12em;color:var(--gold-deep);font-size:9.5px;margin-bottom:4px">01 · Decorativa · Playfair Display</div>
+      <div style="font-family:var(--font-display);font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:1.05">Como se preparar</div>
+    </div>
+    <div>
+      <div class="meta" style="text-transform:uppercase;font-weight:700;letter-spacing:0.12em;color:var(--gold-deep);font-size:9.5px;margin-bottom:4px">02 · Editorial · Lora</div>
+      <div style="font-family:var(--font-editorial);font-size:22px;font-weight:600;line-height:1.2">Defina sua intenção</div>
+    </div>
+    <div>
+      <div class="meta" style="text-transform:uppercase;font-weight:700;letter-spacing:0.12em;color:var(--gold-deep);font-size:9.5px;margin-bottom:4px">03 · Leitura · Lato</div>
+      <div style="font-family:var(--font-body);font-size:16px;line-height:1.5;color:var(--text-body)">A leitura é o protagonista da página. UI é discreta.</div>
+    </div>
+  </div>
+</div></body></html>
